@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HelloToYou {
+  private String name = "world";
+
   public static void main(String[] args) {
     HelloToYou helloToYou = new HelloToYou();
     helloToYou.run();
@@ -14,7 +16,7 @@ public class HelloToYou {
 
     frame.setLayout(new GridLayout(3, 1));
 
-    JLabel label = new JLabel("Hello, world!");
+    JLabel label = new JLabel(greetingMessage());
     frame.add(label);
 
     JTextField textField = new JTextField(15);
@@ -22,11 +24,15 @@ public class HelloToYou {
 
     JButton button = new JButton("확인");
     button.addActionListener(event -> {
-      String name = textField.getText();
-      label.setText("Hello, " + name + "!");
+      name = textField.getText();
+      label.setText(greetingMessage());
     });
     frame.add(button);
 
     frame.setVisible(true);
+  }
+
+  private String greetingMessage() {
+    return "Hello, " + name + "!";
   }
 }
