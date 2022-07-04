@@ -6,7 +6,7 @@ class AccountTest {
   Account account = new Account();
   @Test
   void amount() {
-    assertEquals(1000, account.getAmount()) ;
+    assertEquals(1000, account.getAmount());
   }
   @Test
   void transfer() {
