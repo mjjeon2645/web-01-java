@@ -25,7 +25,7 @@ public class ToDoListPanel extends JPanel {
 
         eachToDoPanel.add(createCheckBox(toDo));
         eachToDoPanel.add(createDetailLabel(toDo));
-        eachToDoPanel.add(createInvalidateButton(toDo));
+        eachToDoPanel.add(createInvalidationButton(toDo));
 
         this.add(eachToDoPanel);
       }
@@ -55,15 +55,15 @@ public class ToDoListPanel extends JPanel {
     return detailLabel;
   }
 
-  public JButton createInvalidateButton(ToDo toDo) {
-    JButton invalidateButton = new JButton("X");
+  public JButton createInvalidationButton(ToDo toDo) {
+    JButton invalidationButton = new JButton("X");
 
-    invalidateButton.addActionListener(event -> {
+    invalidationButton.addActionListener(event -> {
       toDo.invalidate();
       resetToDoListPanel();
     });
 
-    return invalidateButton;
+    return invalidationButton;
   }
 
   public void resetToDoListPanel() {
