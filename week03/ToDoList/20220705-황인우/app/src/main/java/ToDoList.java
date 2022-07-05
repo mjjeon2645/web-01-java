@@ -1,27 +1,28 @@
 import models.ToDo;
+import panels.FormPanel;
+import panels.ToDoListPanel;
+
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 
 public class ToDoList {
-  private List<ToDo> toDoList;
+  private final List<ToDo> toDoList;
 
   private JFrame frame;
   private JPanel titlePanel;
   private JPanel mainPanel;
-  private JPanel formPanel;
-  private JPanel toDoListPanel;
+  private FormPanel formPanel;
+  private ToDoListPanel toDoListPanel;
+
+  public ToDoList() {
+    toDoList = new ArrayList<>();
+  }
 
   public static void main(String[] args) {
     ToDoList application = new ToDoList();
     application.run();
-  }
-
-  public ToDoList() {
-    toDoList = new ArrayList<>();
   }
 
   public void run() {
@@ -56,82 +57,17 @@ public class ToDoList {
     //mainPanel.setBackground(Color.RED);
     mainPanel.setLayout(new BorderLayout());
 
-    initFormPanel();
-    initToDoListPanel();
+    initSubPanelsOfMainPanel();
 
     frame.add(mainPanel);
   }
 
-  public void initFormPanel() {
-    formPanel = new JPanel();
-    //formPanel.setBackground(Color.ORANGE);
-    formPanel.setLayout(new FlowLayout());
-
-    formPanel.add(new JLabel("할 일: "));
-
-    JTextField textField = new JTextField(10);
-    formPanel.add(textField);
-
-    JButton submitButton = new JButton("추가");
-    submitButton.addActionListener(event -> {
-      toDoList.add(new ToDo(textField.getText()));
-      resetToDoListPanel();
-    });
-    formPanel.add(submitButton);
+  public void initSubPanelsOfMainPanel() {
+    toDoListPanel = new ToDoListPanel(toDoList);
+    //toDoListPanel.setBackground(Color.YELLOW);
+    formPanel = new FormPanel(toDoList, toDoListPanel);
 
     mainPanel.add(formPanel, BorderLayout.PAGE_START);
-  }
-
-  public void initToDoListPanel() {
-    toDoListPanel = new JPanel();
-    //toDoListPanel.setBackground(Color.YELLOW);
-
-    createListOfToDoLists();
-
     mainPanel.add(toDoListPanel);
-  }
-
-  public void resetToDoListPanel() {
-    toDoListPanel.removeAll();
-
-    createListOfToDoLists();
-
-    toDoListPanel.setVisible(false);
-    toDoListPanel.setVisible(true);
-  }
-
-  public void createListOfToDoLists() {
-    toDoListPanel.setLayout(new GridLayout(toDoList.size(), 1));
-    for (ToDo toDo : toDoList) {
-      if (toDo.isValid()) {
-        JPanel eachToDoPanel = new JPanel();
-
-        JCheckBox checkBox = new JCheckBox(
-            "", toDo.isCompleted()
-        );
-        checkBox.addActionListener(event -> {
-          toDo.changeState();
-        });
-        eachToDoPanel.add(checkBox);
-
-        JLabel detailLabel = new JLabel(toDo.detail());
-        detailLabel.addMouseListener(new MouseAdapter() {
-          public void mouseClicked(MouseEvent event) {
-            toDo.invalidate();
-            resetToDoListPanel();
-          }
-        });
-        eachToDoPanel.add(detailLabel);
-
-        JButton invalidateButton = new JButton("X");
-        invalidateButton.addActionListener(event -> {
-          toDo.invalidate();
-          resetToDoListPanel();
-        });
-        eachToDoPanel.add(invalidateButton);
-
-        toDoListPanel.add(eachToDoPanel);
-      }
-    }
   }
 }

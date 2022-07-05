@@ -1,7 +1,7 @@
 package models;
 
 public class ToDo {
-  private String detail;
+  private final String detail;
   private boolean isCompleted = false;
   private boolean isValid = true;
 
