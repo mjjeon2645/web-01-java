@@ -1,3 +1,6 @@
+// 프레임 과 패널 구조 생각 -> 설정
+// 모든 구조는 일단 패널들로 짬
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
