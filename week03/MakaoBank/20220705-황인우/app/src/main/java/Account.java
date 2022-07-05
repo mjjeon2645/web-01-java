@@ -18,6 +18,10 @@ public class Account {
     return new ArrayList<>(transactions);
   }
 
+  public int transactionsSize() {
+    return this.transactions.size();
+  }
+
   public void transfer(long transferredAmount) {
     this.amount -= transferredAmount;
     this.transactions.add("송금: " + transferredAmount + "원");
