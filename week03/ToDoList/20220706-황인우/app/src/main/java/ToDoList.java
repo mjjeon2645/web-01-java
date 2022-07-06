@@ -7,8 +7,8 @@ public class ToDoList {
   private List<Task> tasks;
 
   private JFrame frame;
-  private JPanel upperPanel;
-  private JPanel lowerPanel;
+  private JPanel headerPanel;
+  private JPanel contentPanel;
 
   public static void main(String[] args) {
     ToDoList application = new ToDoList();
@@ -19,8 +19,8 @@ public class ToDoList {
     tasks = new ArrayList<>();
 
     createFrame();
-    initUpperPanel();
-    initLowerPanel();
+    initHeaderPanel();
+    initContentPanel();
 
     frame.setVisible(true);
   }
@@ -32,26 +32,27 @@ public class ToDoList {
     frame.setLocation(100, 70);
   }
 
-  public void initUpperPanel() {
-    upperPanel = new JPanel();
-    upperPanel.setLayout(new BorderLayout());
+  public void initHeaderPanel() {
+    headerPanel = new JPanel();
+    headerPanel.setLayout(new BorderLayout());
 
     initTitleLabel();
     initFormPanel();
 
-    frame.add(upperPanel, BorderLayout.PAGE_START);
+    frame.add(headerPanel, BorderLayout.PAGE_START);
   }
 
   public void initTitleLabel() {
     JLabel titleLabel = new JLabel("할 일 목록");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
-    upperPanel.add(titleLabel, BorderLayout.PAGE_START);
+    headerPanel.add(titleLabel, BorderLayout.PAGE_START);
   }
 
   public void initFormPanel() {
     JPanel formPanel = new JPanel();
 
     formPanel.setLayout(new FlowLayout());
+
     JLabel spanLabel = new JLabel("할 일: ");
     formPanel.add(spanLabel);
 
@@ -60,32 +61,33 @@ public class ToDoList {
 
     JButton submitButton = new JButton("추가");
     submitButton.addActionListener(event -> {
-      tasks.add(new Task(textField.getText()));
+      String task = textField.getText();
+      tasks.add(new Task(task));
       textField.setText("");
       initToDoListPanel();
     });
     formPanel.add(submitButton);
 
-    upperPanel.add(formPanel);
+    headerPanel.add(formPanel);
   }
 
   public void initToDoListPanel() {
     ToDoListPanel toDoListPanel = new ToDoListPanel(tasks, this);
 
-    addAndSetVisibleAboutToDoListPanel(toDoListPanel);
+    showToDoListPanel(toDoListPanel);
   }
 
-  public void addAndSetVisibleAboutToDoListPanel(ToDoListPanel toDoListPanel) {
-    lowerPanel.removeAll();
+  public void showToDoListPanel(ToDoListPanel toDoListPanel) {
+    contentPanel.removeAll();
     toDoListPanel.initTaskPanels();
-    lowerPanel.add(toDoListPanel);
-    lowerPanel.setVisible(false);
-    lowerPanel.setVisible(true);
+    contentPanel.add(toDoListPanel);
+    contentPanel.setVisible(false);
+    contentPanel.setVisible(true);
   }
 
-  public void initLowerPanel() {
-    lowerPanel = new JPanel();
+  public void initContentPanel() {
+    contentPanel = new JPanel();
 
-    frame.add(lowerPanel);
+    frame.add(contentPanel);
   }
 }

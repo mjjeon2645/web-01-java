@@ -69,6 +69,6 @@ public class ToDoListPanel extends JPanel {
   public void reinitTaskPanels() {
     this.removeAll();
 
-    main.addAndSetVisibleAboutToDoListPanel(this);
+    main.showToDoListPanel(this);
   }
 }
