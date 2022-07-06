@@ -35,7 +35,7 @@ public class ToDoListPanel extends JPanel {
 
     completionStateCheckBox.addActionListener(event -> {
       task.toggle();
-      reinitTaskPanels();
+      reinitToDoListPanel();
     });
 
     return completionStateCheckBox;
@@ -48,7 +48,7 @@ public class ToDoListPanel extends JPanel {
       @Override
       public void mouseClicked(MouseEvent e) {
         task.toggle();
-        reinitTaskPanels();
+        reinitToDoListPanel();
       }
     });
 
@@ -60,13 +60,13 @@ public class ToDoListPanel extends JPanel {
 
     deletionButton.addActionListener(event -> {
       task.delete();
-      reinitTaskPanels();
+      reinitToDoListPanel();
     });
 
     return deletionButton;
   }
 
-  public void reinitTaskPanels() {
+  public void reinitToDoListPanel() {
     this.removeAll();
 
     main.showToDoListPanel(this);
