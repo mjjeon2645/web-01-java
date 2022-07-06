@@ -1,16 +1,31 @@
+import repository.TasksRepository;
+
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TodoPanel extends JPanel {
   private final JCheckBox checkBox;
   private final JLabel taskLabel;
   private final JButton deleteButton;
+  private final TasksRepository tasksRepository;
 
-  TodoPanel() {
+
+  TodoPanel(TasksRepository tasksRepository) {
+    this.tasksRepository = tasksRepository;
+
     checkBox = new JCheckBox();
     this.add(checkBox);
 
-    taskLabel = new JLabel("안녕하세용");
+    taskLabel = new JLabel(this.tasksRepository.getTask());
     this.add(taskLabel);
+
+    taskLabel.addMouseListener(new MouseAdapter() {
+      public void mouseClicked (MouseEvent e){
+        checkBox.setAction();
+      }
+    });
+
 
     deleteButton = new JButton("X");
     deleteButton.addActionListener(event -> {
