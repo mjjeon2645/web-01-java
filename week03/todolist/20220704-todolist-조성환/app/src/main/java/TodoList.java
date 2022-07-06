@@ -1,4 +1,4 @@
-import repository.TasksRepository;
+import models.Task;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +7,7 @@ public class TodoList {
   private JPanel mainPanel;
   private JPanel titlePanel;
   private JPanel contentPanel;
-  private TasksRepository tasksRepository;
+  private Task task;
   private JTextField textField;
 
   public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class TodoList {
   }
 
   private void run() {
-    tasksRepository = new TasksRepository();
+    task  = new Task();
     frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(350, 500);
@@ -59,11 +59,17 @@ public class TodoList {
   private JButton createAddTodoButton() {
     JButton button = new JButton("추가");
     button.addActionListener(event -> {
-      tasksRepository.send(textField.getText());
-      TodoPanel todoPanel = new TodoPanel(tasksRepository);
+      task.send(textField.getText());
+      TodoPanel todoPanel = new TodoPanel(task);
       showContentPanel(todoPanel);
     });
     return button;
+  }
+
+  private void initContentPanel() {
+    contentPanel = new JPanel();
+    mainPanel.add(contentPanel);
+    contentPanel.setBackground(Color.cyan);
   }
 
   private void showContentPanel(JPanel panel) {
@@ -71,12 +77,5 @@ public class TodoList {
     contentPanel.setVisible(false);
     contentPanel.setVisible(true);
     frame.setVisible(true);
-  }
-
-  private void initContentPanel() {
-    contentPanel = new JPanel();
-    contentPanel.setLayout(new GridLayout(tasksRepository.tasks(), 1));
-    mainPanel.add(contentPanel);
-    contentPanel.setBackground(Color.cyan);
   }
 }

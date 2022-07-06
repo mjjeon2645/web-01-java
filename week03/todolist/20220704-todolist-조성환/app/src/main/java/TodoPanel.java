@@ -1,5 +1,6 @@
-import repository.TasksRepository;
+import models.Task;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -7,17 +8,28 @@ public class TodoPanel extends JPanel {
   private final JCheckBox checkBox;
   private final JLabel taskLabel;
   private final JButton deleteButton;
-  private final TasksRepository tasksRepository;
+  private final Task task;
 
-  TodoPanel(TasksRepository tasksRepository) {
-    this.tasksRepository = tasksRepository;
+  TodoPanel(Task task) {
+    this.task = task;
+    this.setLayout(new GridLayout());
 
     checkBox = new JCheckBox();
     this.add(checkBox);
 
-    taskLabel = new JLabel(tasksRepository.task());
+    taskLabel = new JLabel(task.task());
     this.add(taskLabel);
 
+    clickTaskLabel();
+
+    deleteButton = new JButton("X");
+    deleteButton.addActionListener(event -> {
+      deleteTodo();
+    });
+    this.add(deleteButton);
+  }
+
+  private void clickTaskLabel() {
     taskLabel.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         if(checkBox.isSelected()) {
@@ -27,13 +39,6 @@ public class TodoPanel extends JPanel {
         checkBox.setSelected(true);
       }
     });
-
-    deleteButton = new JButton("X");
-    deleteButton.addActionListener(event -> {
-      deleteTodo();
-      // 몇번째를 삭제해라가 들어가야하나
-    });
-    this.add(deleteButton);
   }
 
   private void deleteTodo() {
