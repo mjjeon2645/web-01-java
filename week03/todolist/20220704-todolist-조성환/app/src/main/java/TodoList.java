@@ -2,13 +2,11 @@ import repository.TasksRepository;
 
 import javax.swing.*;
 import java.awt.*;
-
-
 public class TodoList {
   private JFrame frame;
   private JPanel mainPanel;
   private JPanel titlePanel;
-  JPanel contentPanel;
+  private JPanel contentPanel;
   private TasksRepository tasksRepository;
   private JTextField textField;
 
@@ -18,16 +16,14 @@ public class TodoList {
   }
 
   private void run() {
-     tasksRepository = new TasksRepository();
+    tasksRepository = new TasksRepository();
     frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(350, 500);
 
-
     initTitlePanel();
     initFormPanel();
     initContentPanel();
-
 
     frame.setVisible(true);
   }
@@ -38,19 +34,14 @@ public class TodoList {
     titlePanel.add(titleLabel, BorderLayout.PAGE_START);
     frame.add(titlePanel, BorderLayout.PAGE_START);
     titlePanel.setBackground(Color.pink);
-
   }
-
 
   private void initFormPanel() {
     mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
-
     initMenuPanel();
-
     frame.add(mainPanel);
     mainPanel.setBackground(Color.blue);
-
   }
 
   private void initMenuPanel() {
@@ -61,8 +52,8 @@ public class TodoList {
     menuPanel.add(textField);
 
     menuPanel.add(createAddTodoButton());
-
     mainPanel.add(menuPanel, BorderLayout.PAGE_START);
+    menuPanel.setBackground(Color.gray);
   }
 
   private JButton createAddTodoButton() {
@@ -84,10 +75,8 @@ public class TodoList {
 
   private void initContentPanel() {
     contentPanel = new JPanel();
-    contentPanel.setLayout(new GridLayout(5, 1));
+    contentPanel.setLayout(new GridLayout(tasksRepository.tasks(), 1));
     mainPanel.add(contentPanel);
     contentPanel.setBackground(Color.cyan);
   }
-
-
 }
