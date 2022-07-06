@@ -16,8 +16,10 @@ public class ToDoList {
   private JPanel mainPanel;
   private JPanel contentPanel;
   private JPanel listPanelOnContentPanel;
- // private JPanel pairPanel;
+  //private JPanel pairPanel;
   private JCheckBox toDoCheckBox;
+ // private List<JPanel> pairPanels = new ArrayList<>();
+ // private List<JButton> xButtons = new ArrayList<>();
 
   public static void main(String[] args) {
       ToDoList application = new ToDoList();
@@ -50,9 +52,9 @@ public class ToDoList {
 
 
     addTodoButton.addActionListener(event -> {
-
-     // createPairPanel();
       JPanel pairPanel = new JPanel();
+     // createPairPanel();
+
       pairPanel.setLayout(new GridLayout(1,2));
 
       toDoCheckBox = new JCheckBox(textField.getText());
@@ -61,6 +63,7 @@ public class ToDoList {
       JButton xButton = new JButton(" X ");
       xButton.addActionListener(xEvent -> {
        // updateDisplay();
+
         listPanelOnContentPanel
             .remove(pairPanel);
         listPanelOnContentPanel
