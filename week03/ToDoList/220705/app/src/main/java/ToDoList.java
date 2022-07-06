@@ -10,6 +10,15 @@ import java.util.List;
 public class ToDoList {
   private List<String> numberOfButtons = new ArrayList<>();;
 
+  private JFrame frame;
+  private JTextField textField;
+  private JButton addTodoButton;
+  private JPanel mainPanel;
+  private JPanel contentPanel;
+  private JPanel listPanelOnContentPanel;
+ // private JPanel pairPanel;
+  private JCheckBox toDoCheckBox;
+
   public static void main(String[] args) {
       ToDoList application = new ToDoList();
       application.run();
@@ -17,92 +26,133 @@ public class ToDoList {
 
   public void run() {
 
-    JFrame frame = new JFrame("Todo List");
+    frame = new JFrame("Todo List");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400,600);
 
     frame.getContentPane().setBackground(Color.lightGray);
 
-    JPanel mainPanel = new JPanel();
+    //프레임에 바탕 패널 깔아주기
+    mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
     frame.add(mainPanel);
 
+
     //메인 제목 레이블
-    JLabel label = new JLabel("할 일 목록");
-    frame.add(label,BorderLayout.PAGE_START);
-    label.setHorizontalAlignment(JLabel.CENTER);
-
-
+    titilePanel();
 
     //메뉴 패널
+    initAddTodoPanel();
+
+    initContentPanel();
+
+    createListPanel();
+
+
+    addTodoButton.addActionListener(event -> {
+
+     // createPairPanel();
+      JPanel pairPanel = new JPanel();
+      pairPanel.setLayout(new GridLayout(1,2));
+
+      toDoCheckBox = new JCheckBox(textField.getText());
+      pairPanel.add(toDoCheckBox);
+
+      JButton xButton = new JButton(" X ");
+      xButton.addActionListener(xEvent -> {
+       // updateDisplay();
+        listPanelOnContentPanel
+            .remove(pairPanel);
+        listPanelOnContentPanel
+            .setVisible(false);
+        listPanelOnContentPanel
+            .setVisible(true);
+
+       // addNumberOfButtons();
+        numberOfButtons.add("button");
+      });
+
+
+      pairPanel.add(xButton);
+
+      listPanelOnContentPanel
+          .add(pairPanel);
+
+      addActionOnCheckBox();
+
+
+      frame.setVisible(true);
+
+  });
+
+    frame.setVisible(true);
+
+  }
+
+  private void initAddTodoPanel() {
     JPanel menuPanel = new JPanel();
     mainPanel.add(menuPanel,BorderLayout.NORTH);
 
     JLabel label1 = new JLabel("할 일");
     menuPanel.add(label1);
 
-    JTextField textField = new JTextField(10);
+    textField = new JTextField(10);
     menuPanel.add(textField);
 
-    JButton button = new JButton("추가");
-    menuPanel.add(button);
+    addTodoButton = new JButton("추가");
+    menuPanel.add(addTodoButton);
+  }
 
-    JPanel toDoPanel = new JPanel();
-    mainPanel.add(toDoPanel,BorderLayout.CENTER);
+  private void initContentPanel() {
+    contentPanel
+        = new JPanel();
+    mainPanel.add(contentPanel
+        ,BorderLayout.CENTER);
+  }
 
-    JPanel listPanelOntoDoPanel = new JPanel();
-    listPanelOntoDoPanel.setLayout(new GridLayout(numberOfButtons.size(),1));
-    toDoPanel.add(listPanelOntoDoPanel);
+  private void createListPanel() {
+    listPanelOnContentPanel = new JPanel();
+    listPanelOnContentPanel
+        .setLayout(new GridLayout(numberOfButtons.size(),1));
+    contentPanel
+        .add(listPanelOnContentPanel
+        );
+  }
 
-
-
-
-    button.addActionListener(event -> {
-
-      JPanel pairPanel = new JPanel();
-      pairPanel.setLayout(new GridLayout(1,2));
-
-      JCheckBox toDoCheckBox = new JCheckBox(textField.getText());
-      pairPanel.add(toDoCheckBox);
-
-      JButton xButton = new JButton(" X ");
-      xButton.addActionListener(xEvent -> {
-        listPanelOntoDoPanel.remove(pairPanel);
-        listPanelOntoDoPanel.setVisible(false);
-        listPanelOntoDoPanel.setVisible(true);
-
-        numberOfButtons.add("button");
-      });
-
-      pairPanel.add(xButton);
-
-      listPanelOntoDoPanel.add(pairPanel);
-
-      toDoCheckBox.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent event) {
-          if (toDoCheckBox.isSelected()) {
-            toDoCheckBox.setSelected(false);
-          }
-          if (!toDoCheckBox.isSelected()) {
-            toDoCheckBox.setSelected(true);
-          }
+ /* private void createPairPanel() {
+    pairPanel = new JPanel();
+    pairPanel.setLayout(new GridLayout(1,2));
+  }
+*/
+  private void addActionOnCheckBox() {
+    toDoCheckBox.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent event) {
+        if (toDoCheckBox.isSelected()) {
+          toDoCheckBox.setSelected(false);
         }
-    });
-
-
-
-    frame.setVisible(true);
-
+        if (!toDoCheckBox.isSelected()) {
+          toDoCheckBox.setSelected(true);
+        }
+      }
   });
+  }
 
+  public void addNumberOfButtons() {
+    numberOfButtons.add("button");
+  }
 
+/*  public void updateDisplay() {
+    listPanelOnContentPanel
+        .remove(pairPanel);
+    listPanelOnContentPanel
+        .setVisible(false);
+    listPanelOnContentPanel
+        .setVisible(true);
+  }*/
 
-
-
-
-
-
-    frame.setVisible(true);
-
+  private void titilePanel() {
+    JLabel label = new JLabel("할 일 목록");
+    frame.add(label,BorderLayout.PAGE_START);
+    label.setHorizontalAlignment(JLabel.CENTER);
   }
 }
