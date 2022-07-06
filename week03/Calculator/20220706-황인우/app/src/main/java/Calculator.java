@@ -2,7 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Calculator {
-  private long currentNumber;
+  private long currentNumber = 0;
+  private long accumulator = 0;
+  private String currentOperator = "";
+
+  private JTextField textField;
 
   public static void main(String[] args) {
     Calculator application = new Calculator();
@@ -14,10 +18,10 @@ public class Calculator {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocation(100, 75);
 
-    JTextField textField = new JTextField();
+    textField = new JTextField();
     textField.setEditable(false);
     textField.setHorizontalAlignment(JTextField.RIGHT);
-    textField.setText(Long.toString(currentNumber));
+    showNumber(currentNumber);
 
     frame.add(textField, BorderLayout.PAGE_START);
 
@@ -29,9 +33,8 @@ public class Calculator {
 
       JButton numberButton = new JButton(Integer.toString(number));
       numberButton.addActionListener(event -> {
-        currentNumber = (currentNumber * 10) + number;
-
-        textField.setText(Long.toString(currentNumber));
+        addNumberToCurrentNumber(number);
+        showNumber(currentNumber);
       });
 
       buttonsPanel.add(numberButton);
@@ -40,18 +43,34 @@ public class Calculator {
     String[] operators = {"+", "-", "*", "/", "="};
     for (String operator : operators) {
       JButton operatorButton = new JButton(operator);
-      numberButton.addActionListener(event -> {
-        currentNumber = (currentNumber * 10) + number;
+      operatorButton.addActionListener(event -> {
+        switch (currentOperator) {
+          case "" -> accumulator = currentNumber;
+          case "+" -> accumulator += currentNumber;
+          case "-" -> accumulator -= currentNumber;
+          case "*" -> accumulator *= currentNumber;
+          case "/" -> accumulator /= currentNumber;
+        }
+        currentOperator = operator;
+        currentNumber = 0;
 
-        textField.setText(Long.toString(currentNumber));
+        showNumber(accumulator);
       });
 
-      buttonsPanel.add(numberButton);
+      buttonsPanel.add(operatorButton);
     }
 
     frame.add(buttonsPanel);
 
     frame.pack();
     frame.setVisible(true);
+  }
+
+  private void addNumberToCurrentNumber(int number) {
+    currentNumber = (currentNumber * 10) + number;
+  }
+
+  private void showNumber(long number) {
+    textField.setText(Long.toString(number));
   }
 }
