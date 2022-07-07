@@ -1,14 +1,16 @@
 import models.Task;
+import repository.TasksRepository;
 
 import javax.swing.*;
 import java.awt.*;
+
 public class TodoList {
   private JFrame frame;
   private JPanel mainPanel;
   private JPanel titlePanel;
   private JPanel contentPanel;
-  private Task task;
   private JTextField textField;
+  private TasksRepository tasksRepository;
 
   public static void main(String[] args) {
     TodoList appliaction = new TodoList();
@@ -16,7 +18,7 @@ public class TodoList {
   }
 
   private void run() {
-    task  = new Task();
+
     frame = new JFrame();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(350, 500);
@@ -29,6 +31,7 @@ public class TodoList {
   }
 
   private void initTitlePanel() {
+    tasksRepository = new TasksRepository();
     titlePanel = new JPanel();
     JLabel titleLabel = new JLabel("할 일 목록");
     titlePanel.add(titleLabel, BorderLayout.PAGE_START);
@@ -41,7 +44,6 @@ public class TodoList {
     mainPanel.setLayout(new BorderLayout());
     initMenuPanel();
     frame.add(mainPanel);
-    mainPanel.setBackground(Color.blue);
   }
 
   private void initMenuPanel() {
@@ -53,15 +55,14 @@ public class TodoList {
 
     menuPanel.add(createAddTodoButton());
     mainPanel.add(menuPanel, BorderLayout.PAGE_START);
-    menuPanel.setBackground(Color.gray);
   }
 
   private JButton createAddTodoButton() {
     JButton button = new JButton("추가");
     button.addActionListener(event -> {
-      task.send(textField.getText());
-      TodoPanel todoPanel = new TodoPanel(task);
-      showContentPanel(todoPanel);
+      tasksRepository.addTask(textField.getText());
+      TaskPanel taskPanel = new TaskPanel(tasksRepository, this);
+      showContentPanel(taskPanel);
     });
     return button;
   }
@@ -69,10 +70,10 @@ public class TodoList {
   private void initContentPanel() {
     contentPanel = new JPanel();
     mainPanel.add(contentPanel);
-    contentPanel.setBackground(Color.cyan);
   }
 
-  private void showContentPanel(JPanel panel) {
+  public void showContentPanel(JPanel panel) {
+    contentPanel.removeAll();
     contentPanel.add(panel);
     contentPanel.setVisible(false);
     contentPanel.setVisible(true);
