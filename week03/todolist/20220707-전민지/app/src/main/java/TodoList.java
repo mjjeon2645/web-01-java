@@ -2,8 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TodoList {
+  private TaskRepository taskRepository;
+
   private JFrame frame;
   private JPanel titleAndFormPanel;
+  private JPanel contentPanel;
 
   public static void main(String[] args) {
     TodoList application = new TodoList();
@@ -11,6 +14,8 @@ public class TodoList {
   }
 
   public void run() {
+    taskRepository = new TaskRepository();
+
     initFrame();
 
     initTitleAndForm();
@@ -45,11 +50,25 @@ public class TodoList {
     formPanel.add(textField);
 
     JButton addTaskButton = new JButton("추가");
+    addTaskButton.addActionListener(event -> {
+      String text = textField.getText();
+      taskRepository.addTask(text);
+      TasksPanel tasksPanel = new TasksPanel(taskRepository);
+      showContentPanel(tasksPanel);
+    });
     formPanel.add(addTaskButton);
   }
 
   public void initContentPanel() {
-    JPanel contentPanel = new JPanel();
+    contentPanel = new JPanel();
     frame.add(contentPanel);
+  }
+
+  public void showContentPanel(JPanel panel) {
+    contentPanel.removeAll();
+    contentPanel.add(panel);
+    contentPanel.setVisible(false);
+    contentPanel.setVisible(true);
+    frame.setVisible(true);
   }
 }
