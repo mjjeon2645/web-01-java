@@ -32,14 +32,24 @@ public class TodoList {
   }
 
   public void initTitleAndForm() {
+    initTitleAndFormPanel();
+    initTitle();
+    initForm();
+  }
+
+  public void initTitleAndFormPanel() {
     titleAndFormPanel = new JPanel();
     titleAndFormPanel.setLayout(new BorderLayout());
     frame.add(titleAndFormPanel, BorderLayout.PAGE_START);
+  }
 
+  public void initTitle() {
     JLabel titleLabel = new JLabel("할 일 목록");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     titleAndFormPanel.add(titleLabel, BorderLayout.PAGE_START);
+  }
 
+  public void initForm() {
     JPanel formPanel = new JPanel();
     titleAndFormPanel.add(formPanel);
 
