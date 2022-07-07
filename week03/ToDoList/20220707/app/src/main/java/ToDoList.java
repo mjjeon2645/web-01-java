@@ -16,6 +16,7 @@ public class ToDoList {
   private TaskRegisterPanel taskRegisterPanel;
 
 
+
   public static void main(String[] args) {
     ToDoList application = new ToDoList();
     application.run();

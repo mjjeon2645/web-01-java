@@ -5,6 +5,8 @@ public class TaskRegisterPanel extends JPanel {
 
 
 
+
+
   TaskRegisterPanel(JPanel taskListPanel) {
 
 
@@ -21,7 +23,7 @@ public class TaskRegisterPanel extends JPanel {
     //할일 추가 버튼을 눌렀을 때 액션
     button.addActionListener(event -> {
 
-      JPanel taskPanel = new TaskPanel(taskListPanel, todoTextField);
+      TaskPanel taskPanel = new TaskPanel(taskListPanel, todoTextField);
 
     });
   }
