@@ -1,7 +1,7 @@
 package Panels;
 
 import models.*;
-import services.*;
+
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -10,7 +10,7 @@ import java.awt.*;
 public class TransferPanel extends JPanel {
   private Account myAccount;
   private Account yourAccount;
-  private TransferService transferservice;
+
 
   public TransferPanel(Account myAccount, Account yourAccount) {
     this.myAccount = myAccount;
@@ -19,13 +19,13 @@ public class TransferPanel extends JPanel {
     this.setLayout(new GridLayout(2, 1));
     this.setBorder(new MatteBorder(2,2,2,2,Color.BLACK));
 
-    manageMyAccountTransferPanel();
+    manageMyAccountTransferPanel(myAccount,yourAccount);
 
     manageYourAccountTransferPanel();
 
   }
 
-  private void manageMyAccountTransferPanel() {
+  private void manageMyAccountTransferPanel(Account myAccount,Account yourAccount) {
     JPanel panel = new JPanel();
     this.add(panel);
     panel.setLayout(new GridLayout(4,2));
@@ -54,8 +54,17 @@ public class TransferPanel extends JPanel {
       String inputAccountNumber = receiverAccountNumberTextField.getText();
       int transferAmount = Integer.parseInt(transferAmountTextField.getText());
 
-      transferservice = new TransferService();
-      transferservice.transfer(myAccount,yourAccount,transferAmount,inputAccountNumber);
+      myAccount.transfer(yourAccount,transferAmount,inputAccountNumber);
+      yourAccount.deposit(yourAccount,transferAmount,inputAccountNumber);
+      if(yourAccount.getAccountNumber().equals(inputAccountNumber)) {
+
+        receiverAccountNumberTextField.setText("");
+        transferAmountTextField.setText("");
+        myAccount.getTransactions().add("계좌번호: " + myAccount.getAccountNumber() + "   "
+            + "송금: " + transferAmount );
+        }
+
+
     });
   }
 
@@ -84,5 +93,18 @@ public class TransferPanel extends JPanel {
     panel.add(blankLabel2);
     JButton button = new JButton(" 입금 ");
     panel.add(button);
+    button.addActionListener(event -> {
+      String inputAccountNumber = receiverAccountNumberTextField.getText();
+      int transferAmount = Integer.parseInt(transferAmountTextField.getText());
+
+      yourAccount.transfer(myAccount,transferAmount,inputAccountNumber);
+      myAccount.deposit(myAccount,transferAmount,inputAccountNumber);
+      if(myAccount.getAccountNumber().equals(inputAccountNumber)) {
+
+        receiverAccountNumberTextField.setText("");
+        transferAmountTextField.setText("");
+
+      }
+    });
   }
 }

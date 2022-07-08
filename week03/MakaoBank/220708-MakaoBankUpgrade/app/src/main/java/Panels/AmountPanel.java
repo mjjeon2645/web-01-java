@@ -49,7 +49,7 @@ public class AmountPanel extends JPanel {
     JLabel accountNumberLabel = new JLabel("계좌 번호: " + yourAccount.getAccountNumber());
     yourAccountPanel.add(accountNumberLabel);
 
-    JLabel amountLabel = new JLabel("잔액: " + yourAccount.getAmount() + "원");
+    JLabel amountLabel = new JLabel("잔액: " + yourAccount.getCurrentAmount() + "원");
     yourAccountPanel.add(amountLabel);
   }
 }
