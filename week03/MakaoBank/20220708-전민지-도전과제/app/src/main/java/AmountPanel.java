@@ -26,7 +26,7 @@ public class AmountPanel extends JPanel {
     JLabel identifierOfMineLabel = new JLabel("계좌 번호: " + account.identifierOfMine());
     amountPanelOfMine.add(identifierOfMineLabel);
 
-    JLabel amountOfMineLabel = new JLabel("잔액: " + account.amountOfMine());
+    JLabel amountOfMineLabel = new JLabel("잔액: " + account.amountOfMine() + "원");
     amountPanelOfMine.add(amountOfMineLabel);
 
     this.add(amountPanelOfMine);
@@ -43,7 +43,7 @@ public class AmountPanel extends JPanel {
     JLabel identifierOfOthersLabel = new JLabel("계좌 번호: " + account.identifierOfOthers());
     amountPanelOfOthers.add(identifierOfOthersLabel);
 
-    JLabel amountOfOthersLabel = new JLabel("잔액: " + account.amountOfOthers());
+    JLabel amountOfOthersLabel = new JLabel("잔액: " + account.amountOfOthers() + "원");
     amountPanelOfOthers.add(amountOfOthersLabel);
 
     this.add(amountPanelOfOthers);
