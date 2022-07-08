@@ -1,20 +1,19 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-  private String myAccountNumber = "123-456-7890";
-  private String otherAccountNumber = "345-678-9012";
-  private long myAccountAmount = 3000L;
-  private long otherAccountAmount = 1000L;
+  private String myAccountIdentifier = "123-456-7890";
+  private String otherAccountIdentifier = "345-678-9012";
+  private long myAccountAmount = 3000;
+  private long otherAccountAmount = 1000;
   private List<String> transactions = new ArrayList<>();
 
-  public String myAccountNumber() {
-    return myAccountNumber;
+  public String myAccountIdentifier() {
+    return myAccountIdentifier;
   }
 
-  public String otherAccountNumber() {
-    return otherAccountNumber;
+  public String otherAccountIdentifier() {
+    return otherAccountIdentifier;
   }
 
   public long myAccountAmount() {
@@ -34,22 +33,20 @@ public class Account {
   }
 
   public void transfer(String accountNumber, long amount) {
-    if (accountNumber.equals(otherAccountNumber)) {
+    if (accountNumber.equals(otherAccountIdentifier)) {
       myAccountAmount -= amount;
       otherAccountAmount += amount;
 
-      transactions.add("계좌 번호: " + myAccountNumber + "\t송금: " + amount);
+      transactions.add("계좌 번호: " + myAccountIdentifier + "\t송금: " + amount);
     }
-
   }
 
   public void deposit(String depositAccountNumber, long amount) {
-    if (depositAccountNumber.equals(myAccountNumber)) {
+    if (depositAccountNumber.equals(myAccountIdentifier)) {
       myAccountAmount += amount;
       otherAccountAmount -= amount;
 
-      transactions.add("계좌 번호: " + myAccountNumber + "\t입금: " + amount);
+      transactions.add("계좌 번호: " + myAccountIdentifier + "\t입금: " + amount);
     }
-
   }
 }

@@ -1,19 +1,13 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import java.awt.*;
 
 public class MakaoBank {
   private JFrame frame;
   private JPanel contentPanel;
   private Account account;
-
-  public MakaoBank() {
-  }
 
   public static void main(String[] args) {
     MakaoBank application = new MakaoBank();
@@ -23,7 +17,7 @@ public class MakaoBank {
   private void run() {
     this.account = new Account();
     this.frame = new JFrame("MakaoBank");
-    this.frame.setDefaultCloseOperation(3);
+    this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.frame.setSize(400, 600);
     this.initMenuButton();
     this.initContentPanel();
@@ -32,7 +26,7 @@ public class MakaoBank {
 
   private void initMenuButton() {
     JPanel panel = new JPanel();
-    this.frame.add(panel, "First");
+    this.frame.add(panel, BorderLayout.PAGE_START);
     panel.add(this.createAmountButton());
     panel.add(this.createTransferButton());
     panel.add(this.createTransactionButton());
@@ -78,4 +72,3 @@ public class MakaoBank {
     this.frame.setVisible(true);
   }
 }
-

@@ -1,10 +1,4 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 import java.awt.GridLayout;
-import java.util.Iterator;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,10 +8,9 @@ public class TransactionPanel extends JPanel {
     JLabel label = new JLabel("거래 내역");
     this.add(label);
 
-    for(String transaction : account.transactions()){
-    JLabel transactionLabel = new JLabel(transaction);
-    this.add(transactionLabel);
+    for (String transaction : account.transactions()) {
+      JLabel transactionLabel = new JLabel(transaction);
+      this.add(transactionLabel);
+    }
   }
-
-}
 }
