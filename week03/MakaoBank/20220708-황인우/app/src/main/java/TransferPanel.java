@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class TransferPanel extends JPanel {
   public TransferPanel(
-      String myIdentifier, TransferService transferService) {
+      TransferService transferService, String myIdentifier) {
     this.setLayout(new GridLayout(0, 1));
 
     this.add(new JLabel("내 계좌에서 송금하기"));
@@ -25,8 +25,7 @@ public class TransferPanel extends JPanel {
       String enteredOtherIdentifier = otherIdentifierInputTextField.getText();
       long transferAmount = Long.parseLong(transferAmountTextField.getText());
       transferService.transfer(
-          myIdentifier, enteredOtherIdentifier,
-          transferAmount
+          myIdentifier, enteredOtherIdentifier, transferAmount
       );
     });
     transferInputPanel.add(transferToOtherAccountButton);
@@ -52,8 +51,7 @@ public class TransferPanel extends JPanel {
       String enteredOtherIdentifier = otherIdentifierInputTextField2.getText();
       long depositAmount = Long.parseLong(depositAmountTextField.getText());
       transferService.transfer(
-          enteredOtherIdentifier, myIdentifier,
-          depositAmount
+          enteredOtherIdentifier, myIdentifier, depositAmount
       );
     });
     depositInputPanel.add(depositToMyAccountButton);

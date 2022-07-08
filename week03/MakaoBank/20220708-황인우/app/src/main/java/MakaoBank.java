@@ -72,7 +72,7 @@ public class MakaoBank {
     JButton transferButton = new JButton("계좌 이체");
     transferButton.addActionListener(event -> {
       JPanel transferPanel = new TransferPanel(
-          myAccountIdentifier, transferService
+          transferService, myAccountIdentifier
       );
       showContentPanel(transferPanel);
     });

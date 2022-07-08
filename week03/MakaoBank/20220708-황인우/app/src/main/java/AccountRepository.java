@@ -19,4 +19,8 @@ public class AccountRepository {
         .findFirst()
         .orElse(null);
   }
+
+  public List<String> transactions(String identifier) {
+    return find(identifier).transactions();
+  }
 }
