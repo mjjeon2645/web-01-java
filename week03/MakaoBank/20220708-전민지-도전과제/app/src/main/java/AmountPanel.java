@@ -3,19 +3,17 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class AmountPanel extends JPanel {
-  private Account account;
-  AmountPanel(Account account) {
 
-    this.account = account;
+  AmountPanel(Account account) {
 
     this.setLayout(new GridLayout(2, 1));
 
-    initAmountInformationOfMine();
+    initAmountInformationOfMine(account);
 
-    initAmountInformationOfOthers();
+    initAmountInformationOfOthers(account);
   }
 
-  public void initAmountInformationOfMine() {
+  public void initAmountInformationOfMine(Account account) {
     JPanel amountPanelOfMine = new JPanel();
     amountPanelOfMine.setLayout(new GridLayout(3, 1));
     amountPanelOfMine.setBorder(new LineBorder(Color.BLACK, 3));
@@ -32,7 +30,7 @@ public class AmountPanel extends JPanel {
     this.add(amountPanelOfMine);
   }
 
-  public void initAmountInformationOfOthers() {
+  public void initAmountInformationOfOthers(Account account) {
     JPanel amountPanelOfOthers = new JPanel();
     amountPanelOfOthers.setLayout(new GridLayout(3, 1));
     amountPanelOfOthers.setBorder(new LineBorder(Color.BLACK, 3));

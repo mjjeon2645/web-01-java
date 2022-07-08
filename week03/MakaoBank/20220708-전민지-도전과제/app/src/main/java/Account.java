@@ -34,4 +34,20 @@ public class Account {
   public List<String> transactionsOfOthers() {
     return new ArrayList<>(transactionsOfOthers);
   }
+
+  public void transferToOthers(long amountToOthers) {
+    this.amountOfOthers += amountToOthers;
+    this.amountOfMine -= amountToOthers;
+
+    transactionsOfMine.add("송금: " + amountToOthers + "원");
+    transactionsOfOthers.add("입금: " + amountToOthers + "원");
+  }
+
+  public void transferToMe(long amountToMe) {
+    this.amountOfOthers -= amountToMe;
+    this.amountOfMine += amountToMe;
+
+    transactionsOfMine.add("입금: " + amountToMe + "원");
+    transactionsOfOthers.add("송금: " + amountToMe + "원");
+  }
 }
