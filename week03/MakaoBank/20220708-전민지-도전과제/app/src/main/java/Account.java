@@ -2,52 +2,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-  private String identifierOfMine = "123-456-7890";
-  private String identifierOfOthers = "345-678-9012";
+  private String myIdentifier = "123-456-7890";
+  private String theOtherIdentifier = "345-678-9012";
 
-  private long amountOfMine = 3000;
-  private long amountOfOthers = 1000;
+  private long myAmount = 3000;
+  private long theOtherAmount = 1000;
 
-  private List<String> transactionsOfMine = new ArrayList<>();
-  private List<String> transactionsOfOthers = new ArrayList<>();
+  private List<String> myTransactions = new ArrayList<>();
+  private List<String> theOtherTransactions = new ArrayList<>();
 
-  public String identifierOfMine() {
-    return identifierOfMine;
+  public String myIdentifier() {
+    return myIdentifier;
   }
 
-  public String identifierOfOthers() {
-    return identifierOfOthers;
+  public String theOtherIdentifier() {
+    return theOtherIdentifier;
   }
 
-  public long amountOfMine() {
-    return amountOfMine;
+  public long myAmount() {
+    return myAmount;
   }
 
-  public long amountOfOthers() {
-    return amountOfOthers;
+  public long theOtherAmount() {
+    return theOtherAmount;
   }
 
-  public List<String> transactionsOfMine() {
-    return new ArrayList<>(transactionsOfMine);
+  public List<String> myTransactions() {
+    return new ArrayList<>(myTransactions);
   }
 
-  public List<String> transactionsOfOthers() {
-    return new ArrayList<>(transactionsOfOthers);
+  public List<String> theOtherTransactions() {
+    return new ArrayList<>(theOtherTransactions);
   }
 
-  public void transferToOthers(long amountToOthers) {
-    this.amountOfOthers += amountToOthers;
-    this.amountOfMine -= amountToOthers;
+  public void transferToTheOther(long amountToTheOther) {
+    this.theOtherAmount += amountToTheOther;
+    this.myAmount -= amountToTheOther;
 
-    transactionsOfMine.add("송금: " + amountToOthers + "원");
-    transactionsOfOthers.add("입금: " + amountToOthers + "원");
+    myTransactions.add("송금: " + amountToTheOther + "원");
+    theOtherTransactions.add("입금: " + amountToTheOther + "원");
   }
 
   public void transferToMe(long amountToMe) {
-    this.amountOfOthers -= amountToMe;
-    this.amountOfMine += amountToMe;
+    this.theOtherAmount -= amountToMe;
+    this.myAmount += amountToMe;
 
-    transactionsOfMine.add("입금: " + amountToMe + "원");
-    transactionsOfOthers.add("송금: " + amountToMe + "원");
+    myTransactions.add("입금: " + amountToMe + "원");
+    theOtherTransactions.add("송금: " + amountToMe + "원");
   }
 }

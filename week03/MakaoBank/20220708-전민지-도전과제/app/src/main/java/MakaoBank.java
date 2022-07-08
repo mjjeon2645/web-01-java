@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MakaoBank {
-
   private Account account;
 
   private JFrame frame;
@@ -16,15 +15,19 @@ public class MakaoBank {
   public void run() {
     account = new Account();
 
-    frame = new JFrame("Makao Bank");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(500, 600);
+    initFrame();
 
     initMenu();
 
     initContentPanel();
 
     frame.setVisible(true);
+  }
+
+  public void initFrame() {
+    frame = new JFrame("Makao Bank");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(500, 600);
   }
 
   public void initMenu() {
@@ -49,7 +52,6 @@ public class MakaoBank {
     JButton button = new JButton("계좌 이체");
     button.addActionListener(event -> {
       TransferPanel transferPanel = new TransferPanel(account);
-
       showContentPanel(transferPanel);
     });
     return button;
@@ -59,7 +61,6 @@ public class MakaoBank {
     JButton button = new JButton("거래 내역");
     button.addActionListener(event -> {
       TransactionsPanel transactionsPanel = new TransactionsPanel(account);
-
       showContentPanel(transactionsPanel);
     });
     return button;

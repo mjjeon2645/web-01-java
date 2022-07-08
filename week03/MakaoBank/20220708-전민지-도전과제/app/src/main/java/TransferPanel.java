@@ -4,92 +4,95 @@ import java.awt.*;
 
 public class TransferPanel extends JPanel {
   private Account account;
-  private final JPanel transferPanelOfMine;
+
+  private JPanel myTransferPanel;
+  private JPanel theOtherTransferPanel;
 
   public TransferPanel(Account account) {
     this.account = account;
+
     this.setLayout(new GridLayout(2, 1));
 
-    transferPanelOfMine = new JPanel();
-    transferPanelOfMine.setLayout(new GridLayout(4, 2));
-    transferPanelOfMine.setBorder(new LineBorder(Color.BLACK, 3));
+    transferToTheOther();
 
-    transferFromIToOthers();
-
-    transferFromOthersToMe();
+    transferToMe();
   }
 
-  public void transferFromIToOthers() {
-    JLabel titleOfMineLabel = new JLabel("내 계좌에서 송금하기");
-    transferPanelOfMine.add(titleOfMineLabel);
+  public void transferToTheOther() {
+    myTransferPanel = new JPanel();
 
-    JLabel nullLabel1 = new JLabel("    ");
-    transferPanelOfMine.add(nullLabel1);
+    myTransferPanel.setLayout(new GridLayout(4, 2, 10, 10));
+    myTransferPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel identifierOfMineLabel = new JLabel("계좌 번호: ");
-    transferPanelOfMine.add(identifierOfMineLabel);
+    JLabel titleLabel1 = new JLabel("내 계좌에서 송금하기");
+    myTransferPanel.add(titleLabel1);
 
-    JTextField identifierToTransferTextField = new JTextField(5);
-    transferPanelOfMine.add(identifierToTransferTextField);
+    JLabel layoutLabel1 = new JLabel("    ");
+    myTransferPanel.add(layoutLabel1);
 
-    JLabel transferAmountOfMineLabel = new JLabel("금액: ");
-    transferPanelOfMine.add(transferAmountOfMineLabel);
+    JLabel identifierLabel1 = new JLabel("계좌 번호: ");
+    myTransferPanel.add(identifierLabel1);
 
-    JTextField transferAmountOfMineTextField = new JTextField(5);
-    transferPanelOfMine.add(transferAmountOfMineTextField);
+    JTextField toIdentifier = new JTextField(5);
+    myTransferPanel.add(toIdentifier);
 
-    JLabel nullLabel2 = new JLabel("    ");
-    transferPanelOfMine.add(nullLabel2);
+    JLabel amountLabel1 = new JLabel("금액: ");
+    myTransferPanel.add(amountLabel1);
+
+    JTextField amountToTheOther = new JTextField(5);
+    myTransferPanel.add(amountToTheOther);
+
+    JLabel layoutLabel2 = new JLabel("    ");
+    myTransferPanel.add(layoutLabel2);
 
     JButton sendToOthersButton = new JButton("송금");
     sendToOthersButton.addActionListener(event -> {
-      long amountToOthers = Long.parseLong(transferAmountOfMineTextField.getText());
-      if (identifierToTransferTextField.getText().equals(account.identifierOfOthers())) {
-        account.transferToOthers(amountToOthers);
+      long transferAmountToTheOther = Long.parseLong(amountToTheOther.getText());
+      if (toIdentifier.getText().equals(account.theOtherIdentifier())) {
+        account.transferToTheOther(transferAmountToTheOther);
       }
     });
-    transferPanelOfMine.add(sendToOthersButton);
+    myTransferPanel.add(sendToOthersButton);
 
-    this.add(transferPanelOfMine);
+    this.add(myTransferPanel);
   }
 
-  public void transferFromOthersToMe() {
-    JPanel transferPanelOfOthers = new JPanel();
-    transferPanelOfOthers.setLayout(new GridLayout(4, 2));
-    transferPanelOfOthers.setBorder(new LineBorder(Color.BLACK, 3));
+  public void transferToMe() {
+    theOtherTransferPanel = new JPanel();
+    theOtherTransferPanel.setLayout(new GridLayout(4, 2, 10, 10));
+    theOtherTransferPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel titleOfOthersLabel = new JLabel("상대 계좌에서 입금하기");
-    transferPanelOfOthers.add(titleOfOthersLabel);
+    JLabel titleLabel2 = new JLabel("상대 계좌에서 입금하기");
+    theOtherTransferPanel.add(titleLabel2);
 
-    JLabel nullLabel3 = new JLabel("    ");
-    transferPanelOfOthers.add(nullLabel3);
+    JLabel layoutLabel3 = new JLabel("    ");
+    theOtherTransferPanel.add(layoutLabel3);
 
-    JLabel identifierOfOtherLabel = new JLabel("계좌 번호: ");
-    transferPanelOfOthers.add(identifierOfOtherLabel);
+    JLabel identifierLabel2 = new JLabel("계좌 번호: ");
+    theOtherTransferPanel.add(identifierLabel2);
 
-    JTextField identifierOfOthersTextField = new JTextField(5);
-    transferPanelOfOthers.add(identifierOfOthersTextField);
+    JTextField fromIdentifier = new JTextField(5);
+    theOtherTransferPanel.add(fromIdentifier);
 
-    JLabel transferAmountOfOtherLabel = new JLabel("금액: ");
-    transferPanelOfOthers.add(transferAmountOfOtherLabel);
+    JLabel amountLabel2 = new JLabel("금액: ");
+    theOtherTransferPanel.add(amountLabel2);
 
-    JTextField transferAmountToMeTextField = new JTextField(5);
-    transferPanelOfOthers.add(transferAmountToMeTextField);
+    JTextField amountToMe = new JTextField(5);
+    theOtherTransferPanel.add(amountToMe);
 
-    JLabel nullLabel4 = new JLabel("    ");
-    transferPanelOfOthers.add(nullLabel4);
+    JLabel layoutLabel4 = new JLabel("    ");
+    theOtherTransferPanel.add(layoutLabel4);
 
     JButton sendToMeButton = new JButton("입금");
     sendToMeButton.addActionListener(event -> {
-      long amountToMe = Long.parseLong(transferAmountToMeTextField.getText());
-      if (identifierOfOthersTextField.getText().equals(account.identifierOfOthers())) {
-        account.transferToMe(amountToMe);
+      long transferAmountToMe = Long.parseLong(amountToMe.getText());
+      if (fromIdentifier.getText().equals(account.theOtherIdentifier())) {
+        account.transferToMe(transferAmountToMe);
       }
     });
 
-    transferPanelOfOthers.add(sendToMeButton);
+    theOtherTransferPanel.add(sendToMeButton);
 
-    this.add(transferPanelOfOthers);
+    this.add(theOtherTransferPanel);
   }
-
 }

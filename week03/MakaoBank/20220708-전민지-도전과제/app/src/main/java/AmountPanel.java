@@ -3,47 +3,51 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class AmountPanel extends JPanel {
+  private Account account;
+  private JPanel myAmountPanel;
+  private JPanel theOtherAmountPanel;
 
   AmountPanel(Account account) {
+    this.account = account;
 
     this.setLayout(new GridLayout(2, 1));
 
-    initAmountInformationOfMine(account);
+    initMyAmount();
 
-    initAmountInformationOfOthers(account);
+    initTheOtherAmount();
   }
 
-  public void initAmountInformationOfMine(Account account) {
-    JPanel amountPanelOfMine = new JPanel();
-    amountPanelOfMine.setLayout(new GridLayout(3, 1));
-    amountPanelOfMine.setBorder(new LineBorder(Color.BLACK, 3));
+  public void initMyAmount() {
+    myAmountPanel = new JPanel();
+    myAmountPanel.setLayout(new GridLayout(3, 1, 30, 30));
+    myAmountPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel titleOfMineLabel = new JLabel("내 계좌");
-    amountPanelOfMine.add(titleOfMineLabel);
+    JLabel titleLabel1 = new JLabel("내 계좌");
+    myAmountPanel.add(titleLabel1);
 
-    JLabel identifierOfMineLabel = new JLabel("계좌 번호: " + account.identifierOfMine());
-    amountPanelOfMine.add(identifierOfMineLabel);
+    JLabel myIdentifierLabel = new JLabel("계좌 번호: " + account.myIdentifier());
+    myAmountPanel.add(myIdentifierLabel);
 
-    JLabel amountOfMineLabel = new JLabel("잔액: " + account.amountOfMine() + "원");
-    amountPanelOfMine.add(amountOfMineLabel);
+    JLabel myAmountLabel = new JLabel("잔액: " + account.myAmount() + "원");
+    myAmountPanel.add(myAmountLabel);
 
-    this.add(amountPanelOfMine);
+    this.add(myAmountPanel);
   }
 
-  public void initAmountInformationOfOthers(Account account) {
-    JPanel amountPanelOfOthers = new JPanel();
-    amountPanelOfOthers.setLayout(new GridLayout(3, 1));
-    amountPanelOfOthers.setBorder(new LineBorder(Color.BLACK, 3));
+  public void initTheOtherAmount() {
+    theOtherAmountPanel = new JPanel();
+    theOtherAmountPanel.setLayout(new GridLayout(3, 1, 30, 30));
+    theOtherAmountPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel titleOfOthersLabel = new JLabel("상대 계좌");
-    amountPanelOfOthers.add(titleOfOthersLabel);
+    JLabel titleLabel2 = new JLabel("상대 계좌");
+    theOtherAmountPanel.add(titleLabel2);
 
-    JLabel identifierOfOthersLabel = new JLabel("계좌 번호: " + account.identifierOfOthers());
-    amountPanelOfOthers.add(identifierOfOthersLabel);
+    JLabel theOtherIdentifierLabel = new JLabel("계좌 번호: " + account.theOtherIdentifier());
+    theOtherAmountPanel.add(theOtherIdentifierLabel);
 
-    JLabel amountOfOthersLabel = new JLabel("잔액: " + account.amountOfOthers() + "원");
-    amountPanelOfOthers.add(amountOfOthersLabel);
+    JLabel theOtherAmountLabel = new JLabel("잔액: " + account.theOtherAmount() + "원");
+    theOtherAmountPanel.add(theOtherAmountLabel);
 
-    this.add(amountPanelOfOthers);
+    this.add(theOtherAmountPanel);
   }
 }
