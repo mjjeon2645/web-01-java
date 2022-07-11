@@ -8,6 +8,23 @@ public class Transaction {
     this.amount = amount;
   }
 
+  public String type() {
+    return this.type;
+  }
+
+  public int amount() {
+    return this.amount;
+  }
+
+  public TransactionResult process(int amount) {
+    return switch (this.type) {
+      case "잔액" -> new TransactionResult(this, this.amount);
+      case "출금" -> new TransactionResult(this, amount - this.amount);
+      case "입금" -> new TransactionResult(this, amount + this.amount);
+      default -> new TransactionResult(this, this.amount);
+    };
+  }
+
   @Override
   public boolean equals(Object other) {
     Transaction otherTransaction = (Transaction) other;
@@ -19,14 +36,5 @@ public class Transaction {
   @Override
   public String toString() {
     return "(Transaction) type: " + this.type + ", amount: " + this.amount;
-  }
-
-  public TransactionResult process(int amount) {
-    return switch (this.type) {
-      case "잔액" -> new TransactionResult(this, this.amount);
-      case "출금" -> new TransactionResult(this, amount - this.amount);
-      case "입금" -> new TransactionResult(this, amount + this.amount);
-      default -> new TransactionResult(this, this.amount);
-    };
   }
 }

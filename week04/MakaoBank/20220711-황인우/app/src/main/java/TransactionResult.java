@@ -1,3 +1,5 @@
+import java.lang.invoke.CallSite;
+
 public class TransactionResult {
   private final Transaction transaction;
   private final int result;
@@ -5,6 +7,10 @@ public class TransactionResult {
   public TransactionResult(Transaction transaction, int result) {
     this.transaction = transaction;
     this.result = result;
+  }
+
+  public Transaction transaction() {
+    return this.transaction;
   }
 
   public int result() {
