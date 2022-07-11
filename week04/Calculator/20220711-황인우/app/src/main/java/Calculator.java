@@ -9,7 +9,7 @@ public class Calculator {
   public void run() {
     String expression = input();
 
-    String result = process(expression);
+    int result = process(expression);
 
     print(result);
   }
@@ -22,13 +22,16 @@ public class Calculator {
     return scanner.nextLine();
   }
 
-  public String process(String expression) {
+  public int process(String expression) {
     String[] components = expression.split(" ");
 
-    return components[0];
+    int number1 = Integer.parseInt(components[0]);
+    int number2 = Integer.parseInt(components[2]);
+
+    return number1 + number2;
   }
 
-  public void print(String result) {
+  public void print(int result) {
     System.out.println("결과: " + result);
   }
 }
