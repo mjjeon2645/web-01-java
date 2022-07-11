@@ -18,4 +18,26 @@ public class Transaction {
     return Objects.equals(this.type, otherTransaction.type)
         && this.amount == otherTransaction.amount;
   }
+
+  @Override
+  public int hashCode() {
+    return 0;
+  }
+
+  @Override
+  public String toString() {
+    return "Transaction(" + type + ": " + amount + ")";
+  }
+
+  public String type() {
+    return type;
+  }
+
+  public Integer amount() {
+    return amount;
+  }
+
+  public int process(int amount) {
+    return this.amount;
+  }
 }
