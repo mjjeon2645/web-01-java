@@ -20,4 +20,13 @@ class CalculatorTest {
     assertEquals(7, calculator.process("2 + 5"));
     assertEquals(13, calculator.process("5 + 8"));
   }
+
+  @Test
+  void minus() {
+    Calculator calculator = new Calculator();
+
+    assertEquals(-3, calculator.process("0 - 3"));
+    assertEquals(0, calculator.process("5 - 5"));
+    assertEquals(3, calculator.process("8 - 5"));
+  }
 }
