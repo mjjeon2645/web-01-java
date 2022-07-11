@@ -19,6 +19,4 @@ public class Account {
 
     return transactionResults;
   }
-
-  //TODO. 잔액 관리 필요
 }
