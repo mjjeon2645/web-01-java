@@ -42,9 +42,12 @@ public class MakaoBank {
   }
 
   public List<Transaction> loadTransactions() throws FileNotFoundException {
+    //File path = new File("");
+    //System.out.println(path.getAbsolutePath());
+
     List<Transaction> transactions = new ArrayList<>();
 
-    File file = new File("/Users/inu/web-01-java/week04/MakaoBank/20220711-황인우/input.csv");
+    File file = new File("input.csv");
 
     Scanner scanner = new Scanner(file);
 
