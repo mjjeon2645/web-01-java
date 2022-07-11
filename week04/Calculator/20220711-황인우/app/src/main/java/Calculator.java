@@ -23,7 +23,9 @@ public class Calculator {
   }
 
   public String process(String expression) {
-    return "";
+    String[] components = expression.split(" ");
+
+    return components[0];
   }
 
   public void print(String result) {
