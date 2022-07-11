@@ -28,11 +28,13 @@ public class Calculator {
     int number1 = Integer.parseInt(components[0]);
     int number2 = Integer.parseInt(components[2]);
 
-    if (components[1].equals("+")) {
-      return number1 + number2;
-    }
-
-    return number1 - number2;
+    return switch (components[1]) {
+      case "+" -> number1 + number2;
+      case "-" -> number1 - number2;
+      case "*" -> number1 * number2;
+      case "/" -> number1 / number2;
+      default -> 0;
+    };
   }
 
   public void print(int result) {
