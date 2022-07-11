@@ -34,4 +34,8 @@ public class TransactionResult {
     return this.transaction == otherTransactionResult.transaction
         && this.amount == otherTransactionResult.amount;
   }
+
+  public String toCsvRow() {
+    return String.join(",", values());
+  }
 }

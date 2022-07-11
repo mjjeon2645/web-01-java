@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Account {
   private int amount = 0;
-  // TODO: 잔액 관리 필요
 
   public List<TransactionResult> process(List<Transaction> transactions) {
     List<TransactionResult> transactionResults = new ArrayList<>();
