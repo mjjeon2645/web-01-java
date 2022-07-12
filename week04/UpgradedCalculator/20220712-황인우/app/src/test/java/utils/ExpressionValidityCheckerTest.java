@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionValidityCheckerTest {
   @Test
-  void setWords() {
+  void setAndSplitExpression() {
     ExpressionValidityChecker checker = new ExpressionValidityChecker();
 
     checker.setAndSplitExpression("1234567 + 7654321");

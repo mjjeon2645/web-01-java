@@ -41,7 +41,7 @@ public class ExpressionValidityChecker {
       return false;
     }
 
-    //
+    //words.length가 3인 경우만 수행하고, 1인 경우에는 해당 조건문은 건너뜀
     if (words.length == 3) {
       if (words[2].matches("[0-9]+") == false) {
         return false;
