@@ -11,6 +11,23 @@ public class Transaction {
     this.amount = amount;
   }
 
+  public String type() {
+    return this.type;
+  }
+
+  public Integer amount() {
+    return this.amount;
+  }
+
+  public int process(int amount) {
+    return switch (this.type) {
+      case "잔액" -> this.amount;
+      case "출금" -> amount - this.amount;
+      case "입금" -> amount + this.amount;
+      default -> amount;
+    };
+  }
+
   @Override
   public int hashCode() {
     return 0;

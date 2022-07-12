@@ -17,21 +17,25 @@ class MakaoBankTest {
     assertNotNull(transactions);
 
     List<Transaction> otherTransactions = List.of(
-      new Transaction("잔액, 2000"),
-        잔액,3000
-        입금,500
-        출금,1200
-        입금,700
-        출금,2500
-        입금,100
-
+        new Transaction("잔액", 3000),
+        new Transaction("입금", 500),
+        new Transaction("출금", 1200),
+        new Transaction("입금", 700),
+        new Transaction("출금", 2500),
+        new Transaction("입금", 100)
     );
 
-    assertEquals(otherTransactions, transactions);
+    for (int i = 0; i < transactions.size(); i += 1) {
+      assertEquals(transactions.get(i), otherTransactions.get(i));
+    }
   }
 
   @Test
   void parseTransaction() {
+    MakaoBank application = new MakaoBank();
 
+    Transaction transaction = application.parseTransaction("잔액,30000000");
+
+    assertEquals(new Transaction("잔액", 30000000), transaction);
   }
 }
