@@ -8,7 +8,6 @@ public class Calculator {
     application.run();
   }
 
-
   private void run() {
     while (true) {
       String expression = inputExpression();
@@ -55,4 +54,3 @@ public class Calculator {
     };
   }
 }
-

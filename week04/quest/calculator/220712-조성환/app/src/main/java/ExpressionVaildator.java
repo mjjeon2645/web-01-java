@@ -2,7 +2,6 @@
 //    - 사용자는 단 한 개의 수식 연산만을 할 수 있다. ex) 1 + 1 + 1 (X)
 //    - 사용자는 올바른 연산식을 입력한 경우 계속해서 계산기를 이용할 수 있다.
 //    - 사용자는 올바르지 않은 수식의 경우 수식 오류 메세지를 확인할 수 있다.
-
 public class ExpressionVaildator {
 
   public String exceptionExpression(String expression) {

@@ -47,6 +47,7 @@ class CalculatorTest {
     assertEquals(3, calculator.compute("6 / 2"));
     assertEquals(8, calculator.compute("64 / 8"));
   }
+
   @Test
   void expressionLengthOne() {
     Calculator calculator = new Calculator();
