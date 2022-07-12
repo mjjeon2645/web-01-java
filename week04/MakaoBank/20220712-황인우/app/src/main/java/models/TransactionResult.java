@@ -19,6 +19,10 @@ public class TransactionResult {
     };
   }
 
+  public String getCsvRow() {
+    return String.join(",", this.values());
+  }
+
   @Override
   public int hashCode() {
     return 0;
@@ -36,9 +40,5 @@ public class TransactionResult {
   public String toString() {
     return "(TransactionResult) " + this.transaction.toString() +
         ", " + this.amount;
-  }
-
-  public String getCsvRow() {
-    return String.join(",", this.values());
   }
 }
