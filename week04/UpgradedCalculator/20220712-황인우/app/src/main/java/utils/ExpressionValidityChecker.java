@@ -37,13 +37,13 @@ public class ExpressionValidityChecker {
 
   public boolean checkIllegalWord() {
     //words[0], words[2]에 숫자가 아닌 문자가 있으면 false
-    if (words[0].matches("[0-9]+") == false) {
+    if (words[0].matches("-?[0-9]+") == false) {
       return false;
     }
 
     //words.length가 3인 경우만 수행하고, 1인 경우에는 해당 조건문은 건너뜀
     if (words.length == 3) {
-      if (words[2].matches("[0-9]+") == false) {
+      if (words[2].matches("-?[0-9]+") == false) {
         return false;
       }
 

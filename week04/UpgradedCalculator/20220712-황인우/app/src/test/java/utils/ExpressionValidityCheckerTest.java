@@ -52,6 +52,9 @@ class ExpressionValidityCheckerTest {
     checker.setAndSplitExpression("3 + 2");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
+    checker.setAndSplitExpression("-35435 + 2455");
+    assertTrue(checker.checkIllegalWord(), checker.expression());
+
     checker.setAndSplitExpression("3");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
@@ -68,6 +71,9 @@ class ExpressionValidityCheckerTest {
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
     checker.setAndSplitExpression("+ 1 1");
+    assertFalse(checker.checkIllegalWord(), checker.expression());
+
+    checker.setAndSplitExpression("35435 + 24-55");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
     checker.setAndSplitExpression("1 1 1");
