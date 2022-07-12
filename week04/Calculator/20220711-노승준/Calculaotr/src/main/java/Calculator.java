@@ -1,21 +1,19 @@
 import java.util.Scanner;
 
 public class Calculator {
+  private boolean keepCalculate = true;
+
   public static void main(String[] args) {
     Calculator application = new Calculator();
     application.run();
   }
 
   public void run() {
-    String expression = inputExpression();
+    while (keepCalculate) {
+      String expression = inputExpression();
 
-    int result = compute(expression);
+      String result = compute(expression);
 
-    if (result == 0) {
-      displayWrongResult(expression);
-    }
-
-    if (result != 0) {
       displayResult(result);
     }
   }
@@ -30,20 +28,22 @@ public class Calculator {
     return expression;
   }
 
-  public int compute(String text) {
+  public String compute(String text) {
     String[] words = text.split(" ");
 
     if (words.length != 3) {
-      if(words.length == 1) {
-        if(words[0].matches("[0-9]")){
-          return Integer.parseInt(words[0]);
+      if (words.length == 1) {
+        if (words[0].matches("-?[0-9]")) {
+          return "Result: " + text;
         }
       }
-      return 0;
+      stopCalculate();
+      return displayWrongExpression(text);
     }
 
-    if(!words[0].matches("[0-9]")){
-      return 0;
+    if (!words[0].matches("-?[0-9]")) {
+      stopCalculate();
+      return displayWrongExpression(text);
     }
 
     int x = Integer.parseInt(words[0]);
@@ -54,25 +54,34 @@ public class Calculator {
         operator.equals("-") ||
         operator.equals("*") ||
         operator.equals("/"))) {
-      return 0;
+      stopCalculate();
+      return displayWrongExpression(text);
     }
 
     int y = Integer.parseInt(words[2]);
 
+    return calculate(text, x, operator, y);
+  }
+
+  public void stopCalculate() {
+    keepCalculate = false;
+  }
+
+  public String displayWrongExpression(String text) {
+    return "수식 오류: " + text;
+  }
+
+  public String calculate(String text, int x, String operator, int y) {
     return switch (operator) {
-      case "+" -> x + y;
-      case "-" -> x - y;
-      case "*" -> x * y;
-      case "/" -> x / y;
-      default -> 0;
+      case "+" -> "Result: " + (x + y);
+      case "-" -> "Result: " + (x - y);
+      case "*" -> "Result: " + (x * y);
+      case "/" -> "Result: " + (x / y);
+      default -> displayWrongExpression(text);
     };
   }
 
-  public void displayWrongResult(String expression) {
-    System.out.println("수식 오류: " + expression);
-  }
-
-  public void displayResult(int result) {
-    System.out.println("Result: " + result);
+  public void displayResult(String result) {
+    System.out.println(result);
   }
 }
