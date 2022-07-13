@@ -1,38 +1,39 @@
-import models.Task;
 import models.Tasks;
-import utils.TaskWriter;
+import panels.FormPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
 
 public class TodoList {
-  private Task task;
+  private Tasks tasks;
+
   private JFrame frame;
-  private JPanel formPanel;
+  private JPanel headerPanel;
   private JPanel contentPanel;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     TodoList application = new TodoList();
     application.run();
   }
 
+  public TodoList() throws FileNotFoundException {
+    tasks = new Tasks();
+  }
+
   public void run() {
-    // 가장 최소한의 레이아웃 준비
+    initFrame();
+
+    initHeader();
+
+    initContentPanel();
+  }
+
+  public void initFrame() {
     frame = new JFrame("Todo List");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400, 600);
     frame.setVisible(true);
-
-    // 처리
-    initContentPanel();
-
-    initForm();
   }
 
   public void initContentPanel() {
@@ -41,31 +42,29 @@ public class TodoList {
     frame.setVisible(true);
   }
 
+  public void initHeader() {
+    initHeaderPanel();
+
+    initTitleLabel();
+
+    initForm();
+  }
+
+  public void initHeaderPanel() {
+    headerPanel = new JPanel();
+    headerPanel.setLayout(new BorderLayout());
+    frame.add(headerPanel, BorderLayout.PAGE_START);
+  }
+
+  public void initTitleLabel() {
+    JLabel titleLabel = new JLabel("할 일 목록");
+    titleLabel.setHorizontalAlignment(JLabel.CENTER);
+    headerPanel.add(titleLabel, BorderLayout.PAGE_START);
+  }
+
   public void initForm() {
-    formPanel = new JPanel();
-    frame.add(formPanel, BorderLayout.PAGE_START);
-
-    JTextField textField = new JTextField(10);
-    formPanel.add(textField);
-
-    JButton addButton = new JButton("추가");
-    addButton.addActionListener(event -> {
-      String taskTitle = textField.getText();
-
-      LocalDateTime localDateTime = LocalDateTime.now();
-      String taskCreationTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
-
-      String state = task.STATETYPES[0];
-
-      task = new Task(taskTitle, taskCreationTime, state);
-
-      Tasks tasks = new Tasks();
-      tasks.add(task);
-
-      TasksPanel tasksPanel = new TasksPanel(tasks);
-      showContentPanel(tasksPanel);
-    });
-    formPanel.add(addButton);
+    FormPanel formPanel = new FormPanel(tasks);
+    headerPanel.add(formPanel);
   }
 
   public void showContentPanel(JPanel panel) {

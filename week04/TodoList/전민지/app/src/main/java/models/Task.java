@@ -5,22 +5,32 @@ package models;
 
 public class Task {
   public final static String[] STATETYPES = {"ADDED", "DONE", "DELETED"};
-  private String taskTitle;
   private String creationTime;
+  private String taskTitle;
   private String state;
 
   public Task(String taskTitle, String creationTime, String state) {
-
     this.taskTitle = taskTitle;
     this.creationTime = creationTime;
     this.state = state;
   }
 
-  public String values() {
-    return null;
+  @Override
+  public int hashCode() {
+    return 0;
   }
 
-  public String csvRow() {
-    return null;
+  @Override
+  public boolean equals(Object other) {
+    Task otherTask = (Task) other;
+    return this.taskTitle.equals(otherTask.taskTitle)
+        && this.creationTime.equals(otherTask.creationTime)
+        && this.state.equals(otherTask.state);
+  }
+
+  @Override
+  public String toString() {
+    return "Task(할일제목: " + taskTitle + ", 생성시각: "
+        + creationTime + ", 상태: " + state + ")";
   }
 }

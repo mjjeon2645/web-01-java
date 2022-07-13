@@ -9,9 +9,9 @@ public class TaskWriter {
   public TaskWriter(Task task) throws IOException {
     FileWriter fileWriter = new FileWriter("taskRepository.csv");
 
-    String line = task.csvRow();
+//    String line = task.csvRow();
 
-    fileWriter.write(line);
+//    fileWriter.write(line);
 
     fileWriter.close();
   }
