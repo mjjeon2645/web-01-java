@@ -2,7 +2,6 @@ package repositories;
 
 import models.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository {

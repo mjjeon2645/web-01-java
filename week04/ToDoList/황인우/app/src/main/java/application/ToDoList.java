@@ -5,14 +5,18 @@ import panels.InputPanel;
 import panels.TasksPanel;
 import repositories.TaskRepository;
 import utils.FileReader;
+import utils.FileWriter;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.awt.*;
 
 public class ToDoList {
-  private TaskRepository taskRepository;
+  private final TaskRepository taskRepository;
 
   private JFrame frame;
   private JPanel headerPanel;
@@ -37,6 +41,8 @@ public class ToDoList {
     initFrame();
     initContentPanel();
     initHeaderPanel();
+
+    defineFileWriteOperation();
 
     frame.setVisible(true);
   }
@@ -88,5 +94,20 @@ public class ToDoList {
     JPanel inputPanel = new InputPanel(taskRepository, tasksPanel);
 
     headerPanel.add(inputPanel);
+  }
+
+  public void defineFileWriteOperation() {
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent event) {
+        FileWriter fileWriter = new FileWriter();
+
+        try {
+          fileWriter.writeFile(taskRepository);
+        } catch (IOException exception) {
+          throw new RuntimeException(exception);
+        }
+      }
+    });
   }
 }

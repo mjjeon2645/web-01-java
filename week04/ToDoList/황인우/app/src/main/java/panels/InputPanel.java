@@ -45,6 +45,8 @@ public class InputPanel extends JPanel {
       taskRepository.addTask(task);
 
       tasksPanel.updateTasksPanel();
+
+      textField.setText("");
     });
     this.add(addTaskButton);
   }

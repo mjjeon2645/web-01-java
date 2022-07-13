@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class FileReader {
   public List<Task> readFile() throws FileNotFoundException {
-    File file = new File("input.csv");
+    File file = new File("data.csv");
 
     Scanner scanner = new Scanner(file);
 
