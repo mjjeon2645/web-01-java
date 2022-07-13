@@ -1,7 +1,10 @@
+import models.Tasks;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
 public class TasksPanel extends JPanel {
-  TasksPanel() {
+  public TasksPanel(Tasks tasks) {
+
   }
 }

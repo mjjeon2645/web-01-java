@@ -1,4 +1,5 @@
 import models.Task;
+import models.Tasks;
 import utils.TaskWriter;
 
 import javax.swing.*;
@@ -58,10 +59,10 @@ public class TodoList {
 
       task = new Task(taskTitle, taskCreationTime, state);
 
-      TaskWriter taskWriter = new TaskWriter(task);
+      Tasks tasks = new Tasks();
+      tasks.add(task);
 
-
-      TasksPanel tasksPanel = new TasksPanel();
+      TasksPanel tasksPanel = new TasksPanel(tasks);
       showContentPanel(tasksPanel);
     });
     formPanel.add(addButton);
