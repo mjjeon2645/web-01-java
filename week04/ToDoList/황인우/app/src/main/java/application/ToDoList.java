@@ -11,8 +11,10 @@ public class ToDoList {
   private TaskRepository taskRepository;
 
   private JFrame frame;
+  private JPanel headerPanel;
   private JPanel contentPanel;
-  private InputPanel inputPanel;
+
+  private TasksPanel tasksPanel;
 
   public static void main(String[] args) {
     ToDoList application = new ToDoList();
@@ -25,8 +27,8 @@ public class ToDoList {
 
   public void run() {
     initFrame();
-    initTitle();
     initContentPanel();
+    initHeaderPanel();
 
     frame.setVisible(true);
   }
@@ -38,28 +40,45 @@ public class ToDoList {
     frame.setLocation(100, 70);
   }
 
-  public void initTitle() {
-    JLabel titleLabel = new JLabel("할 일 목록");
-    titleLabel.setHorizontalAlignment(JLabel.CENTER);
-    frame.add(titleLabel, BorderLayout.PAGE_START);
-  }
-
   public void initContentPanel() {
     contentPanel = new JPanel();
     contentPanel.setLayout(new BorderLayout());
     contentPanel.setBackground(Color.PINK);
 
-    inputPanel = new InputPanel(contentPanel, tasksPanel, taskRepository);
-    TasksPanel tasksPanel = new TasksPanel(this, contentPanel, taskRepository);
+    tasksPanel = new TasksPanel(taskRepository, this);
+
+    showContentPanel(tasksPanel);
 
     frame.add(contentPanel);
   }
 
-  public void showContentPanel(JPanel tasksPanel) {
+  public void showContentPanel(JPanel panel) {
     contentPanel.removeAll();
-    inputPanel.initInputPanel();
-    contentPanel.add(tasksPanel);
+    contentPanel.add(panel);
     contentPanel.setVisible(false);
     contentPanel.setVisible(true);
+  }
+
+  public void initHeaderPanel() {
+    headerPanel = new JPanel();
+    headerPanel.setLayout(new BorderLayout());
+
+    initTitleLabel();
+    initInputPanel();
+
+    frame.add(headerPanel, BorderLayout.PAGE_START);
+  }
+
+  public void initTitleLabel() {
+    JLabel titleLabel = new JLabel("할 일 목록");
+    titleLabel.setHorizontalAlignment(JLabel.CENTER);
+
+    headerPanel.add(titleLabel, BorderLayout.PAGE_START);
+  }
+
+  public void initInputPanel() {
+    JPanel inputPanel = new InputPanel(taskRepository, tasksPanel);
+
+    headerPanel.add(inputPanel);
   }
 }

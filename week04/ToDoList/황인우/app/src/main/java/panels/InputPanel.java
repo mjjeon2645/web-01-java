@@ -7,36 +7,45 @@ import javax.swing.*;
 import java.awt.*;
 
 public class InputPanel extends JPanel {
-  private JPanel contentPanel;
-  private TasksPanel tasksPanel;
   private TaskRepository taskRepository;
 
-  public InputPanel(JPanel contentPanel, TasksPanel tasksPanel, TaskRepository taskRepository) {
-    this.contentPanel = contentPanel;
-    this.tasksPanel = tasksPanel;
+  private TasksPanel tasksPanel;
+
+  private JLabel label;
+  private JTextField textField;
+  private JButton addTaskButton;
+
+  public InputPanel(TaskRepository taskRepository, TasksPanel tasksPanel) {
     this.taskRepository = taskRepository;
 
-    initInputPanel();
+    this.tasksPanel = tasksPanel;
+
+    this.setBackground(Color.ORANGE);
+
+    initLabel();
+    initTextField();
+    initAddTaskButton();
   }
 
-  public void initInputPanel() {
-    JPanel inputPanel = new JPanel();
-    inputPanel.setBackground(Color.ORANGE);
+  public void initLabel() {
+    label = new JLabel("할 일: ");
+    this.add(label);
+  }
 
-    JLabel label = new JLabel("할 일: ");
-    inputPanel.add(label);
+  public void initTextField() {
+    textField = new JTextField(10);
+    this.add(textField);
+  }
 
-    JTextField textField = new JTextField(10);
-    inputPanel.add(textField);
-
-    JButton addButton = new JButton("추가");
-    addButton.addActionListener(event -> {
+  public void initAddTaskButton() {
+    addTaskButton = new JButton("추가");
+    addTaskButton.addActionListener(event -> {
       Task task = new Task(textField.getText());
+
       taskRepository.addTask(task);
+
       tasksPanel.updateTasksPanel();
     });
-    inputPanel.add(addButton);
-
-    contentPanel.add(inputPanel, BorderLayout.PAGE_START);
+    this.add(addTaskButton);
   }
 }
