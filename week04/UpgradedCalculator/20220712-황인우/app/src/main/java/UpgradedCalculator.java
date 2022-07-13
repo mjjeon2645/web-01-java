@@ -3,15 +3,11 @@ import utils.ExpressionValidityChecker;
 import java.util.Scanner;
 
 public class UpgradedCalculator {
-  private final ExpressionValidityChecker expressionValidityChecker;
+  private ExpressionValidityChecker expressionValidityChecker;
 
   public static void main(String[] args) {
     UpgradedCalculator application = new UpgradedCalculator();
     application.run();
-  }
-
-  public UpgradedCalculator() {
-    this.expressionValidityChecker = new ExpressionValidityChecker();
   }
 
   public void run() {
@@ -20,18 +16,21 @@ public class UpgradedCalculator {
     do {
       String expression = input();
 
-      isValidExpression
-          = expressionValidityChecker.checkValidity(expression);
-
-      String result = "";
-
-      if (isValidExpression) {
-        result = compute(expression);
-      } else {
-        result = makeErrorMessage(expression);
+      if (expression.equals("end")) {
+        break;
       }
 
-      print(result);
+      expressionValidityChecker = new ExpressionValidityChecker(expression);
+
+      isValidExpression
+          = expressionValidityChecker.checkValidity();
+
+      if (isValidExpression) {
+        compute(expression);
+      }
+      if (!isValidExpression) {
+        makeErrorMessage(expression);
+      }
 
     } while (isValidExpression);
   }
@@ -50,7 +49,8 @@ public class UpgradedCalculator {
     int x = Integer.parseInt(words[0]);
 
     if (words.length == 1) {
-      return makeResultMessage(x);
+      printResult("Result: " + x);
+      return Integer.toString(x);
     }
 
     int y = Integer.parseInt(words[2]);
@@ -64,18 +64,15 @@ public class UpgradedCalculator {
       default -> 0;
     };
 
-    return makeResultMessage(result);
+    printResult("Result: " + result);
+    return Integer.toString(result);
   }
 
-  private String makeResultMessage(int result) {
-    return "Result: " + result;
+  private void makeErrorMessage(String expression) {
+    printResult("수식 오류: " + expression);
   }
 
-  private String makeErrorMessage(String expression) {
-    return "수식 오류: " + expression;
-  }
-
-  public void print(String result) {
+  public void printResult(String result) {
     System.out.println(result);
   }
 }

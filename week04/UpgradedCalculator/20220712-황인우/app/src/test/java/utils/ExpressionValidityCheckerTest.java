@@ -7,82 +7,79 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpressionValidityCheckerTest {
   @Test
   void setAndSplitExpression() {
-    ExpressionValidityChecker checker = new ExpressionValidityChecker();
-
-    checker.setAndSplitExpression("1234567 + 7654321");
+    ExpressionValidityChecker checker
+        = new ExpressionValidityChecker("1234567 + 7654321");
     assertArrayEquals(new String[]{"1234567", "+", "7654321"}, checker.words());
 
-    checker.setAndSplitExpression("3 +");
+    checker = new ExpressionValidityChecker("3 +");
     assertArrayEquals(new String[]{"3", "+"}, checker.words());
   }
 
   @Test
-  void checkNumberOfWords() {
-    ExpressionValidityChecker checker = new ExpressionValidityChecker();
+  void checkNumberOfWordIs1Or3() {
+    ExpressionValidityChecker checker
+        = new ExpressionValidityChecker("3 + 2");
+    assertTrue(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("3 + 2");
-    assertTrue(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("15");
+    assertTrue(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("15");
-    assertTrue(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("*");
+    assertTrue(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("*");
-    assertTrue(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("12+");
+    assertTrue(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("12+");
-    assertTrue(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("1+1");
+    assertTrue(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("1+1");
-    assertTrue(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("1 +");
+    assertFalse(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("1 +");
-    assertFalse(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("1 + 1 + 1");
+    assertFalse(checker.checkNumberOfWordIs1Or3(), checker.expression());
 
-    checker.setAndSplitExpression("1 + 1 + 1");
-    assertFalse(checker.checkNumberOfWords(), checker.expression());
-
-    checker.setAndSplitExpression("123 + 2 *");
-    assertFalse(checker.checkNumberOfWords(), checker.expression());
+    checker = new ExpressionValidityChecker("123 + 2 *");
+    assertFalse(checker.checkNumberOfWordIs1Or3(), checker.expression());
   }
 
   @Test
   void checkIllegalWords() {
-    ExpressionValidityChecker checker = new ExpressionValidityChecker();
-
-    checker.setAndSplitExpression("3 + 2");
+    ExpressionValidityChecker checker
+        = new ExpressionValidityChecker("3 + 2");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("-35435 + 2455");
+    checker = new ExpressionValidityChecker("-35435 + 2455");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("3");
+    checker = new ExpressionValidityChecker("3");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("1634534");
+    checker = new ExpressionValidityChecker("1634534");
     assertTrue(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("*");
+    checker = new ExpressionValidityChecker("*");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("12+");
+    checker = new ExpressionValidityChecker("12+");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("1+1");
+    checker = new ExpressionValidityChecker("1+1");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("+ 1 1");
+    checker = new ExpressionValidityChecker("+ 1 1");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("35435 + 24-55");
+    checker = new ExpressionValidityChecker("35435 + 24-55");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("1 1 1");
+    checker = new ExpressionValidityChecker("1 1 1");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("123 * $");
+    checker = new ExpressionValidityChecker("123 * $");
     assertFalse(checker.checkIllegalWord(), checker.expression());
 
-    checker.setAndSplitExpression("123 ( 4");
+    checker = new ExpressionValidityChecker("123 ( 4");
     assertFalse(checker.checkIllegalWord(), checker.expression());
   }
 }

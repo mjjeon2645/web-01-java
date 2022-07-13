@@ -1,8 +1,14 @@
 package utils;
 
 public class ExpressionValidityChecker {
-  private String expression;
-  private String[] words;
+  private final String expression;
+  private final String[] words;
+
+  public ExpressionValidityChecker(String expression) {
+    this.expression = expression;
+
+    this.words = expression.split(" ");
+  }
 
   public String expression() {
     return this.expression;
@@ -12,15 +18,8 @@ public class ExpressionValidityChecker {
     return this.words;
   }
 
-  public void setAndSplitExpression(String expression) {
-    this.expression = expression;
-    this.words = expression.split(" ");
-  }
-
-  public boolean checkValidity(String expression) {
-    setAndSplitExpression(expression);
-
-    if (checkNumberOfWords() == false) {
+  public boolean checkValidity() {
+    if (checkNumberOfWordIs1Or3() == false) {
       return false;
     }
 
@@ -31,25 +30,51 @@ public class ExpressionValidityChecker {
     return true;
   }
 
-  public boolean checkNumberOfWords() {
+  public boolean checkNumberOfWordIs1Or3() {
     return words.length == 1 || words.length == 3;
   }
 
   public boolean checkIllegalWord() {
     //words[0], words[2]에 숫자가 아닌 문자가 있으면 false
-    if (words[0].matches("-?[0-9]+") == false) {
+    if (checkNumberWord(words[0]) == false) {
       return false;
     }
 
     //words.length가 3인 경우만 수행하고, 1인 경우에는 해당 조건문은 건너뜀
     if (words.length == 3) {
-      if (words[2].matches("-?[0-9]+") == false) {
+      if (checkNumberWord(words[2]) == false) {
         return false;
       }
 
       //words[1]에 사칙연산자가 아닌 문자가 있으면 false
-      if ((words[1].equals("+") || words[1].equals("-") ||
-          words[1].equals("*") || words[1].equals("/")) == false) {
+      if (checkOperator(words[1]) == false) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private boolean checkOperator(String word) {
+    return word.equals("+")
+        || word.equals("-")
+        || word.equals("*")
+        || word.equals("/");
+  }
+
+  public boolean checkNumberWord(String word) {
+    //System.out.println("word: " + word);
+
+    for (int i = 0; i < word.length(); i += 1) {
+      char letter = word.charAt(i);
+
+      //System.out.println("i: " + i + ", letter: " + letter);
+
+      if (i == 0 && !(letter == '-' || (letter >= '0' && letter <= '9'))) {
+        return false;
+      }
+
+      if (i >= 1 && !(letter >= '0' && letter <= '9')) {
         return false;
       }
     }
