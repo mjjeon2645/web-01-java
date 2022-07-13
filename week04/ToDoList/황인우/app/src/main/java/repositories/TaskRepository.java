@@ -8,8 +8,8 @@ import java.util.List;
 public class TaskRepository {
   private List<Task> tasks;
 
-  public TaskRepository() {
-    tasks = new ArrayList<>();
+  public TaskRepository(List<Task> tasks) {
+    this.tasks = tasks;
   }
 
   public List<Task> getTasks() {

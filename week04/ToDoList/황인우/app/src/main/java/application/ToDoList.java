@@ -1,10 +1,14 @@
 package application;
 
+import models.Task;
 import panels.InputPanel;
 import panels.TasksPanel;
 import repositories.TaskRepository;
+import utils.FileReader;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.util.List;
 import java.awt.*;
 
 public class ToDoList {
@@ -16,13 +20,17 @@ public class ToDoList {
 
   private TasksPanel tasksPanel;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     ToDoList application = new ToDoList();
     application.run();
   }
 
-  public ToDoList() {
-    taskRepository = new TaskRepository();
+  public ToDoList() throws FileNotFoundException {
+    FileReader fileReader = new FileReader();
+
+    List<Task> tasks = fileReader.readFile();
+
+    taskRepository = new TaskRepository(tasks);
   }
 
   public void run() {
@@ -36,7 +44,7 @@ public class ToDoList {
   public void initFrame() {
     frame = new JFrame("Todo List");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(350, 700);
+    frame.setSize(300, 700);
     frame.setLocation(100, 70);
   }
 
