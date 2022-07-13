@@ -13,30 +13,27 @@ public class ExpressionVerifier {
   public String exceptionHandling(String text) {
     splitWords(text);
 
-    if (!words[0].matches("-?[0-9]{1,5}")) {
+    if (!isMatchesFirstWordNumber()) {
       stopCalculate();
       return displayWrongExpression(text);
     }
 
-    if (words.length != 3) {
-      if (words.length == 1) {
+    if (isNotWordsLengthThree()) {
+      if (isaWordsLengthOne()) {
         return words[0];
       }
       stopCalculate();
       return displayWrongExpression(text);
     }
 
-    if (!words[2].matches("-?[0-9]{1,5}")) {
+    if (!isMatchesLastWordNumber()) {
       stopCalculate();
       return displayWrongExpression(text);
     }
 
     String operator = words[1];
 
-    if (!(operator.equals("+") ||
-        operator.equals("-") ||
-        operator.equals("*") ||
-        operator.equals("/"))) {
+    if (!isRightOperator(operator)) {
       stopCalculate();
       return displayWrongExpression(text);
     }
@@ -46,6 +43,29 @@ public class ExpressionVerifier {
 
   public void splitWords(String text) {
     this.words = text.split(" ");
+  }
+
+  public boolean isMatchesFirstWordNumber() {
+    return words[0].matches("-?[0-9]+");
+  }
+
+  public boolean isMatchesLastWordNumber() {
+    return words[2].matches("-?[0-9]+");
+  }
+
+  public boolean isNotWordsLengthThree() {
+    return words.length != 3;
+  }
+
+  public boolean isaWordsLengthOne() {
+    return words.length == 1;
+  }
+
+  public boolean isRightOperator(String operator) {
+    return operator.equals("+") ||
+        operator.equals("-") ||
+        operator.equals("*") ||
+        operator.equals("/");
   }
 
   public void stopCalculate() {

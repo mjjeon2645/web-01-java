@@ -30,6 +30,62 @@ class ExpressionVerifierTest {
   }
 
   @Test
+  void isFirstWordNumber() {
+    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
+
+    expressionVerifier.splitWords("1 + 1");
+    assertTrue(expressionVerifier.isMatchesFirstWordNumber());
+
+    expressionVerifier.splitWords("% + 1");
+    assertFalse(expressionVerifier.isMatchesFirstWordNumber());
+  }
+
+  @Test
+  void isLastWordNumber() {
+    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
+
+    expressionVerifier.splitWords("1 + 1");
+    assertTrue(expressionVerifier.isMatchesLastWordNumber());
+
+    expressionVerifier.splitWords("1 + %");
+    assertFalse(expressionVerifier.isMatchesLastWordNumber());
+  }
+
+  @Test
+  void isNotWordsLengthThree() {
+    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
+
+    expressionVerifier.splitWords("1");
+    assertTrue(expressionVerifier.isNotWordsLengthThree());
+
+    expressionVerifier.splitWords("1 + 1");
+    assertFalse(expressionVerifier.isNotWordsLengthThree());
+  }
+
+  @Test
+  void isWordsLengthOne() {
+    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
+
+    expressionVerifier.splitWords("1");
+    assertTrue(expressionVerifier.isaWordsLengthOne());
+
+    expressionVerifier.splitWords("1 + 1");
+    assertFalse(expressionVerifier.isaWordsLengthOne());
+  }
+
+  @Test
+  void isRightOperator() {
+    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
+
+    assertTrue(expressionVerifier.isRightOperator("+"));
+    assertTrue(expressionVerifier.isRightOperator("-"));
+    assertTrue(expressionVerifier.isRightOperator("*"));
+    assertTrue(expressionVerifier.isRightOperator("/"));
+    assertFalse(expressionVerifier.isRightOperator("&"));
+    assertFalse(expressionVerifier.isRightOperator("("));
+  }
+
+  @Test
   void isKeepCalculate() {
     ExpressionVerifier expressionVerifier = new ExpressionVerifier();
 

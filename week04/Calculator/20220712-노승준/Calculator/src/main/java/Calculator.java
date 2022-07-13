@@ -16,7 +16,7 @@ public class Calculator {
     while (expressionVerifier.isKeepCalculate()) {
       String expression = inputExpression();
 
-      if(expression.equals("end")) {
+      if (expression.equals("end")) {
         break;
       }
 
