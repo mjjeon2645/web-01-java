@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExceptionCalculateTest {
   @Test
   void inputWrongExpression() {
-    ExceptionCalculate exceptionCalculate = new ExceptionCalculate();
+    ExpressionVerifier exceptionCalculate = new ExpressionVerifier();
 
     assertEquals("수식 오류: 1 +", exceptionCalculate.exceptionHandling("1 +"));
     assertEquals("수식 오류: 1+1", exceptionCalculate.exceptionHandling("1+1"));

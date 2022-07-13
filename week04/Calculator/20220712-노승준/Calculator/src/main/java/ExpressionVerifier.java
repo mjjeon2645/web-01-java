@@ -1,4 +1,4 @@
-public class ExceptionCalculate {
+public class ExpressionVerifier {
   public boolean keepCalculate = true;
   private String[] words;
 
@@ -9,6 +9,11 @@ public class ExceptionCalculate {
   public String exceptionHandling(String text) {
     splitWords(text);
 
+    if (!words[0].matches("-?[0-9]{1,5}")) {
+      stopCalculate();
+      return displayWrongExpression(text);
+    }
+
     if (words.length != 3) {
       if (words.length == 1) {
         return words[0];
@@ -17,7 +22,7 @@ public class ExceptionCalculate {
       return displayWrongExpression(text);
     }
 
-    if (!words[0].matches("-?[0-9]{1,5}")) {
+    if (!words[2].matches("-?[0-9]{1,5}")) {
       stopCalculate();
       return displayWrongExpression(text);
     }

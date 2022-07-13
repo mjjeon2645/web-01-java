@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Calculator {
-  private ExceptionCalculate exceptionCalculate;
+  private ExpressionVerifier expressionVerifier;
 
   public static void main(String[] args) {
     Calculator application = new Calculator();
@@ -9,12 +9,19 @@ public class Calculator {
   }
 
   public Calculator() {
-    exceptionCalculate = new ExceptionCalculate();
+    expressionVerifier = new ExpressionVerifier();
   }
 
   public void run() {
-    while (exceptionCalculate.isKeepCalculate()) {
+    while (expressionVerifier.isKeepCalculate()) {
       String expression = inputExpression();
+
+      String exception = expressionVerifier.exceptionHandling(expression);
+
+      if (exception.startsWith("수")) {
+        displayResult(exception);
+        break;
+      }
 
       String result = compute(expression);
 
@@ -34,12 +41,6 @@ public class Calculator {
 
   public String compute(String text) {
     String[] words = text.split(" ");
-
-    String exception = exceptionCalculate.exceptionHandling(text);
-
-    if (exception.startsWith("수")) {
-      return exception;
-    }
 
     int x = Integer.parseInt(words[0]);
 
