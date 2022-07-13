@@ -16,8 +16,11 @@ public class Calculator {
     while (expressionVerifier.isKeepCalculate()) {
       String expression = inputExpression();
 
-      String exception = expressionVerifier.exceptionHandling(expression);
+      if(expression.equals("end")) {
+        break;
+      }
 
+      String exception = expressionVerifier.exceptionHandling(expression);
       if (exception.startsWith("수")) {
         displayResult(exception);
         break;

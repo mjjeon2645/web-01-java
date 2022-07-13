@@ -6,6 +6,10 @@ public class ExpressionVerifier {
     return this.keepCalculate;
   }
 
+  public String[] words() {
+    return words;
+  }
+
   public String exceptionHandling(String text) {
     splitWords(text);
 
