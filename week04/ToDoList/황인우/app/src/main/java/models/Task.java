@@ -21,15 +21,15 @@ public class Task {
     return this.status;
   }
 
-  public void setStatusToDo() {
+  public void changeStatusToDo() {
     this.status = TO_DO;
   }
 
-  public void setStatusDone() {
+  public void changeStatusDone() {
     this.status = DONE;
   }
 
-  public void setStatusDeleted() {
+  public void delete() {
     this.status = DELETED;
   }
 }

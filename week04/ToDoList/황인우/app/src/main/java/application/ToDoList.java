@@ -3,7 +3,6 @@ package application;
 import models.Task;
 import panels.InputPanel;
 import panels.TasksPanel;
-import repositories.TaskRepository;
 import utils.FileReader;
 import utils.FileWriter;
 
@@ -16,7 +15,7 @@ import java.util.List;
 import java.awt.*;
 
 public class ToDoList {
-  private final TaskRepository taskRepository;
+  private final List<Task> tasks;
 
   private JFrame frame;
   private JPanel headerPanel;
@@ -32,9 +31,7 @@ public class ToDoList {
   public ToDoList() throws FileNotFoundException {
     FileReader fileReader = new FileReader();
 
-    List<Task> tasks = fileReader.readFile();
-
-    taskRepository = new TaskRepository(tasks);
+    tasks = fileReader.readFile();
   }
 
   public void run() {
@@ -42,14 +39,26 @@ public class ToDoList {
     initContentPanel();
     initHeaderPanel();
 
-    defineFileWriteOperation();
-
     frame.setVisible(true);
   }
 
   public void initFrame() {
     frame = new JFrame("Todo List");
+
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent event) {
+        FileWriter fileWriter = new FileWriter();
+
+        try {
+          fileWriter.writeFile(tasks);
+        } catch (IOException exception) {
+          throw new RuntimeException(exception);
+        }
+      }
+    });
+
     frame.setSize(300, 700);
     frame.setLocation(100, 70);
   }
@@ -59,9 +68,7 @@ public class ToDoList {
     contentPanel.setLayout(new BorderLayout());
     contentPanel.setBackground(Color.PINK);
 
-    tasksPanel = new TasksPanel(taskRepository, this);
-
-    showContentPanel(tasksPanel);
+    tasksPanel = new TasksPanel(tasks, this);
 
     frame.add(contentPanel);
   }
@@ -91,23 +98,8 @@ public class ToDoList {
   }
 
   public void initInputPanel() {
-    JPanel inputPanel = new InputPanel(taskRepository, tasksPanel);
+    JPanel inputPanel = new InputPanel(tasks, tasksPanel);
 
     headerPanel.add(inputPanel);
-  }
-
-  public void defineFileWriteOperation() {
-    frame.addWindowListener(new WindowAdapter() {
-      @Override
-      public void windowClosing(WindowEvent event) {
-        FileWriter fileWriter = new FileWriter();
-
-        try {
-          fileWriter.writeFile(taskRepository);
-        } catch (IOException exception) {
-          throw new RuntimeException(exception);
-        }
-      }
-    });
   }
 }

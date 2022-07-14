@@ -1,13 +1,13 @@
 package panels;
 
 import models.Task;
-import repositories.TaskRepository;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class InputPanel extends JPanel {
-  private TaskRepository taskRepository;
+  private final List<Task> tasks;
 
   private TasksPanel tasksPanel;
 
@@ -15,8 +15,8 @@ public class InputPanel extends JPanel {
   private JTextField textField;
   private JButton addTaskButton;
 
-  public InputPanel(TaskRepository taskRepository, TasksPanel tasksPanel) {
-    this.taskRepository = taskRepository;
+  public InputPanel(List<Task> tasks, TasksPanel tasksPanel) {
+    this.tasks = tasks;
 
     this.tasksPanel = tasksPanel;
 
@@ -42,7 +42,7 @@ public class InputPanel extends JPanel {
     addTaskButton.addActionListener(event -> {
       Task task = new Task(textField.getText());
 
-      taskRepository.addTask(task);
+      tasks.add(task);
 
       tasksPanel.updateTasksPanel();
 

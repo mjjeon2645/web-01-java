@@ -27,9 +27,9 @@ public class FileReader {
       Task task = new Task(text);
 
       switch (status) {
-        case Task.TO_DO -> task.setStatusToDo();
-        case Task.DONE -> task.setStatusDone();
-        case Task.DELETED -> task.setStatusDeleted();
+        case Task.TO_DO -> task.changeStatusToDo();
+        case Task.DONE -> task.changeStatusDone();
+        case Task.DELETED -> task.delete();
       }
 
       lists.add(task);

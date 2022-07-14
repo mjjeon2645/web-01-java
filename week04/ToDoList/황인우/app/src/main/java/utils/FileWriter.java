@@ -1,15 +1,15 @@
 package utils;
 
 import models.Task;
-import repositories.TaskRepository;
 
 import java.io.IOException;
+import java.util.List;
 
 public class FileWriter {
-  public void writeFile(TaskRepository taskRepository) throws IOException {
+  public void writeFile(List<Task> tasks) throws IOException {
     java.io.FileWriter fileWriter = new java.io.FileWriter("data.csv");
 
-    for (Task task : taskRepository.getTasks()) {
+    for (Task task : tasks) {
       String line = task.text() + "," + task.status() + "\n";
 
       fileWriter.write(line);

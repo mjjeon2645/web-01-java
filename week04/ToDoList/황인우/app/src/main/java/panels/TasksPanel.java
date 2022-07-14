@@ -2,18 +2,18 @@ package panels;
 
 import application.ToDoList;
 import models.Task;
-import repositories.TaskRepository;
 
 import javax.swing.*;
+import java.util.List;
 import java.awt.*;
 
 public class TasksPanel extends JPanel {
-  private final TaskRepository taskRepository;
+  private final List<Task> tasks;
 
   private ToDoList toDoListFrame;
 
-  public TasksPanel(TaskRepository taskRepository, ToDoList toDoListFrame) {
-    this.taskRepository = taskRepository;
+  public TasksPanel(List<Task> tasks, ToDoList toDoListFrame) {
+    this.tasks = tasks;
 
     this.toDoListFrame = toDoListFrame;
 
@@ -25,7 +25,7 @@ public class TasksPanel extends JPanel {
   public void updateTasksPanel() {
     this.removeAll();
 
-    for (Task task : taskRepository.getTasks()) {
+    for (Task task : tasks) {
       if (!task.status().equals(Task.DELETED)) {
         JPanel taskPanel = createTaskPanel(task);
 
@@ -56,10 +56,10 @@ public class TasksPanel extends JPanel {
 
     statusCheckBox.addActionListener(event -> {
       if (checked) {
-        task.setStatusToDo();
+        task.changeStatusToDo();
       }
       if (!checked) {
-        task.setStatusDone();
+        task.changeStatusDone();
       }
 
       updateTasksPanel();
@@ -72,7 +72,7 @@ public class TasksPanel extends JPanel {
     JButton deleteButton = new JButton("X");
 
     deleteButton.addActionListener(event -> {
-      task.setStatusDeleted();
+      task.delete();
 
       updateTasksPanel();
     });
