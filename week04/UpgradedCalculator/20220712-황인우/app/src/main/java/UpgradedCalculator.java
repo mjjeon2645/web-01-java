@@ -1,41 +1,44 @@
-import utils.ExpressionValidityChecker;
+import utils.ExpressionChecker;
 
 import java.util.Scanner;
 
 public class UpgradedCalculator {
-  private ExpressionValidityChecker expressionValidityChecker;
+  private final ExpressionChecker expressionChecker;
 
   public static void main(String[] args) {
     UpgradedCalculator application = new UpgradedCalculator();
     application.run();
   }
 
+  public UpgradedCalculator() {
+    expressionChecker = new ExpressionChecker();
+  }
+
   public void run() {
     boolean isValidExpression = true;
 
     do {
-      String expression = input();
+      String expression = inputExpression();
 
       if (expression.equals("end")) {
         break;
       }
 
-      expressionValidityChecker = new ExpressionValidityChecker(expression);
-
-      isValidExpression
-          = expressionValidityChecker.checkValidity();
+      isValidExpression = expressionChecker.checkValidity(expression);
 
       if (isValidExpression) {
-        compute(expression);
+        String result = compute(expression);
+
+        displayMessage("Result: " + result);
       }
       if (!isValidExpression) {
-        makeErrorMessage(expression);
+        displayMessage("수식 오류: " + expression);
       }
 
     } while (isValidExpression);
   }
 
-  public String input() {
+  public String inputExpression() {
     Scanner scanner = new Scanner(System.in);
 
     System.out.print("Input expression: ");
@@ -49,7 +52,6 @@ public class UpgradedCalculator {
     int x = Integer.parseInt(words[0]);
 
     if (words.length == 1) {
-      printResult("Result: " + x);
       return Integer.toString(x);
     }
 
@@ -64,15 +66,10 @@ public class UpgradedCalculator {
       default -> 0;
     };
 
-    printResult("Result: " + result);
     return Integer.toString(result);
   }
 
-  private void makeErrorMessage(String expression) {
-    printResult("수식 오류: " + expression);
-  }
-
-  public void printResult(String result) {
-    System.out.println(result);
+  private void displayMessage(String message) {
+    System.out.println(message);
   }
 }
