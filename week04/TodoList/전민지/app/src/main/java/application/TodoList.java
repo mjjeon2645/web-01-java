@@ -1,5 +1,8 @@
+package application;
+
 import models.Tasks;
 import panels.FormPanel;
+import panels.TasksPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +14,7 @@ public class TodoList {
   private JFrame frame;
   private JPanel headerPanel;
   private JPanel contentPanel;
+  private TasksPanel tasksPanel;
 
   public static void main(String[] args) throws FileNotFoundException {
     TodoList application = new TodoList();
@@ -24,9 +28,14 @@ public class TodoList {
   public void run() {
     initFrame();
 
+    tasksPanel = new TasksPanel(tasks, this);
+
     initHeader();
 
     initContentPanel();
+
+
+    contentPanel.add(tasksPanel);
   }
 
   public void initFrame() {
@@ -63,7 +72,7 @@ public class TodoList {
   }
 
   public void initForm() {
-    FormPanel formPanel = new FormPanel(tasks);
+    FormPanel formPanel = new FormPanel(tasks, tasksPanel);
     headerPanel.add(formPanel);
   }
 

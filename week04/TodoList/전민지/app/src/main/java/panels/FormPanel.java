@@ -10,8 +10,11 @@ import java.time.format.DateTimeFormatter;
 public class FormPanel extends JPanel {
   private Task task;
   private JTextField textField;
+  private TasksPanel tasksPanel;
 
-  public FormPanel(Tasks tasks) {
+  public FormPanel(Tasks tasks, TasksPanel tasksPanel) {
+    this.tasksPanel = tasksPanel;
+
     initSubtitleLabel();
 
     initTextField();
@@ -42,6 +45,8 @@ public class FormPanel extends JPanel {
       task = new Task(taskTitle, taskCreationTime, state);
 
       tasks.add(task);
+
+      tasksPanel.updateTasksPanel(tasks);
     });
 
     this.add(addButton);

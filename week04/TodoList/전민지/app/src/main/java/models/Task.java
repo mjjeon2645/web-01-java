@@ -1,13 +1,22 @@
 package models;
 
-// TODO. task에 대한 정의
-// TODO. task의 상태값 바꿔주기?
-
 public class Task {
   public final static String[] STATETYPES = {"ADDED", "DONE", "DELETED"};
   private String creationTime;
   private String taskTitle;
   private String state;
+
+  public String creationTime() {
+    return creationTime;
+  }
+
+  public String taskTitle() {
+    return taskTitle;
+  }
+
+  public String state() {
+    return state;
+  }
 
   public Task(String taskTitle, String creationTime, String state) {
     this.taskTitle = taskTitle;
@@ -32,5 +41,9 @@ public class Task {
   public String toString() {
     return "Task(할일제목: " + taskTitle + ", 생성시각: "
         + creationTime + ", 상태: " + state + ")";
+  }
+
+  public void setStateDeleted() {
+    this.state = "DELETED";
   }
 }
