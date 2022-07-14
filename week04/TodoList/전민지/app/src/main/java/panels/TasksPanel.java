@@ -15,7 +15,7 @@ public class TasksPanel extends JPanel {
   public TasksPanel(Tasks tasks, TodoList todoList) {
     this.todoListFrame = todoList;
     this.tasks = tasks;
-    this.setLayout(new GridLayout(5, 1));
+    this.setLayout(new GridLayout(0, 1));
 
     for (Task task : tasks.getTasks()) {
       initTask(task);
@@ -36,7 +36,7 @@ public class TasksPanel extends JPanel {
     if (!task.state().equals("DELETED")) {
       initTaskPanel();
 
-      initCheckBox();
+      initCheckBox(task);
 
       taskTitleLabel(task);
 
@@ -49,8 +49,11 @@ public class TasksPanel extends JPanel {
     this.add(taskPanel);
   }
 
-  public void initCheckBox() {
+  public void initCheckBox(Task task) {
     JCheckBox checkBox = new JCheckBox();
+    checkBox.addActionListener(event -> {
+      //TODO. 액션 리스너 구현 필요 -> 체크박스는 on, state는 done으로 세팅
+    });
     taskPanel.add(checkBox);
   }
 
@@ -63,7 +66,6 @@ public class TasksPanel extends JPanel {
     JButton deleteButton = new JButton("X");
     deleteButton.addActionListener(event -> {
       task.setStateDeleted();
-
       updateTasksPanel(tasks);
     });
     taskPanel.add(deleteButton);

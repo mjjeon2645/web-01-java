@@ -37,6 +37,8 @@ public class FormPanel extends JPanel {
     addButton.addActionListener(event -> {
       String taskTitle = textField.getText();
 
+      textField.setText("");
+
       LocalDateTime localDateTime = LocalDateTime.now();
       String taskCreationTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 

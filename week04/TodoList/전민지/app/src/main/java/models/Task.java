@@ -6,12 +6,12 @@ public class Task {
   private String taskTitle;
   private String state;
 
-  public String creationTime() {
-    return creationTime;
-  }
-
   public String taskTitle() {
     return taskTitle;
+  }
+
+  public String creationTime() {
+    return creationTime;
   }
 
   public String state() {
@@ -53,5 +53,9 @@ public class Task {
 
   public void setStateDeleted() {
     this.state = "DELETED";
+  }
+
+  public String toCsvRow() {
+    return taskTitle + "," + creationTime + ","+ state;
   }
 }

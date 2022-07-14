@@ -1,17 +1,20 @@
 package utils;
 
 import models.Task;
+import models.Tasks;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskWriter {
-  public TaskWriter(Task task) throws IOException {
+
+  public TaskWriter(Tasks tasks) throws IOException {
     FileWriter fileWriter = new FileWriter("tasks.csv");
 
-//    String line = task.csvRow();
-
-//    fileWriter.write(line);
+    for (Task task : tasks.getTasks()) {
+      String line = task.toCsvRow();
+      fileWriter.write(line + "\n");
+    }
 
     fileWriter.close();
   }

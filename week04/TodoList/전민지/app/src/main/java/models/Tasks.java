@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Tasks {
-
   private final List<Task> tasks;
 
   public Tasks() throws FileNotFoundException {

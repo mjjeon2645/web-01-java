@@ -3,10 +3,14 @@ package application;
 import models.Tasks;
 import panels.FormPanel;
 import panels.TasksPanel;
+import utils.TaskWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TodoList {
   private Tasks tasks;
@@ -35,6 +39,8 @@ public class TodoList {
     initContentPanel();
 
     contentPanel.add(tasksPanel);
+
+    saveTasks();
   }
 
   public void initFrame() {
@@ -83,5 +89,18 @@ public class TodoList {
     panel.setVisible(true);
 
     frame.setVisible(true);
+  }
+
+  public void saveTasks() {
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        try {
+          TaskWriter taskWriter = new TaskWriter(tasks);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
   }
 }
