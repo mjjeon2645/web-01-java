@@ -1,5 +1,7 @@
 package panels;
+
 import models.Task;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -17,7 +19,7 @@ public class FormPanel extends JPanel {
 
     JButton registerButton = new JButton("추가");
     registerButton.addActionListener(event -> {
-      tasks.add(new Task(textField.getText()));
+      tasks.add(new Task(textField.getText(), Task.PROGRESS));
       tasksPanel.updateTasksPanel();
       textField.setText("");
     });

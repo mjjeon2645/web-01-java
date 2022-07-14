@@ -6,13 +6,12 @@ import java.util.List;
 
 public class TasksWriter {
   public TasksWriter(List<Task> tasks) throws IOException {
-    FileWriter fileWriter = new FileWriter("output.csv");
+    FileWriter fileWriter = new FileWriter("tasks.csv");
 
     for(Task task : tasks){
-
       String line = task.toCsvRow();
-
       fileWriter.write(line + "\n");
     }
+    fileWriter.close();
   }
 }

@@ -8,9 +8,9 @@ public class Task {
   public static final String DELETE = "DELETE";
   public static final String PROGRESS = "PROGRESS";
 
-  public Task(String text) {
+  public Task(String text, String state) {
     this.text = text;
-    this.state = PROGRESS;
+    this.state = state;
   }
 
   public String task() {

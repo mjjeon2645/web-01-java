@@ -51,7 +51,6 @@ public class TodoList {
     JLabel titleLabel = new JLabel("할 일 목록");
     titlePanel.add(titleLabel, BorderLayout.PAGE_START);
     frame.add(titlePanel, BorderLayout.PAGE_START);
-    titlePanel.setBackground(Color.blue);
   }
 
   private void initMainPanel() {
@@ -64,8 +63,6 @@ public class TodoList {
     mainPanel.add(formPanel, BorderLayout.PAGE_START);
     mainPanel.add(tasksPanel);
     frame.add(mainPanel);
-    tasksPanel.setBackground(Color.cyan);
-    mainPanel.setBackground(Color.green);
   }
 
   private void saveTask() {

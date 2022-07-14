@@ -35,10 +35,17 @@ public class TasksPanel extends JPanel {
   }
 
   public JCheckBox createCheckBox(Task task) {
-    checkBox = new JCheckBox();
+    String state = task.state();
+    boolean checked = state.equals(Task.COMPLETE);
 
+    checkBox = new JCheckBox("", checked);
     checkBox.addActionListener(event -> {
-      task.setComplete();
+      if(!checked){
+        task.setComplete();
+      }
+      if(checked){
+        task.setProgress();
+      }
     });
     return checkBox;
   }
