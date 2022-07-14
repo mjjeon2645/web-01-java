@@ -43,15 +43,15 @@ public class Task {
         + creationTime + ", 상태: " + state + ")";
   }
 
-  public void setStateAdded() {
+  public void stateAdded() {
     this.state = "ADDED";
   }
 
-  public void setStateDone() {
+  public void stateDone() {
     this.state = "DONE";
   }
 
-  public void setStateDeleted() {
+  public void stateDeleted() {
     this.state = "DELETED";
   }
 

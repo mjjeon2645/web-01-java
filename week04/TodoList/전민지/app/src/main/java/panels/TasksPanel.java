@@ -51,8 +51,19 @@ public class TasksPanel extends JPanel {
 
   public void initCheckBox(Task task) {
     JCheckBox checkBox = new JCheckBox();
+
+    if (task.state().equals("DONE")) {
+      checkBox.setSelected(true);
+    }
+
     checkBox.addActionListener(event -> {
-      //TODO. 액션 리스너 구현 필요 -> 체크박스는 on, state는 done으로 세팅
+      if (checkBox.isSelected()) {
+        task.stateDone();
+      }
+
+      if (!checkBox.isSelected()) {
+        task.stateAdded();
+      }
     });
     taskPanel.add(checkBox);
   }
@@ -65,7 +76,7 @@ public class TasksPanel extends JPanel {
   private void initDeleteButton(Task task) {
     JButton deleteButton = new JButton("X");
     deleteButton.addActionListener(event -> {
-      task.setStateDeleted();
+      task.stateDeleted();
       updateTasksPanel(tasks);
     });
     taskPanel.add(deleteButton);
