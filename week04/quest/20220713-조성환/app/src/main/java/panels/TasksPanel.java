@@ -11,17 +11,18 @@ import java.util.List;
 public class TasksPanel extends JPanel {
   private final List<Task> tasks;
   private JPanel panel;
+  private JCheckBox checkBox;
 
   public TasksPanel(List<Task> tasks) {
     this.tasks = tasks;
 
-    this.setLayout(new GridLayout());
+    this.setLayout(new GridLayout(tasks.size(), 1));
 
     createTasksList();
   }
 
   public void createTasksList() {
-    for(Task task : tasks){
+    for (Task task : tasks) {
       panel = new JPanel();
 
       panel.add(createCheckBox(task));
@@ -32,7 +33,7 @@ public class TasksPanel extends JPanel {
   }
 
   public JCheckBox createCheckBox(Task task) {
-    JCheckBox checkBox = new JCheckBox();
+    checkBox = new JCheckBox();
 
     checkBox.addActionListener(event -> {
       // 버튼을 누르면 식별자가 바뀌어야함 성공상태
@@ -44,8 +45,11 @@ public class TasksPanel extends JPanel {
     JLabel taskLabel = new JLabel(task.task());
 
     taskLabel.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent event){
-        // 테스크의 식별자 값이 바뀌어야함  checkbox와 마찬가지
+      public void mouseClicked(MouseEvent event) {
+        if (checkBox.isSelected()) {
+          checkBox.setSelected(false);
+          return;
+        }
       }
     });
     return taskLabel;
@@ -55,11 +59,12 @@ public class TasksPanel extends JPanel {
     JButton deleteButton = new JButton("X");
 
     deleteButton.addActionListener(event -> {
-        updateTasksPanel();
+      updateTasksPanel();
     });
 
     return deleteButton;
   }
+
   public void updateTasksPanel() {
     this.removeAll();
     this.createTasksList();

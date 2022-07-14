@@ -1,7 +1,5 @@
 package panels;
-
 import models.Task;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;

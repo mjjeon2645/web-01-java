@@ -3,7 +3,6 @@
 import models.Task;
 import panels.FormPanel;
 import panels.TasksPanel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class TodoList {
 
   public TodoList() {
     // todolist를 실행하면 csv파일에 저장되 있던 내용을 load한 뒤에 tasksPanel에
-    // 출력해 줘야함
+    // 출력해 줘야함 근데 버튼이랑 체크박스도 같이 추가가 되야하네?..
     tasks = new ArrayList<>();
   }
 
@@ -63,7 +62,5 @@ public class TodoList {
     frame.add(mainPanel);
     tasksPanel.setBackground(Color.cyan);
     mainPanel.setBackground(Color.green);
-
   }
-
 }
