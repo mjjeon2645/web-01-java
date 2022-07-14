@@ -14,7 +14,7 @@ public class ExpressionValidator {
     }
 
     String operator = words[1];
-    if (!rightOperator(operator)) {
+    if (!isOperator(operator)) {
       return false;
     }
 
@@ -35,7 +35,7 @@ public class ExpressionValidator {
     return true;
   }
 
-  public boolean rightOperator(String character) {
+  public boolean isOperator(String character) {
     String[] operators = {"+", "-", "*", "/"};
     for (String operator : operators) {
       if (operator.equals(character)) {

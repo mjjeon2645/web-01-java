@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionValidatorTest {
   @Test
-  void wrongExpressionCheck() {
+  void wrongExpression() {
 
     ExpressionValidator expressionValidator = new ExpressionValidator();
 
@@ -22,7 +22,7 @@ class ExpressionValidatorTest {
   }
 
   @Test
-  void rightExpressionCheck() {
+  void rightExpression() {
     ExpressionValidator expressionValidator = new ExpressionValidator();
 
     assertTrue(expressionValidator.process("1 + 1"));
@@ -45,5 +45,20 @@ class ExpressionValidatorTest {
     assertFalse(expressionValidator.isNumber("*&"));
     assertFalse(expressionValidator.isNumber("129 "));
     assertFalse(expressionValidator.isNumber("1 29"));
+  }
+
+  @Test
+  void isOperator() {
+    ExpressionValidator expressionValidator = new ExpressionValidator();
+
+    assertTrue(expressionValidator.isOperator("+"));
+    assertTrue(expressionValidator.isOperator("-"));
+    assertTrue(expressionValidator.isOperator("*"));
+    assertTrue(expressionValidator.isOperator("/"));
+
+    assertFalse(expressionValidator.isOperator("$"));
+    assertFalse(expressionValidator.isOperator("#@"));
+    assertFalse(expressionValidator.isOperator(" "));
+    assertFalse(expressionValidator.isOperator("*)"));
   }
 }
