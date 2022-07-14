@@ -35,8 +35,13 @@ public class ExpressionValidator {
     return true;
   }
 
-  public boolean rightOperator(String operator) {
-    return operator.equals("+") || operator.equals("-") ||
-        operator.equals("*") || operator.equals("/");
+  public boolean rightOperator(String character) {
+    String[] operators = {"+", "-", "*", "/"};
+    for (String operator : operators) {
+      if (operator.equals(character)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

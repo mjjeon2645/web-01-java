@@ -32,4 +32,18 @@ class ExpressionValidatorTest {
     assertTrue(expressionValidator.process("1 / 1"));
     assertTrue(expressionValidator.process("123 + 2"));
   }
+
+  @Test
+  void isNumber() {
+    ExpressionValidator expressionValidator = new ExpressionValidator();
+
+    assertTrue(expressionValidator.isNumber("35"));
+    assertTrue(expressionValidator.isNumber("122309"));
+    assertTrue(expressionValidator.isNumber("1"));
+
+    assertFalse(expressionValidator.isNumber("12*&5"));
+    assertFalse(expressionValidator.isNumber("*&"));
+    assertFalse(expressionValidator.isNumber("129 "));
+    assertFalse(expressionValidator.isNumber("1 29"));
+  }
 }
