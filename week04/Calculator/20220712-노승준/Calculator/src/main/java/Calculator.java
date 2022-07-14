@@ -13,16 +13,19 @@ public class Calculator {
   }
 
   public void run() {
-    while (expressionVerifier.isKeepCalculate()) {
+    boolean isRightExpression = true;
+
+    while (isRightExpression) {
       String expression = inputExpression();
 
       if (expression.equals("end")) {
         break;
       }
 
-      String exception = expressionVerifier.exceptionHandling(expression);
-      if (exception.startsWith("수")) {
-        displayResult(exception);
+      isRightExpression = expressionVerifier.handleException(expression);
+
+      if(!isRightExpression) {
+        displayWrongExpression(expression);
         break;
       }
 
@@ -62,6 +65,10 @@ public class Calculator {
       case "/" -> "Result: " + (x / y);
       default -> "0";
     };
+  }
+
+  public void displayWrongExpression(String result) {
+    System.out.println("수식 오류: " + result);
   }
 
   public void displayResult(String result) {

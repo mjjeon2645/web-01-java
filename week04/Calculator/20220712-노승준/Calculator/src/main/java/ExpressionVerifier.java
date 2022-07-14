@@ -1,44 +1,34 @@
 public class ExpressionVerifier {
-  public boolean keepCalculate = true;
   private String[] words;
 
-  public boolean isKeepCalculate() {
-    return this.keepCalculate;
-  }
-
-  public String[] words() {
-    return words;
-  }
-
-  public String exceptionHandling(String text) {
+  public boolean handleException(String text) {
     splitWords(text);
 
     if (!isMatchesFirstWordNumber()) {
-      stopCalculate();
-      return displayWrongExpression(text);
+      return false;
     }
 
-    if (isNotWordsLengthThree()) {
-      if (isaWordsLengthOne()) {
-        return words[0];
+    if (words.length != 3) {
+      if (words.length == 1) {
+        if (!isMatchesFirstWordNumber()) {
+          return false;
+        }
+        return true;
       }
-      stopCalculate();
-      return displayWrongExpression(text);
+      return false;
     }
 
     if (!isMatchesLastWordNumber()) {
-      stopCalculate();
-      return displayWrongExpression(text);
+      return false;
     }
 
     String operator = words[1];
 
     if (!isRightOperator(operator)) {
-      stopCalculate();
-      return displayWrongExpression(text);
+      return false;
     }
 
-    return "Result: " + text;
+    return true;
   }
 
   public void splitWords(String text) {
@@ -53,26 +43,13 @@ public class ExpressionVerifier {
     return words[2].matches("-?[0-9]+");
   }
 
-  public boolean isNotWordsLengthThree() {
-    return words.length != 3;
-  }
-
-  public boolean isaWordsLengthOne() {
-    return words.length == 1;
-  }
-
-  public boolean isRightOperator(String operator) {
-    return operator.equals("+") ||
-        operator.equals("-") ||
-        operator.equals("*") ||
-        operator.equals("/");
-  }
-
-  public void stopCalculate() {
-    this.keepCalculate = false;
-  }
-
-  public String displayWrongExpression(String text) {
-    return "수식 오류: " + text;
+  public boolean isRightOperator(String symbol) {
+    String[] operators = new String[]{"+", "-", "*", "/"};
+    for(String operator : operators) {
+      if(symbol.equals(operator)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
