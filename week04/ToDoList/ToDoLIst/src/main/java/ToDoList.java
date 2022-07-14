@@ -1,40 +1,47 @@
 import models.Task;
-import repositories.TaskRepository;
+import panels.TasksPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileWriter;
-import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class ToDoList {
+  private List<Task> tasks;
+
   private JFrame mainFrame;
   private JPanel titlePanel;
   private JPanel contentPanel;
 
   private JLabel titleLabel;
 
-  private TaskRepository taskRepository;
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     ToDoList application = new ToDoList();
     application.run();
   }
 
-  public ToDoList() {
-    this.taskRepository = new TaskRepository();
+  public ToDoList() throws FileNotFoundException {
+    TaskLoad taskLoad = new TaskLoad();
+
+    tasks = taskLoad.loadTask();
   }
 
-  public void run() {
+  public void run() throws IOException {
     initFrame();
     initTitlePanel();
     initContentPanel();
+
+    fileWriter();
 
     mainFrame.setVisible(true);
   }
 
   public void initFrame() {
     mainFrame = new JFrame("Todo List");
-    mainFrame.setSize(300,500);
+    mainFrame.setSize(300, 500);
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
@@ -61,9 +68,10 @@ public class ToDoList {
     JButton addButton = new JButton("추가");
     addButton.addActionListener(event -> {
       String todo = inputTodoTextField.getText();
-      taskRepository.addTask(new Task(todo));
+      tasks.add(new Task(todo));
       inputTodoTextField.setText("");
-      TasksPanel tasksPanel = new TasksPanel(new Task(todo), taskRepository);
+
+      TasksPanel tasksPanel = new TasksPanel(tasks);
 
       showContentPanel(tasksPanel);
     });
@@ -82,5 +90,20 @@ public class ToDoList {
   public void initContentPanel() {
     contentPanel = new JPanel();
     mainFrame.add(contentPanel);
+  }
+
+  public void fileWriter() throws IOException {
+    mainFrame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent event) {
+        TaskWriter taskWriter = new TaskWriter();
+
+        try {
+          taskWriter.writeTask(tasks);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+    });
   }
 }
