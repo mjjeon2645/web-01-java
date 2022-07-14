@@ -1,27 +1,31 @@
-// 파일에서 할 일 목록을 보여 줘야 함
 import models.Task;
 import panels.FormPanel;
 import panels.TasksPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodoList {
   private final List<Task> tasks;
+  private final TasksLoader fileloader;
+
   private JFrame frame;
   private JPanel mainPanel;
   private TasksPanel tasksPanel;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     TodoList application = new TodoList();
     application.run();
   }
 
-  public TodoList() {
-    // todolist를 실행하면 csv파일에 저장되 있던 내용을 load한 뒤에 tasksPanel에
-    // 출력해 줘야함 근데 버튼이랑 체크박스도 같이 추가가 되야하네?..
+  public TodoList() throws FileNotFoundException {
     tasks = new ArrayList<>();
+    fileloader = new TasksLoader(tasks);
   }
 
   private void run() {
@@ -31,8 +35,9 @@ public class TodoList {
 
     initMainPanel();
 
-    frame.setVisible(true);
+    saveTask();
 
+    frame.setVisible(true);
   }
 
   private void createFrame() {
@@ -61,5 +66,18 @@ public class TodoList {
     frame.add(mainPanel);
     tasksPanel.setBackground(Color.cyan);
     mainPanel.setBackground(Color.green);
+  }
+
+  private void saveTask() {
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        try {
+          TasksWriter tasksWriter = new TasksWriter(tasks);
+        } catch (IOException ex) {
+          throw new RuntimeException(ex);
+        }
+      }
+    });
   }
 }

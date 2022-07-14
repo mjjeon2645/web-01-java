@@ -1,5 +1,7 @@
 package panels;
+
 import models.Task;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -21,12 +23,14 @@ public class TasksPanel extends JPanel {
 
   public void createTasksList() {
     for (Task task : tasks) {
-      panel = new JPanel();
+      if (!task.state().equals(Task.DELETE)) {
+        panel = new JPanel();
 
-      panel.add(createCheckBox(task));
-      panel.add(createTaskLabel(task));
-      panel.add(createDeleteButton(task));
-      this.add(panel);
+        panel.add(createCheckBox(task));
+        panel.add(createTaskLabel(task));
+        panel.add(createDeleteButton(task));
+        this.add(panel);
+      }
     }
   }
 
@@ -34,7 +38,7 @@ public class TasksPanel extends JPanel {
     checkBox = new JCheckBox();
 
     checkBox.addActionListener(event -> {
-      // 버튼을 누르면 식별자가 바뀌어야함 성공상태
+      task.setComplete();
     });
     return checkBox;
   }
@@ -44,10 +48,12 @@ public class TasksPanel extends JPanel {
 
     taskLabel.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent event) {
+        task.setComplete();
         if (checkBox.isSelected()) {
           checkBox.setSelected(false);
           return;
         }
+        checkBox.setSelected(true);
       }
     });
     return taskLabel;
@@ -57,6 +63,7 @@ public class TasksPanel extends JPanel {
     JButton deleteButton = new JButton("X");
 
     deleteButton.addActionListener(event -> {
+      task.setDelete();
       updateTasksPanel();
     });
 
