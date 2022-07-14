@@ -17,7 +17,7 @@ public class Tasks {
   public List<Task> loadTasks() throws FileNotFoundException {
     List<Task> tasks = new ArrayList<>();
 
-    File file = new File("taskRepository.csv");
+    File file = new File("tasks.csv");
 
     Scanner scanner = new Scanner(file);
 

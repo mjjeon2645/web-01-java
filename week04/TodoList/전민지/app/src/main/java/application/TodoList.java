@@ -34,7 +34,6 @@ public class TodoList {
 
     initContentPanel();
 
-
     contentPanel.add(tasksPanel);
   }
 

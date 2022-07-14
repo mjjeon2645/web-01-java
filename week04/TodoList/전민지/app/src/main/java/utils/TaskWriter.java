@@ -7,11 +7,11 @@ import java.io.IOException;
 
 public class TaskWriter {
   public TaskWriter(Task task) throws IOException {
-    FileWriter fileWriter = new FileWriter("taskRepository.csv");
+    FileWriter fileWriter = new FileWriter("tasks.csv");
 
-    String line = task.csvRow();
+//    String line = task.csvRow();
 
-    fileWriter.write(line);
+//    fileWriter.write(line);
 
     fileWriter.close();
   }

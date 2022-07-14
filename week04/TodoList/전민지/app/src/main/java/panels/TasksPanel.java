@@ -32,7 +32,6 @@ public class TasksPanel extends JPanel {
     todoListFrame.showContentPanel(this);
   }
 
-
   public void initTask(Task task) {
     if (!task.state().equals("DELETED")) {
       initTaskPanel();

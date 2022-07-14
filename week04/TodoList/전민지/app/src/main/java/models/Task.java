@@ -1,7 +1,7 @@
 package models;
 
 public class Task {
-  public final static String[] STATETYPES = {"ADDED", "DONE", "DELETED"};
+  public final static String[] STATE_TYPES = {"ADDED", "DONE", "DELETED"};
   private String creationTime;
   private String taskTitle;
   private String state;
@@ -41,6 +41,14 @@ public class Task {
   public String toString() {
     return "Task(할일제목: " + taskTitle + ", 생성시각: "
         + creationTime + ", 상태: " + state + ")";
+  }
+
+  public void setStateAdded() {
+    this.state = "ADDED";
+  }
+
+  public void setStateDone() {
+    this.state = "DONE";
   }
 
   public void setStateDeleted() {

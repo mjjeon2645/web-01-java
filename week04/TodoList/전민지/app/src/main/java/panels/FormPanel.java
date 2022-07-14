@@ -40,7 +40,7 @@ public class FormPanel extends JPanel {
       LocalDateTime localDateTime = LocalDateTime.now();
       String taskCreationTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 
-      String state = task.STATETYPES[0];
+      String state = "ADDED";
 
       task = new Task(taskTitle, taskCreationTime, state);
 
