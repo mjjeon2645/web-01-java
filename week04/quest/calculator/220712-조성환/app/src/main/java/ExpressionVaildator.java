@@ -3,33 +3,43 @@
 //    - 사용자는 올바른 연산식을 입력한 경우 계속해서 계산기를 이용할 수 있다.
 //    - 사용자는 올바르지 않은 수식의 경우 수식 오류 메세지를 확인할 수 있다.
 public class ExpressionVaildator {
-
-  public String exceptionExpression(String expression) {
+  public boolean expressionCheck(String expression) {
     String[] words = expression.split(" ");
 
-
     if (words.length > 3 || words.length == 2) {
-      return "수식 오류: " + expression;
+      return false;
     }
+
+    String x = words[0];
     if (words.length == 1) {
-      if ((words[0].matches("-?[0-9]{1,5}"))) {
-        return "Result: " + expression;
-      }
-    }
-    if (!(words[0].matches("-?[0-9]{1,5}"))) {
-      return "수식 오류: " + expression;
-    }
-    if (!(words[2].matches("-?[0-9]{1,5}"))) {
-      return "수식 오류: " + expression;
+      return isNumber(x);
     }
     String operator = words[1];
+    if (!operatorCheck(operator)) {
+      return false;
+    }
+    String y = words[2];
+    boolean checkword1 = isNumber(x);
+    boolean checkword2 = isNumber(y);
 
-    if (!(operator.equals("+") ||
+    return checkword1 && checkword2;
+  }
+
+  public boolean operatorCheck(String operator) {
+    return operator.equals("+") ||
         operator.equals("-") ||
         operator.equals("*") ||
-        operator.equals("/"))) {
-      return "수식 오류: " + expression;
+        operator.equals("/");
+
+  }
+
+  public boolean isNumber(String text) {
+    for (int i = 0; i < text.length(); i += 1) {
+      boolean isNumber = Character.isDigit(text.charAt(i));
+      if (!isNumber) {
+        return false;
+      }
     }
-    return "";
+    return true;
   }
 }

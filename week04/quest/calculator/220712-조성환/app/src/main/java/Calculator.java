@@ -1,26 +1,32 @@
 import java.util.Scanner;
 
 public class Calculator {
-
-
   public static void main(String[] args) {
     Calculator application = new Calculator();
     application.run();
   }
 
   private void run() {
-    while (true) {
+    boolean isVaildExpression = true;
+
+    while (isVaildExpression) {
       String expression = inputExpression();
 
-      ExpressionVaildator expressionVaildation = new ExpressionVaildator();
-
-      if (expressionVaildation.exceptionExpression(expression).contains("수식 오류")) {
-        System.out.println(expressionVaildation.exceptionExpression(expression));
+      if (expression.equals("end")) {
         break;
       }
-      int result = compute(expression);
 
-      System.out.println("Result: " + result);
+      ExpressionVaildator expressionVaildator = new ExpressionVaildator();
+
+      isVaildExpression = expressionVaildator.expressionCheck(expression);
+
+      if(isVaildExpression){
+        int result = compute(expression);
+        System.out.println("Result: " + result);
+      }
+      if(!isVaildExpression){
+        System.out.println("수식 오류: " + expression);
+      }
     }
   }
 
@@ -29,8 +35,7 @@ public class Calculator {
 
     System.out.println("Input expression: ");
 
-    String expression = scanner.nextLine();
-    return expression;
+    return scanner.nextLine();
   }
 
   public int compute(String expression) {

@@ -4,13 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExpressionVaildationTest {
   @Test
+  void isNumber() {
+    ExpressionVaildator expressionVaildator = new ExpressionVaildator();
+
+    assertFalse(expressionVaildator.isNumber("+_"));
+    assertFalse(expressionVaildator.isNumber("+++"));
+    assertFalse(expressionVaildator.isNumber("_)+"));
+  }
+
+  @Test
   void expressionLengthUnder3() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertEquals("수식 오류: 1 +", expressionVaildation.exceptionExpression("1 +"));
-    assertEquals("수식 오류: 1+1", expressionVaildation.exceptionExpression("1+1"));
-    assertEquals("수식 오류: *", expressionVaildation.exceptionExpression("*"));
-    assertEquals("수식 오류: 12+", expressionVaildation.exceptionExpression("12+"));
+    assertFalse(expressionVaildation.expressionCheck("1 +"));
+    assertFalse(expressionVaildation.expressionCheck("1+1"));
+    assertFalse(expressionVaildation.expressionCheck("*"));
+    assertFalse(expressionVaildation.expressionCheck("12+"));
 
   }
 
@@ -18,19 +27,18 @@ class ExpressionVaildationTest {
   void operatorError() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertEquals("수식 오류: + 1 1", expressionVaildation.exceptionExpression("+ 1 1"));
-    assertEquals("수식 오류: 1 1 1", expressionVaildation.exceptionExpression("1 1 1"));
-    assertEquals("수식 오류: 123 + 2 *", expressionVaildation.exceptionExpression("123 + 2 *"));
+    assertFalse(expressionVaildation.expressionCheck("+ 1 1"));
+    assertFalse(expressionVaildation.expressionCheck("1 1 1"));
+    assertFalse(expressionVaildation.expressionCheck("123 + 2 *"));
   }
-
   @Test
   void inputNumberError() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertEquals("수식 오류: 123 + 2 *", expressionVaildation.exceptionExpression("123 + 2 *"));
-    assertEquals("수식 오류: 123 * $", expressionVaildation.exceptionExpression("123 * $"));
-    assertEquals("수식 오류: # * $", expressionVaildation.exceptionExpression("# * $"));
-    assertEquals("수식 오류: 43 + @", expressionVaildation.exceptionExpression("43 + @"));
-    assertEquals("수식 오류: 1 + 1 + 1", expressionVaildation.exceptionExpression("1 + 1 + 1"));
+    assertFalse(expressionVaildation.expressionCheck("123 + 2 *"));
+    assertFalse(expressionVaildation.expressionCheck("123 * $"));
+    assertFalse(expressionVaildation.expressionCheck("# * $"));
+    assertFalse(expressionVaildation.expressionCheck("43 + @"));
+    assertFalse(expressionVaildation.expressionCheck("1 + 1 + 1"));
   }
 }
