@@ -4,25 +4,37 @@ import models.Account;
 import panels.AmountPanel;
 import panels.TransactionsPanel;
 import panels.TransferPanel;
+import utils.FileReader;
+import utils.FileWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MakaoBank {
+  private final FileReader fileReader;
+  private final FileWriter fileWriter;
+
   private final Account myAccount;
   private final Account otherAccount;
 
   private JFrame frame;
   private JPanel contentPanel;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws FileNotFoundException {
     MakaoBank application = new MakaoBank();
     application.run();
   }
 
-  public MakaoBank() {
-    myAccount = new Account("352-0528-2645-53", 10000);
-    otherAccount = new Account("179-20-155318", 5000);
+  public MakaoBank() throws FileNotFoundException {
+    fileReader = new FileReader();
+    fileWriter = new FileWriter();
+
+    myAccount = fileReader.loadAccount("myAccount.csv");
+    otherAccount = fileReader.loadAccount("otherAccount.csv");
   }
 
   public void run() {
@@ -30,6 +42,18 @@ public class MakaoBank {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(500, 500);
     frame.setLocation(100, 70);
+
+    frame.addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent event) {
+        try {
+          fileWriter.saveAccount(myAccount, "myAccount.csv");
+          fileWriter.saveAccount(otherAccount, "otherAccount.csv");
+        } catch (IOException exception) {
+          throw new RuntimeException(exception);
+        }
+      }
+    });
     
     initMenu();
     initContentPanel();

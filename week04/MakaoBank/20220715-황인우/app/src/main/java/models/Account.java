@@ -8,10 +8,10 @@ public class Account {
   private long amount;
   private final List<String> transactions;
 
-  public Account(String identifier, long amount) {
+  public Account(String identifier, long amount, List<String> transactions) {
     this.identifier = identifier;
     this.amount = amount;
-    this.transactions = new ArrayList<>();
+    this.transactions = transactions;
   }
 
   public String identifier() {
