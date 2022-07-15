@@ -33,15 +33,15 @@ public class Account {
     this.myAmount -= amount;
     this.otherAmount += amount;
 
-    myTransactions.add("출금 :" + amount);
-    otherTransactions.add("입금 :" + amount);
+    myTransactions.add("출금 :" + amount + "원");
+    otherTransactions.add("입금 :" + amount + "원");
   }
 
   public void otherTransfer(int amount) {
     this.otherAmount -= amount;
     this.myAmount += amount;
 
-    myTransactions.add("입금 :" + amount);
-    otherTransactions.add("출금 :" + amount);
+    myTransactions.add("입금 :" + amount + "원");
+    otherTransactions.add("출금 :" + amount + "원");
   }
 }

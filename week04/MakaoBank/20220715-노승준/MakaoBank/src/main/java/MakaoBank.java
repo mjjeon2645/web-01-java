@@ -106,7 +106,7 @@ public class MakaoBank {
         MyTransactionWriter transactionWriter = new MyTransactionWriter();
 
         try {
-          transactionWriter.writeTransaction(account.myTransactions);
+          transactionWriter.writeTransaction(account ,account.myTransactions);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
@@ -118,10 +118,13 @@ public class MakaoBank {
     frame.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent event) {
-        OtherTransactionWriter otherTransactionWriter = new OtherTransactionWriter();
+        OtherTransactionWriter otherTransactionWriter =
+            new OtherTransactionWriter();
 
         try {
-          otherTransactionWriter.writeTransaction(account.otherTransactions);
+          otherTransactionWriter.writeTransaction(
+              account,
+              account.otherTransactions);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }

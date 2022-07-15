@@ -30,8 +30,8 @@ public class TransactionPanel extends JPanel {
   }
 
   public void myTransaction() {
-    myTransactionPanel.add(new JLabel("계좌번호: " + account.myAccountNumber()));
-    myTransactionPanel.add(new JLabel("잔액: " + account.myAmount()));
+    myTransactionPanel.add(new JLabel("계좌번호: " +
+        account.myAccountNumber()));
 
     for (String myTransaction : account.myTransactions) {
       JLabel myTransactionLabel = new JLabel(myTransaction);
@@ -46,9 +46,8 @@ public class TransactionPanel extends JPanel {
   }
 
   public void otherTransaction() {
-    otherTransactionPanel.add(new JLabel("계좌번호: " + account.otherAccountNumber()));
-    otherTransactionPanel.add(new JLabel("잔액: " + account.otherAmount()));
-
+    otherTransactionPanel.add(new JLabel("계좌번호: " +
+        account.otherAccountNumber()));
 
     for (String otherTransaction : account.otherTransactions) {
       JLabel otherTransactionLabel = new JLabel(otherTransaction);
