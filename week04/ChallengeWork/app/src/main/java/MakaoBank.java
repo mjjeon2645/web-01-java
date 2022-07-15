@@ -14,7 +14,7 @@ public class MakaoBank {
   private final Account myAccount;
   private final Account otherAccount;
   private final MyTransactionFileLoader myTransactionFileLoader;
-  private final OtherTransactionFileLoader otherTranasctionFileLoader;
+  private final OtherTransactionFileLoader otherTransactionFileLoader;
 
   private JFrame frame;
   private JPanel contentPanel;
@@ -25,10 +25,13 @@ public class MakaoBank {
   }
 
   public MakaoBank() throws FileNotFoundException {
-    myAccount = new Account("123-456", 3000);
-    otherAccount = new Account("345-678", 1000);
-    myTransactionFileLoader = new MyTransactionFileLoader(myAccount.transactions());
-    otherTranasctionFileLoader = new OtherTransactionFileLoader(otherAccount.transactions());
+    myTransactionFileLoader = new MyTransactionFileLoader();
+    otherTransactionFileLoader = new OtherTransactionFileLoader();
+
+    myAccount = myTransactionFileLoader.loadAccount();
+    otherAccount = otherTransactionFileLoader.loadAccount();
+    //myTransactionFileLoader = new MyTransactionFileLoader(myAccount.transactions());
+    //otherTranasctionFileLoader = new OtherTransactionFileLoader(otherAccount.transactions());
   }
 
   private void run() {
@@ -102,7 +105,7 @@ public class MakaoBank {
       public void windowClosing(WindowEvent e) {
         try {
           MyTransactionFileWriter myTransactionFileWriter =
-              new MyTransactionFileWriter(myAccount.transactions());
+              new MyTransactionFileWriter(myAccount);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
@@ -116,7 +119,7 @@ public class MakaoBank {
       public void windowClosing(WindowEvent e) {
         try {
           otherTransactionFileWriter otherTransactionFileWriter =
-              new otherTransactionFileWriter(otherAccount.transactions());
+              new otherTransactionFileWriter(otherAccount);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }

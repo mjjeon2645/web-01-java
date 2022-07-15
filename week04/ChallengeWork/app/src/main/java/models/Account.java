@@ -1,16 +1,16 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
   private final String identifier;
+  private final List<String> transactions;
   private int amount;
-  private List<String> transactions = new ArrayList<>();
 
-  public Account(String identifier, int amount) {
+  public Account(String identifier, int amount, List<String> transactions) {
     this.identifier = identifier;
     this.amount = amount;
+    this.transactions = transactions;
   }
 
   public String identifier() {
@@ -25,7 +25,7 @@ public class Account {
     return transactions.size();
   }
   public List<String> transactions() {
-    return new ArrayList<>(transactions);
+    return transactions;
   }
 
   public void transfer(Account myAccount, Account otherAccount,

@@ -1,18 +1,30 @@
+import models.Account;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class OtherTransactionFileLoader {
-  public OtherTransactionFileLoader(List<String> otherTransactions) throws FileNotFoundException {
+
+  public Account loadAccount() throws FileNotFoundException {
+    String identifer = "345-678";
+    int amount = 0;
+    List<String> transactions = new ArrayList<>();
+
     File file = new File("otherAccount.csv");
 
     Scanner scanner = new Scanner(file);
 
-    while (scanner.hasNextLine()) {
+    while(scanner.hasNextLine()){
       String line = scanner.nextLine();
+      String[] words = line.split(",");
 
-      otherTransactions.add(line);
+      amount = Integer.parseInt(words[1]);
+
+      transactions.add(line);
     }
+    return new Account(identifer,amount,transactions);
   }
 }

@@ -22,7 +22,6 @@ public class AmountPanel extends JPanel {
   private void showMyAccountPanel() {
     JPanel myAccountpanel = new JPanel();
     this.add(myAccountpanel);
-
     myAccountpanel.setLayout(new GridLayout(2, 1));
 
     myAccountpanel.add(new JLabel("계좌 번호: " + myAccount.identifier()));
@@ -32,7 +31,6 @@ public class AmountPanel extends JPanel {
   private void showOtherAccountPanel() {
     JPanel otherAccountPanel = new JPanel();
     this.add(otherAccountPanel);
-
     otherAccountPanel.setLayout(new GridLayout(2, 1));
 
     otherAccountPanel.add(new JLabel("계좌 번호: " + otherAccount.identifier()));
