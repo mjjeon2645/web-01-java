@@ -1,7 +1,7 @@
 package models;
 
 public class Task {
-  public static final String TO_DO = "TO_DO";
+  public static final String PROCESSING = "PROCESSING";
   public static final String DONE = "DONE";
   public static final String DELETED = "DELETED";
 
@@ -10,7 +10,7 @@ public class Task {
 
   public Task(String text) {
     this.text = text;
-    this.status = TO_DO;
+    this.status = PROCESSING;
   }
 
   public String text() {
@@ -21,11 +21,11 @@ public class Task {
     return this.status;
   }
 
-  public void changeStatusToDo() {
-    this.status = TO_DO;
+  public void processing() {
+    this.status = PROCESSING;
   }
 
-  public void changeStatusDone() {
+  public void done() {
     this.status = DONE;
   }
 

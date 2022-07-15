@@ -56,10 +56,10 @@ public class TasksPanel extends JPanel {
 
     statusCheckBox.addActionListener(event -> {
       if (checked) {
-        task.changeStatusToDo();
+        task.processing();
       }
       if (!checked) {
-        task.changeStatusDone();
+        task.done();
       }
 
       updateTasksPanel();

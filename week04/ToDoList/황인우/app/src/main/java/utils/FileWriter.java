@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class FileWriter {
-  public void writeFile(List<Task> tasks) throws IOException {
+  public void saveTasks(List<Task> tasks) throws IOException {
     java.io.FileWriter fileWriter = new java.io.FileWriter("data.csv");
 
     for (Task task : tasks) {

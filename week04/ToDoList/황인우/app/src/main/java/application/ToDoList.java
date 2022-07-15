@@ -31,7 +31,7 @@ public class ToDoList {
   public ToDoList() throws FileNotFoundException {
     FileReader fileReader = new FileReader();
 
-    tasks = fileReader.readFile();
+    tasks = fileReader.loadTasks();
   }
 
   public void run() {
@@ -52,14 +52,14 @@ public class ToDoList {
         FileWriter fileWriter = new FileWriter();
 
         try {
-          fileWriter.writeFile(tasks);
+          fileWriter.saveTasks(tasks);
         } catch (IOException exception) {
           throw new RuntimeException(exception);
         }
       }
     });
 
-    frame.setSize(300, 700);
+    frame.setSize(350, 700);
     frame.setLocation(100, 70);
   }
 
@@ -84,20 +84,20 @@ public class ToDoList {
     headerPanel = new JPanel();
     headerPanel.setLayout(new BorderLayout());
 
-    initTitleLabel();
-    initInputPanel();
+    createTitleLabel();
+    createInputPanel();
 
     frame.add(headerPanel, BorderLayout.PAGE_START);
   }
 
-  public void initTitleLabel() {
+  public void createTitleLabel() {
     JLabel titleLabel = new JLabel("할 일 목록");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
     headerPanel.add(titleLabel, BorderLayout.PAGE_START);
   }
 
-  public void initInputPanel() {
+  public void createInputPanel() {
     JPanel inputPanel = new InputPanel(tasks, tasksPanel);
 
     headerPanel.add(inputPanel);

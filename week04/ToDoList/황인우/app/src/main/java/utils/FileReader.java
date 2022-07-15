@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
-  public List<Task> readFile() throws FileNotFoundException {
+  public List<Task> loadTasks() throws FileNotFoundException {
     File file = new File("data.csv");
 
     Scanner scanner = new Scanner(file);
@@ -27,8 +27,8 @@ public class FileReader {
       Task task = new Task(text);
 
       switch (status) {
-        case Task.TO_DO -> task.changeStatusToDo();
-        case Task.DONE -> task.changeStatusDone();
+        case Task.PROCESSING -> task.processing();
+        case Task.DONE -> task.done();
         case Task.DELETED -> task.delete();
       }
 
