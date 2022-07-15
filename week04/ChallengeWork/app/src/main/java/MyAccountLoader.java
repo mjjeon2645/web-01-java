@@ -6,23 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class OtherTransactionFileLoader {
-
+public class MyAccountLoader {
   public Account loadAccount() throws FileNotFoundException {
-    String identifer = "345-678";
+    String identifer = "123-456";
     int amount = 0;
     List<String> transactions = new ArrayList<>();
 
-    File file = new File("otherAccount.csv");
+    File file = new File("myAccount.csv");
 
     Scanner scanner = new Scanner(file);
 
     while(scanner.hasNextLine()){
       String line = scanner.nextLine();
-      String[] words = line.split(",");
+      String[] words = line.split(":");
 
-      amount = Integer.parseInt(words[1]);
-
+      if(line.contains("잔액")) {
+        amount = Integer.parseInt(words[1]);
+        continue;
+      }
       transactions.add(line);
     }
     return new Account(identifer,amount,transactions);

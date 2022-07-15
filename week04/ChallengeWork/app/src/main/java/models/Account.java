@@ -34,16 +34,16 @@ public class Account {
       myAccount.amount -= sendAmount;
       otherAccount.amount += sendAmount;
 
-      myAccount.transactions.add("송금: " + sendAmount + "원");
-      otherAccount.transactions.add("입금: " + sendAmount + "원");
+      myAccount.transactions.add("송금:" + sendAmount);
+      otherAccount.transactions.add("입금:" + sendAmount);
     }
 
     if (identifier.equals(myAccount.identifier)){
       otherAccount.amount -= sendAmount;
       myAccount.amount += sendAmount;
 
-      myAccount.transactions.add("입금: " + sendAmount + "원");
-      otherAccount.transactions.add("송금: " + sendAmount + "원");
+      myAccount.transactions.add("입금:" + sendAmount);
+      otherAccount.transactions.add("송금:" + sendAmount);
     }
   }
 }

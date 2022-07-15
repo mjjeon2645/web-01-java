@@ -4,18 +4,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class otherTransactionFileWriter {
+public class OtherAccountWriter {
 
-  public otherTransactionFileWriter(Account otherAccount) throws IOException {
-    FileWriter fileWriter = new FileWriter("otherAccount");
+  public OtherAccountWriter(Account otherAccount) throws IOException {
+    FileWriter fileWriter = new FileWriter("otherAccount.csv");
 
     int amount = otherAccount.amount();
     List<String> transactions = otherAccount.transactions();
 
-    fileWriter.write(amount);
+    fileWriter.write("잔액:" + amount + "\n");
 
     for (String transaction : transactions) {
-      fileWriter.write(transaction);
+      fileWriter.write(transaction + "\n");
     }
     fileWriter.close();
   }

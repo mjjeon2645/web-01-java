@@ -13,8 +13,8 @@ import java.io.IOException;
 public class MakaoBank {
   private final Account myAccount;
   private final Account otherAccount;
-  private final MyTransactionFileLoader myTransactionFileLoader;
-  private final OtherTransactionFileLoader otherTransactionFileLoader;
+  private final MyAccountLoader myTransactionFileLoader;
+  private final OtherAccountLoader otherTransactionFileLoader;
 
   private JFrame frame;
   private JPanel contentPanel;
@@ -25,19 +25,15 @@ public class MakaoBank {
   }
 
   public MakaoBank() throws FileNotFoundException {
-    myTransactionFileLoader = new MyTransactionFileLoader();
-    otherTransactionFileLoader = new OtherTransactionFileLoader();
+    myTransactionFileLoader = new MyAccountLoader();
+    otherTransactionFileLoader = new OtherAccountLoader();
 
     myAccount = myTransactionFileLoader.loadAccount();
     otherAccount = otherTransactionFileLoader.loadAccount();
-    //myTransactionFileLoader = new MyTransactionFileLoader(myAccount.transactions());
-    //otherTranasctionFileLoader = new OtherTransactionFileLoader(otherAccount.transactions());
   }
 
   private void run() {
-    frame = new JFrame();
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 500);
+    createFrame();
 
     initMenu();
 
@@ -47,6 +43,12 @@ public class MakaoBank {
     saveOtherTransactions();
 
     frame.setVisible(true);
+  }
+
+  private void createFrame() {
+    frame = new JFrame();
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(400, 500);
   }
 
   public void initMenu() {
@@ -104,8 +106,8 @@ public class MakaoBank {
       @Override
       public void windowClosing(WindowEvent e) {
         try {
-          MyTransactionFileWriter myTransactionFileWriter =
-              new MyTransactionFileWriter(myAccount);
+          MyAccountWriter myTransactionFileWriter =
+              new MyAccountWriter(myAccount);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
@@ -118,8 +120,8 @@ public class MakaoBank {
       @Override
       public void windowClosing(WindowEvent e) {
         try {
-          otherTransactionFileWriter otherTransactionFileWriter =
-              new otherTransactionFileWriter(otherAccount);
+          OtherAccountWriter otherTransactionFileWriter =
+              new OtherAccountWriter(otherAccount);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
