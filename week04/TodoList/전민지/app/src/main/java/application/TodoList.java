@@ -3,7 +3,7 @@ package application;
 import models.Tasks;
 import panels.FormPanel;
 import panels.TasksPanel;
-import utils.TaskWriter;
+import utils.TasksSaver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,26 +57,26 @@ public class TodoList {
   }
 
   public void initHeader() {
-    initHeaderPanel();
+    createHeaderPanel();
 
-    initTitleLabel();
+    createTitleLabel();
 
-    initForm();
+    createForm();
   }
 
-  public void initHeaderPanel() {
+  public void createHeaderPanel() {
     headerPanel = new JPanel();
     headerPanel.setLayout(new BorderLayout());
     frame.add(headerPanel, BorderLayout.PAGE_START);
   }
 
-  public void initTitleLabel() {
+  public void createTitleLabel() {
     JLabel titleLabel = new JLabel("할 일 목록");
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     headerPanel.add(titleLabel, BorderLayout.PAGE_START);
   }
 
-  public void initForm() {
+  public void createForm() {
     FormPanel formPanel = new FormPanel(tasks, tasksPanel);
     headerPanel.add(formPanel);
   }
@@ -96,7 +96,7 @@ public class TodoList {
       @Override
       public void windowClosing(WindowEvent e) {
         try {
-          TaskWriter taskWriter = new TaskWriter(tasks);
+          TasksSaver tasksSaver = new TasksSaver(tasks);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }

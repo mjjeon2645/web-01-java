@@ -15,24 +15,24 @@ public class FormPanel extends JPanel {
   public FormPanel(Tasks tasks, TasksPanel tasksPanel) {
     this.tasksPanel = tasksPanel;
 
-    initSubtitleLabel();
+    createSubtitleLabel();
 
-    initTextField();
+    createTextField();
 
-    initAddTaskButton(tasks);
+    createAddTaskButton(tasks);
   }
 
-  public void initSubtitleLabel() {
+  public void createSubtitleLabel() {
     JLabel subTitleLabel = new JLabel("할 일: ");
     this.add(subTitleLabel);
   }
 
-  public void initTextField() {
+  public void createTextField() {
     textField = new JTextField(15);
     this.add(textField);
   }
 
-  public void initAddTaskButton(Tasks tasks) {
+  public void createAddTaskButton(Tasks tasks) {
     JButton addButton = new JButton("추가");
     addButton.addActionListener(event -> {
       String taskTitle = textField.getText();
@@ -40,11 +40,11 @@ public class FormPanel extends JPanel {
       textField.setText("");
 
       LocalDateTime localDateTime = LocalDateTime.now();
-      String taskCreationTime = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+      String timeStamp = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 
       String state = "ADDED";
 
-      task = new Task(taskTitle, taskCreationTime, state);
+      task = new Task(taskTitle, timeStamp, state);
 
       tasks.add(task);
 

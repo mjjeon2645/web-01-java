@@ -6,9 +6,9 @@ import models.Tasks;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class TaskWriter {
+public class TasksSaver {
 
-  public TaskWriter(Tasks tasks) throws IOException {
+  public TasksSaver(Tasks tasks) throws IOException {
     FileWriter fileWriter = new FileWriter("tasks.csv");
 
     for (Task task : tasks.getTasks()) {

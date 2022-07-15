@@ -34,22 +34,22 @@ public class TasksPanel extends JPanel {
 
   public void initTask(Task task) {
     if (!task.state().equals("DELETED")) {
-      initTaskPanel();
+      createTaskPanel();
 
-      initCheckBox(task);
+      createCheckBox(task);
 
-      taskTitleLabel(task);
+      createTitleLabel(task);
 
-      initDeleteButton(task);
+      createDeleteButton(task);
     }
   }
 
-  public void initTaskPanel() {
+  public void createTaskPanel() {
     taskPanel = new JPanel();
     this.add(taskPanel);
   }
 
-  public void initCheckBox(Task task) {
+  public void createCheckBox(Task task) {
     JCheckBox checkBox = new JCheckBox();
 
     if (task.state().equals("DONE")) {
@@ -58,25 +58,25 @@ public class TasksPanel extends JPanel {
 
     checkBox.addActionListener(event -> {
       if (checkBox.isSelected()) {
-        task.stateDone();
+        task.done();
       }
 
       if (!checkBox.isSelected()) {
-        task.stateAdded();
+        task.processing();
       }
     });
     taskPanel.add(checkBox);
   }
 
-  public void taskTitleLabel(Task task) {
+  public void createTitleLabel(Task task) {
     JLabel taskTitleLabel = new JLabel(task.taskTitle());
     taskPanel.add(taskTitleLabel);
   }
 
-  private void initDeleteButton(Task task) {
+  private void createDeleteButton(Task task) {
     JButton deleteButton = new JButton("X");
     deleteButton.addActionListener(event -> {
-      task.stateDeleted();
+      task.deleted();
       updateTasksPanel(tasks);
     });
     taskPanel.add(deleteButton);
