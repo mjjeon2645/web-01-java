@@ -4,21 +4,19 @@ public class ExpressionVerifier {
   public boolean handleException(String text) {
     splitWords(text);
 
-    if (!isMatchesFirstWordNumber()) {
+    if (!isMatchesWordNumber(words[0])) {
       return false;
+    }
+
+    if (words.length == 1) {
+      return true;
     }
 
     if (words.length != 3) {
-      if (words.length == 1) {
-        if (!isMatchesFirstWordNumber()) {
-          return false;
-        }
-        return true;
-      }
       return false;
     }
 
-    if (!isMatchesLastWordNumber()) {
+    if (!isMatchesWordNumber(words[2])) {
       return false;
     }
 
@@ -35,12 +33,13 @@ public class ExpressionVerifier {
     this.words = text.split(" ");
   }
 
-  public boolean isMatchesFirstWordNumber() {
-    return words[0].matches("-?[0-9]+");
-  }
-
-  public boolean isMatchesLastWordNumber() {
-    return words[2].matches("-?[0-9]+");
+  public boolean isMatchesWordNumber(String word) {
+    for(int i = 0; i < word.length(); i += 1) {
+      if(!Character.isDigit(word.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isRightOperator(String symbol) {

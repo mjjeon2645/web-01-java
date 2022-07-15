@@ -12,6 +12,7 @@ class CalculatorTest {
     assertEquals("Result: -1", calculator.compute("-1"));
     assertEquals("Result: 123", calculator.compute("123"));
   }
+
   @Test
   void plus() {
     Calculator calculator = new Calculator();

@@ -24,7 +24,7 @@ public class Calculator {
 
       isRightExpression = expressionVerifier.handleException(expression);
 
-      if(!isRightExpression) {
+      if (!isRightExpression) {
         displayWrongExpression(expression);
         break;
       }

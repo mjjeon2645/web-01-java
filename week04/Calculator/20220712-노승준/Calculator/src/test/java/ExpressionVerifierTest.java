@@ -21,29 +21,16 @@ class ExpressionVerifierTest {
   }
 
   @Test
-  void checkFirstWordNumber() {
+  void RightFirstWordNumber() {
     ExpressionVerifier expressionVerifier = new ExpressionVerifier();
 
-    expressionVerifier.splitWords("1 + 1");
-    assertTrue(expressionVerifier.isMatchesFirstWordNumber());
+    assertTrue(expressionVerifier.isMatchesWordNumber("1"));
 
-    expressionVerifier.splitWords("% + 1");
-    assertFalse(expressionVerifier.isMatchesFirstWordNumber());
+    assertFalse(expressionVerifier.isMatchesWordNumber("%"));
   }
 
   @Test
-  void checkLastWordNumber() {
-    ExpressionVerifier expressionVerifier = new ExpressionVerifier();
-
-    expressionVerifier.splitWords("1 + 1");
-    assertTrue(expressionVerifier.isMatchesLastWordNumber());
-
-    expressionVerifier.splitWords("1 + %");
-    assertFalse(expressionVerifier.isMatchesLastWordNumber());
-  }
-
-  @Test
-  void checkRightOperator() {
+  void RightOperator() {
     ExpressionVerifier expressionVerifier = new ExpressionVerifier();
 
     assertTrue(expressionVerifier.isRightOperator("+"));
