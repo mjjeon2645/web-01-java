@@ -1,28 +1,27 @@
 package panels;
 
-import models.MyAccount;
-import models.TheOtherAccount;
+import models.Account;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class TransferPanel extends JPanel {
-  private MyAccount myAccount;
-  private TheOtherAccount theOtherAccount;
+  private Account myAccount;
+  private Account otherAccount;
 
   private JPanel myTransferPanel;
-  private JPanel theOtherTransferPanel;
+  private JPanel otherTransferPanel;
 
-  public TransferPanel(MyAccount myAccount, TheOtherAccount theOtherAccount) {
+  public TransferPanel(Account myAccount, Account otherAccount) {
     this.myAccount = myAccount;
-    this.theOtherAccount = theOtherAccount;
+    this.otherAccount = otherAccount;
 
     this.setLayout(new GridLayout(2, 1));
 
     initMyTransferArea();
 
-    initTheOtherTransferArea();
+    initOtherTransferArea();
   }
 
   public void initMyTransferArea() {
@@ -53,10 +52,9 @@ public class TransferPanel extends JPanel {
 
     JButton transferButton = new JButton("송금");
     transferButton.addActionListener(event -> {
-      if (identifierTextField.getText().equals(theOtherAccount.identifier())) {
-        int transferAmount = Integer.parseInt(amountTextField.getText());
-        myAccount.transfer(transferAmount);
-        theOtherAccount.income(transferAmount);
+      if (identifierTextField.getText().equals(otherAccount.identifier())) {
+        int amount = Integer.parseInt(amountTextField.getText());
+        myAccount.transfer(otherAccount, amount);
       }
     });
     myTransferPanel.add(transferButton);
@@ -64,42 +62,41 @@ public class TransferPanel extends JPanel {
     this.add(myTransferPanel);
   }
 
-  public void initTheOtherTransferArea() {
-    theOtherTransferPanel = new JPanel();
-    theOtherTransferPanel.setLayout(new GridLayout(4, 2, 30, 30));
-    theOtherTransferPanel.setBorder(new LineBorder(Color.BLACK, 3));
+  public void initOtherTransferArea() {
+    otherTransferPanel = new JPanel();
+    otherTransferPanel.setLayout(new GridLayout(4, 2, 30, 30));
+    otherTransferPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel titleLabel = new JLabel("계좌 번호: " + theOtherAccount.identifier());
-    theOtherTransferPanel.add(titleLabel);
+    JLabel titleLabel = new JLabel("계좌 번호: " + otherAccount.identifier());
+    otherTransferPanel.add(titleLabel);
 
     JLabel layoutLabel1 = new JLabel("     ");
-    theOtherTransferPanel.add(layoutLabel1);
+    otherTransferPanel.add(layoutLabel1);
 
     JLabel toLabel = new JLabel("보낼 계좌 번호: ");
-    theOtherTransferPanel.add(toLabel);
+    otherTransferPanel.add(toLabel);
 
     JTextField identifierTextField = new JTextField(10);
-    theOtherTransferPanel.add(identifierTextField);
+    otherTransferPanel.add(identifierTextField);
 
     JLabel transferAmountLabel = new JLabel("이체할 금액: ");
-    theOtherTransferPanel.add(transferAmountLabel);
+    otherTransferPanel.add(transferAmountLabel);
 
     JTextField amountTextField = new JTextField(10);
-    theOtherTransferPanel.add(amountTextField);
+    otherTransferPanel.add(amountTextField);
 
     JLabel layoutLabel2 = new JLabel("     ");
-    theOtherTransferPanel.add(layoutLabel2);
+    otherTransferPanel.add(layoutLabel2);
 
     JButton transferButton = new JButton("송금");
     transferButton.addActionListener(event -> {
       if (identifierTextField.getText().equals(myAccount.identifier())) {
-        int transferAmount = Integer.parseInt(amountTextField.getText());
-        theOtherAccount.transfer(transferAmount);
-        myAccount.income(transferAmount);
+        int amount = Integer.parseInt(amountTextField.getText());
+        otherAccount.transfer(myAccount, amount);
       }
     });
-    theOtherTransferPanel.add(transferButton);
+    otherTransferPanel.add(transferButton);
 
-    this.add(theOtherTransferPanel);
+    this.add(otherTransferPanel);
   }
 }

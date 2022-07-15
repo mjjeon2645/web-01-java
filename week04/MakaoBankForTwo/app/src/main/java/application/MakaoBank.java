@@ -1,12 +1,13 @@
 package application;
 
-import models.MyAccount;
-import models.TheOtherAccount;
+import models.Account;
 import panels.AmountPanel;
 import panels.TransactionsPanel;
 import panels.TransferPanel;
+import utils.MyTransactionsLoader;
 import utils.MyTransactionsSaver;
-import utils.TheOtherTransactionsSaver;
+import utils.OtherTransactionsLoader;
+import utils.OtherTransactionsSaver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MakaoBank {
-  private MyAccount myAccount;
-  private TheOtherAccount theOtherAccount;
+  private Account myAccount;
+  private Account otherAccount;
 
   private JFrame frame;
   private JPanel menuPanel;
@@ -29,8 +30,11 @@ public class MakaoBank {
   }
 
   public MakaoBank() throws FileNotFoundException {
-    myAccount = new MyAccount();
-    theOtherAccount = new TheOtherAccount();
+    MyTransactionsLoader myTransactionsLoader = new MyTransactionsLoader();
+    OtherTransactionsLoader otherTransactionsLoader = new OtherTransactionsLoader();
+
+    this.myAccount = myTransactionsLoader.accountLoader();
+    this.otherAccount = otherTransactionsLoader.accountLoader();
   }
 
   public void run() {
@@ -41,7 +45,7 @@ public class MakaoBank {
     initContentPanel();
 
     saveMyTransactions();
-    saveTheOtherTransactions();
+    saveOtherTransactions();
   }
 
   public void initFrame() {
@@ -63,7 +67,7 @@ public class MakaoBank {
   public JButton amountButton() {
     JButton button = new JButton("잔액 조회");
     button.addActionListener(event -> {
-      AmountPanel amountPanel = new AmountPanel(myAccount, theOtherAccount);
+      AmountPanel amountPanel = new AmountPanel(myAccount, otherAccount);
       showContentPanel(amountPanel);
     });
     return button;
@@ -72,7 +76,7 @@ public class MakaoBank {
   public JButton transferButton() {
     JButton button = new JButton("계좌 이체");
     button.addActionListener(event -> {
-      TransferPanel transferPanel = new TransferPanel(myAccount, theOtherAccount);
+      TransferPanel transferPanel = new TransferPanel(myAccount, otherAccount);
       showContentPanel(transferPanel);
     });
     return button;
@@ -81,7 +85,7 @@ public class MakaoBank {
   public JButton transactionsButton() {
     JButton button = new JButton("거래 내역");
     button.addActionListener(event -> {
-      TransactionsPanel transactionsPanel = new TransactionsPanel(myAccount, theOtherAccount);
+      TransactionsPanel transactionsPanel = new TransactionsPanel(myAccount, otherAccount);
       showContentPanel(transactionsPanel);
     });
     return button;
@@ -115,12 +119,12 @@ public class MakaoBank {
     });
   }
 
-  public void saveTheOtherTransactions() {
+  public void saveOtherTransactions() {
     frame.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
         try {
-          TheOtherTransactionsSaver theOtherTransactionsSaver = new TheOtherTransactionsSaver(theOtherAccount);
+          OtherTransactionsSaver otherTransactionsSaver = new OtherTransactionsSaver(otherAccount);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }

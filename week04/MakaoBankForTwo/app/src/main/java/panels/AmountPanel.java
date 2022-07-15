@@ -1,28 +1,27 @@
 package panels;
 
-import models.MyAccount;
-import models.TheOtherAccount;
+import models.Account;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class AmountPanel extends JPanel {
-  private MyAccount myAccount;
-  private TheOtherAccount theOtherAccount;
+  private Account myAccount;
+  private Account otherAccount;
 
   private JPanel myAmountPanel;
-  private JPanel theOtherAmountPanel;
+  private JPanel otherAmountPanel;
 
-  public AmountPanel(MyAccount myAccount, TheOtherAccount theOtherAccount) {
+  public AmountPanel(Account myAccount, Account otherAccount) {
     this.myAccount = myAccount;
-    this.theOtherAccount = theOtherAccount;
+    this.otherAccount = otherAccount;
 
     this.setLayout(new GridLayout(2, 1));
 
     initMyAmountArea();
 
-    initTheOtherAmountArea();
+    initOtherAmountArea();
   }
 
   public void initMyAmountArea() {
@@ -42,20 +41,20 @@ public class AmountPanel extends JPanel {
     this.add(myAmountPanel);
   }
 
-  public void initTheOtherAmountArea() {
-    theOtherAmountPanel = new JPanel();
-    theOtherAmountPanel.setLayout(new GridLayout(3, 1, 30, 30));
-    theOtherAmountPanel.setBorder(new LineBorder(Color.BLACK, 3));
+  public void initOtherAmountArea() {
+    otherAmountPanel = new JPanel();
+    otherAmountPanel.setLayout(new GridLayout(3, 1, 30, 30));
+    otherAmountPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
     JLabel titleLabel = new JLabel("상대 계좌");
-    theOtherAmountPanel.add(titleLabel);
+    otherAmountPanel.add(titleLabel);
 
-    JLabel identifierLabel = new JLabel("계좌 번호: " + theOtherAccount.identifier());
-    theOtherAmountPanel.add(identifierLabel);
+    JLabel identifierLabel = new JLabel("계좌 번호: " + otherAccount.identifier());
+    otherAmountPanel.add(identifierLabel);
 
-    JLabel amountLabel = new JLabel("잔액: " + theOtherAccount.amount() + "원");
-    theOtherAmountPanel.add(amountLabel);
+    JLabel amountLabel = new JLabel("잔액: " + otherAccount.amount() + "원");
+    otherAmountPanel.add(amountLabel);
 
-    this.add(theOtherAmountPanel);
+    this.add(otherAmountPanel);
   }
 }

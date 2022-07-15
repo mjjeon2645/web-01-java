@@ -1,28 +1,27 @@
 package panels;
 
-import models.MyAccount;
-import models.TheOtherAccount;
+import models.Account;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class TransactionsPanel extends JPanel {
-  private MyAccount myAccount;
-  private TheOtherAccount theOtherAccount;
+  private Account myAccount;
+  private Account otherAccount;
 
   private JPanel myTransactionsPanel;
-  private JPanel theOtherTransactionsPanel;
+  private JPanel otherTransactionsPanel;
 
-  public TransactionsPanel(MyAccount myAccount, TheOtherAccount theOtherAccount) {
+  public TransactionsPanel(Account myAccount, Account otherAccount) {
     this.myAccount = myAccount;
-    this.theOtherAccount = theOtherAccount;
+    this.otherAccount = otherAccount;
 
     this.setLayout(new GridLayout(2, 1));
 
     initMyTransactionsArea();
 
-    initTheOtherTransactionsArea();
+    initOtherTransactionsArea();
   }
 
   public void initMyTransactionsArea() {
@@ -33,10 +32,10 @@ public class TransactionsPanel extends JPanel {
     JLabel identifierLabel = new JLabel("계좌 번호: " + myAccount.identifier());
     myTransactionsPanel.add(identifierLabel);
 
-    JLabel amountLabel = new JLabel("잔액: 1000");
+    JLabel amountLabel = new JLabel("잔액: " + 1000);
     myTransactionsPanel.add(amountLabel);
 
-    for (String transaction : myAccount.myTransactions()) {
+    for (String transaction : myAccount.transactions()) {
       String[] words = transaction.split(",");
 
       JLabel transactionLabel = new JLabel(words[0] + ": " + words[1] + "원");
@@ -46,24 +45,24 @@ public class TransactionsPanel extends JPanel {
     this.add(myTransactionsPanel);
   }
 
-  public void initTheOtherTransactionsArea() {
-    theOtherTransactionsPanel = new JPanel();
-    theOtherTransactionsPanel.setLayout(new GridLayout(0, 1, 30, 30));
-    theOtherTransactionsPanel.setBorder(new LineBorder(Color.BLACK, 3));
+  public void initOtherTransactionsArea() {
+    otherTransactionsPanel = new JPanel();
+    otherTransactionsPanel.setLayout(new GridLayout(0, 1, 30, 30));
+    otherTransactionsPanel.setBorder(new LineBorder(Color.BLACK, 3));
 
-    JLabel identifierLabel = new JLabel("계좌 번호: " + theOtherAccount.identifier());
-    theOtherTransactionsPanel.add(identifierLabel);
+    JLabel identifierLabel = new JLabel("계좌 번호: " + otherAccount.identifier());
+    otherTransactionsPanel.add(identifierLabel);
 
-    JLabel amountLabel = new JLabel("잔액: 3000");
-    theOtherTransactionsPanel.add(amountLabel);
+    JLabel amountLabel = new JLabel("잔액: " + 3000);
+    otherTransactionsPanel.add(amountLabel);
 
-    for (String transaction : theOtherAccount.theOtherTransactions()) {
+    for (String transaction : otherAccount.transactions()) {
       String[] words = transaction.split(",");
 
       JLabel transactionLabel = new JLabel(words[0] + ": " + words[1] + "원");
-      theOtherTransactionsPanel.add(transactionLabel);
+      otherTransactionsPanel.add(transactionLabel);
     }
 
-    this.add(theOtherTransactionsPanel);
+    this.add(otherTransactionsPanel);
   }
 }
