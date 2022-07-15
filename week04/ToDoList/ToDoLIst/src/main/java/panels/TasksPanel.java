@@ -14,19 +14,23 @@ public class TasksPanel extends JPanel {
 
   public TasksPanel(List<Task> tasks) {
     this.tasks = tasks;
-    this.setLayout(new GridLayout(0,1));
+    this.setLayout(new GridLayout(0, 1));
 
     addContentPanel();
   }
 
   public void addContentPanel() {
-    for(Task task : tasks) {
-      if(!task.state().equals("DELETION")) {
+    for (Task task : tasks) {
+      if (!task.state().equals("DELETION")) {
         JPanel taskPanel = new JPanel();
 
         JCheckBox taskCheckBox = new JCheckBox();
+        if (task.state().equals("COMPLETION")) {
+          taskCheckBox.setSelected(true);
+        }
+
         taskCheckBox.addActionListener(event -> {
-          task.updateTaskStateCompletion();
+          task.complete();
         });
         taskPanel.add(taskCheckBox);
 
@@ -44,7 +48,7 @@ public class TasksPanel extends JPanel {
 
         JButton taskDeleteButton = new JButton("X");
         taskDeleteButton.addActionListener(event -> {
-          task.updateTaskStateDeletion();
+          task.delete();
 
           refreshTaskPanel();
         });

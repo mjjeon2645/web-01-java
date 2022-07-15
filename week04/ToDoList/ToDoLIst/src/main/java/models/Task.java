@@ -8,6 +8,11 @@ public class Task {
   private String title;
   private String state;
 
+  public Task(String title, String state) {
+    this.title = title;
+    this.state = state;
+  }
+
   public Task(String title) {
     this.title = title;
     this.state = Task.PROCESSING;
@@ -21,15 +26,15 @@ public class Task {
     return state;
   }
 
-  public void updateTaskStateProcessing() {
+  public void processing() {
     this.state = PROCESSING;
   }
 
-  public void updateTaskStateCompletion() {
+  public void complete() {
     this.state = COMPLETION;
   }
 
-  public void updateTaskStateDeletion() {
+  public void delete() {
     this.state = DELETION;
   }
 

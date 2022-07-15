@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskLoad {
-  public List<Task> loadTask() throws FileNotFoundException {
+public class TaskLoader {
+  public List<Task> loadTasks() throws FileNotFoundException {
     List<Task> tasks = new ArrayList<>();
 
     File file = new File("TaskList.csv");
@@ -28,6 +28,6 @@ public class TaskLoad {
   private Task parseTask(String text) {
     String[] taskInformation = text.split(",");
 
-    return new Task(taskInformation[0]);
+    return new Task(taskInformation[0], taskInformation[1]);
   }
 }

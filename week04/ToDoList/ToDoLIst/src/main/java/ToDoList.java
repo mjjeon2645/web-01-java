@@ -24,9 +24,9 @@ public class ToDoList {
   }
 
   public ToDoList() throws FileNotFoundException {
-    TaskLoad taskLoad = new TaskLoad();
+    TaskLoader taskLoad = new TaskLoader();
 
-    tasks = taskLoad.loadTask();
+    tasks = taskLoad.loadTasks();
   }
 
   public void run() throws IOException {

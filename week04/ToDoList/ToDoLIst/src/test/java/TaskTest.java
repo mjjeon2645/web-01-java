@@ -8,30 +8,30 @@ class TaskTest {
   void creation() {
     Task task = new Task("과제하기");
 
-    assertEquals("과제하기",task.title());
+    assertEquals("과제하기", task.title());
   }
 
   @Test
-  void checkTaskStateCompletion() {
+  void TaskStateCompletion() {
     Task task = new Task("빨래하기");
-    task.updateTaskStateCompletion();
+    task.complete();
 
     assertEquals("COMPLETION", task.state());
   }
 
   @Test
-  void checkTaskStateDeletion() {
+  void TaskStateDeletion() {
     Task task = new Task("양치하기");
-    task.updateTaskStateDeletion();
+    task.delete();
 
     assertEquals("DELETION", task.state());
   }
 
   @Test
-  void checkTaskStateProcessing() {
+  void TaskStateProcessing() {
     Task task = new Task("공부하기");
-    task.updateTaskStateCompletion();
-    task.updateTaskStateProcessing();
+    task.complete();
+    task.processing();
 
     assertEquals("PROCESSING", task.state());
   }
@@ -40,7 +40,7 @@ class TaskTest {
   void toCsvRow() {
     Task task = new Task("과제하기");
 
-    task.updateTaskStateDeletion();
+    task.delete();
     assertEquals("과제하기,DELETION", task.toCsvRow());
   }
 }
