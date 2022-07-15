@@ -38,6 +38,4 @@ public class AmountPanel extends JPanel {
     otherAccountPanel.add(new JLabel("계좌 번호: " + otherAccount.identifier()));
     otherAccountPanel.add(new JLabel("잔액: " + otherAccount.amount()));
   }
-
-
 }

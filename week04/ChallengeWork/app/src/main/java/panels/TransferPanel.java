@@ -23,7 +23,7 @@ public class TransferPanel extends JPanel {
     JPanel myTransferPaenl = new JPanel();
     this.add(myTransferPaenl);
 
-    myTransferPaenl.setLayout(new GridLayout(6,1));
+    myTransferPaenl.setLayout(new GridLayout(6, 1));
 
     myTransferPaenl.add(new JLabel("계좌 번호: " + myAccount.identifier()));
 
@@ -48,7 +48,7 @@ public class TransferPanel extends JPanel {
     JPanel otherTransferPaenl = new JPanel();
     this.add(otherTransferPaenl);
 
-    otherTransferPaenl.setLayout(new GridLayout(6,1));
+    otherTransferPaenl.setLayout(new GridLayout(6, 1));
 
     otherTransferPaenl.add(new JLabel("계좌 번호: " + otherAccount.identifier()));
 
@@ -64,7 +64,7 @@ public class TransferPanel extends JPanel {
     button.addActionListener(event -> {
       String identifier = otherAccountInputField.getText();
       int sendAmount = Integer.parseInt(otherAmountInputField.getText());
-      otherAccount.transfer(myAccount,otherAccount, identifier, sendAmount);
+      otherAccount.transfer(myAccount, otherAccount, identifier, sendAmount);
     });
     otherTransferPaenl.add(button);
   }
