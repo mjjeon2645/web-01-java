@@ -42,9 +42,7 @@ public class FormPanel extends JPanel {
       LocalDateTime localDateTime = LocalDateTime.now();
       String timeStamp = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
 
-      String state = "ADDED";
-
-      task = new Task(taskTitle, timeStamp, state);
+      task = new Task(taskTitle, timeStamp);
 
       tasks.add(task);
 

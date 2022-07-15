@@ -14,6 +14,12 @@ public class Task {
     return state;
   }
 
+  public Task(String taskTitle, String timeStamp) {
+    this.taskTitle = taskTitle;
+    this.timeStamp = timeStamp;
+    this.state = "PROCESSING";
+  }
+
   public Task(String taskTitle, String timeStamp, String state) {
     this.taskTitle = taskTitle;
     this.timeStamp = timeStamp;

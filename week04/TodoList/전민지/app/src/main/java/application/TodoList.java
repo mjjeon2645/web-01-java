@@ -32,13 +32,9 @@ public class TodoList {
   public void run() {
     initFrame();
 
-    tasksPanel = new TasksPanel(tasks, this);
+    initContentPanel(tasks, this);
 
     initHeader();
-
-    initContentPanel();
-
-    contentPanel.add(tasksPanel);
 
     saveTasks();
   }
@@ -50,8 +46,10 @@ public class TodoList {
     frame.setVisible(true);
   }
 
-  public void initContentPanel() {
+  public void initContentPanel(Tasks tasks, TodoList todoList) {
     contentPanel = new JPanel();
+    tasksPanel = new TasksPanel(tasks, todoList);
+    contentPanel.add(tasksPanel);
     frame.add(contentPanel);
     frame.setVisible(true);
   }
