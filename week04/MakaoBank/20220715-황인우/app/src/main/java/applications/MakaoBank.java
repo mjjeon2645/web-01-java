@@ -15,9 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MakaoBank {
-  private final FileReader fileReader;
-  private final FileWriter fileWriter;
-
   private final Account myAccount;
   private final Account otherAccount;
 
@@ -30,14 +27,21 @@ public class MakaoBank {
   }
 
   public MakaoBank() throws FileNotFoundException {
-    fileReader = new FileReader();
-    fileWriter = new FileWriter();
+    FileReader fileReader = new FileReader();
 
     myAccount = fileReader.loadAccount("myAccount.csv");
     otherAccount = fileReader.loadAccount("otherAccount.csv");
   }
 
   public void run() {
+    initFrame();
+    initMenu();
+    initContentPanel();
+
+    frame.setVisible(true);
+  }
+
+  public void initFrame() {
     frame = new JFrame("Makao Bank");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(500, 500);
@@ -47,6 +51,8 @@ public class MakaoBank {
       @Override
       public void windowClosing(WindowEvent event) {
         try {
+          FileWriter fileWriter = new FileWriter();
+
           fileWriter.saveAccount(myAccount, "myAccount.csv");
           fileWriter.saveAccount(otherAccount, "otherAccount.csv");
         } catch (IOException exception) {
@@ -54,11 +60,6 @@ public class MakaoBank {
         }
       }
     });
-    
-    initMenu();
-    initContentPanel();
-
-    frame.setVisible(true);
   }
 
   public void initMenu() {
@@ -113,7 +114,6 @@ public class MakaoBank {
   public void showContentPanel(JPanel panel) {
     contentPanel.removeAll();
     contentPanel.add(panel);
-
     contentPanel.setVisible(false);
     contentPanel.setVisible(true);
   }

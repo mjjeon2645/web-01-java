@@ -22,15 +22,15 @@ public class Account {
     return amount;
   }
 
+  public List<String> transactions() {
+    return new ArrayList<>(transactions);
+  }
+
   public void transfer(Account otherAccount, long transferAmount) {
     this.amount -= transferAmount;
     otherAccount.amount += transferAmount;
 
     this.transactions.add("출금: " + transferAmount + "원");
     otherAccount.transactions.add("입금: " + transferAmount + "원");
-  }
-
-  public List<String> transactions() {
-    return new ArrayList<>(transactions);
   }
 }
