@@ -13,13 +13,13 @@ public class InteractingMakaoBank {
   private Account account1 = new Account("123-456-7890",3000);
   private Account account2 = new Account("345-678-9012",1000);
 
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) throws IOException {
     InteractingMakaoBank application = new InteractingMakaoBank();
     application.run();
   }
 
-  public void run() throws FileNotFoundException {
-    account1.loadfile();
+  public void run() throws IOException {
+    account1.loadFile();
 
     setFrame();
 
@@ -36,7 +36,10 @@ public class InteractingMakaoBank {
     frame.add(contentPanel);
     contentPanel.setBackground(Color.LIGHT_GRAY);
 
+    account1.saveFile();
+
     frame.setVisible(true);
+
 
 
 

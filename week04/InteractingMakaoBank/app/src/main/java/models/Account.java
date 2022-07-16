@@ -1,6 +1,5 @@
 package models;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -8,6 +7,7 @@ public class Account {
   private String accountNumber;
   private int amount;
   private List<String> transactions = new ArrayList<>();
+  private List<String> transactionsForCsv = new ArrayList<>();
 
   public Account(String accountNumber, int amount) {
     this.accountNumber = accountNumber;
@@ -25,16 +25,16 @@ public class Account {
   public void transfer(Account toAccount, int transferAmount, String inputAccountNumber) {
     if (inputAccountNumber.equals(toAccount.getAccountNumber())) {
       this.amount -= transferAmount;
-      transactions.add("계좌번호: " + toAccount.getAccountNumber() + "   "
-          + "입금: " + transferAmount + "원");
+      transactions.add("출금: " + transferAmount + "원");
+      transactionsForCsv.add("출금," + transferAmount);
     }
   }
 
   public void deposit(Account toAccount, int transferAmount, String inputAccountNumber) {
     if (inputAccountNumber.equals(toAccount.getAccountNumber())) {
       this.amount += transferAmount;
-      transactions.add("계좌번호: " + toAccount.getAccountNumber() + "   "
-          + "입금: " + transferAmount + "원");
+      transactions.add("입금: " + transferAmount + "원");
+      transactionsForCsv.add("입금," + transactionsForCsv);
     }
   }
 
@@ -42,21 +42,34 @@ public class Account {
     return new ArrayList<>(transactions);
   }
 
-  public void loadfile() throws FileNotFoundException {
+  public void loadFile() throws FileNotFoundException {
     File file = new File("input.csv");
     Scanner scanner = new Scanner(file);
     while (scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String transactionRecord = parseTransaction(line);
       transactions.add(transactionRecord);
+
     }
   }
 
-    private String parseTransaction(String text) {
+  private String parseTransaction(String text) {
     String[] words = text.split(",");
     String type = words[0];
     String amount = words[1];
     return type + ": " + amount + "원";
   }
+
+  public void saveFile() throws IOException {
+
+    FileWriter fileWriter = new FileWriter("transaction.csv");
+
+    for (String line : transactionsForCsv) {
+      fileWriter.write(line + "\n");
+    }
+    fileWriter.close();
+  }
 }
+
+
 

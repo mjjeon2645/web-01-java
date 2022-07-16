@@ -30,11 +30,11 @@ public class TransferPanel extends JPanel {
     panel.add(titleLabel);
     JLabel blankLabel1 = new JLabel("");
     panel.add(blankLabel1);
-    JLabel receiverAccountNumberLabel = new JLabel("계좌 번호:");
+    JLabel receiverAccountNumberLabel = new JLabel("보낼 계좌 번호:");
     panel.add(receiverAccountNumberLabel);
     JTextField receiverAccountNumberTextField = new JTextField(5);
     panel.add(receiverAccountNumberTextField);
-    JLabel transferAmountLabel = new JLabel("금액: ");
+    JLabel transferAmountLabel = new JLabel("이체할 금액: ");
     panel.add(transferAmountLabel);
     JTextField transferAmountTextField = new JTextField(5);
     panel.add(transferAmountTextField);
@@ -48,16 +48,14 @@ public class TransferPanel extends JPanel {
       int transferAmount = Integer.parseInt(transferAmountTextField.getText());
 
       account1.transfer(account2, transferAmount, inputAccountNumber);
+
       account2.deposit(account2, transferAmount, inputAccountNumber);
       if (account2.getAccountNumber().equals(inputAccountNumber)) {
 
         receiverAccountNumberTextField.setText("");
         transferAmountTextField.setText("");
-        account1.getTransactions().add("계좌번호: " + account1.getAccountNumber() + "   "
-            + "송금: " + transferAmount);
+
       }
-
-
     });
   }
 
@@ -70,18 +68,18 @@ public class TransferPanel extends JPanel {
     panel.add(titleLabel);
     JLabel blankLabel1 = new JLabel("");
     panel.add(blankLabel1);
-    JLabel receiverAccountNumberLabel = new JLabel("계좌 번호:");
+    JLabel receiverAccountNumberLabel = new JLabel("보낼 계좌 번호:");
     panel.add(receiverAccountNumberLabel);
     JTextField receiverAccountNumberTextField = new JTextField(5);
     panel.add(receiverAccountNumberTextField);
-    JLabel transferAmountLabel = new JLabel("금액: ");
+    JLabel transferAmountLabel = new JLabel("이체할 금액: ");
     panel.add(transferAmountLabel);
     JTextField transferAmountTextField = new JTextField(5);
     panel.add(transferAmountTextField);
 
     JLabel blankLabel2 = new JLabel("");
     panel.add(blankLabel2);
-    JButton button = new JButton(" 입금 ");
+    JButton button = new JButton(" 송금 ");
 
     panel.add(button);
     button.addActionListener(event -> {
@@ -93,6 +91,7 @@ public class TransferPanel extends JPanel {
       if (account1.getAccountNumber().equals(inputAccountNumber)) {
         receiverAccountNumberTextField.setText("");
         transferAmountTextField.setText("");
+
       }
     });
   }
