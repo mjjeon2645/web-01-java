@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ExpressionCheckerTest {
   @Test
-  void oneLegalWord() {
+  void oneValidWord() {
     ExpressionChecker checker = new ExpressionChecker();
 
     assertTrue(checker.checkValidity("15"));
@@ -15,7 +15,7 @@ class ExpressionCheckerTest {
   }
 
   @Test
-  void oneIllegalWord() {
+  void oneInvalidWord() {
     ExpressionChecker checker = new ExpressionChecker();
 
     assertFalse(checker.checkValidity(""));
@@ -25,7 +25,7 @@ class ExpressionCheckerTest {
   }
 
   @Test
-  void legalWordsLengthAndLegalExpression() {
+  void validExpression() {
     ExpressionChecker checker = new ExpressionChecker();
 
     assertTrue(checker.checkValidity("-35435 + 2455"));
@@ -35,7 +35,7 @@ class ExpressionCheckerTest {
   }
 
   @Test
-  void legalWordsLengthButIllegalExpression() {
+  void invalidExpression() {
     ExpressionChecker checker = new ExpressionChecker();
 
     assertFalse(checker.checkValidity("+ 1 1"));
@@ -45,12 +45,6 @@ class ExpressionCheckerTest {
     assertFalse(checker.checkValidity("1 1 1"));
     assertFalse(checker.checkValidity("123 ( 4"));
     assertFalse(checker.checkValidity("123 +-/ 4636"));
-  }
-
-  @Test
-  void illegalWordsLength() {
-    ExpressionChecker checker = new ExpressionChecker();
-
     assertFalse(checker.checkValidity("1 + 1 + 1"));
     assertFalse(checker.checkValidity("123 + 2 *"));
   }
