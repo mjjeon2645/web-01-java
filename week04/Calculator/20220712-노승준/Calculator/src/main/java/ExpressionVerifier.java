@@ -1,10 +1,10 @@
 public class ExpressionVerifier {
   private String[] words;
 
-  public boolean handleException(String text) {
+  public boolean verifyException(String text) {
     splitWords(text);
 
-    if (!isMatchesWordNumber(words[0])) {
+    if (!isNumber(words[0])) {
       return false;
     }
 
@@ -16,13 +16,12 @@ public class ExpressionVerifier {
       return false;
     }
 
-    if (!isMatchesWordNumber(words[2])) {
+    String operator = words[1];
+    if (!isRightOperator(operator)) {
       return false;
     }
 
-    String operator = words[1];
-
-    if (!isRightOperator(operator)) {
+    if (!isNumber(words[2])) {
       return false;
     }
 
@@ -33,7 +32,7 @@ public class ExpressionVerifier {
     this.words = text.split(" ");
   }
 
-  public boolean isMatchesWordNumber(String word) {
+  public boolean isNumber(String word) {
     for(int i = 0; i < word.length(); i += 1) {
       if(!Character.isDigit(word.charAt(i))) {
         return false;

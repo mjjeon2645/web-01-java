@@ -7,26 +7,26 @@ class ExpressionVerifierTest {
   void inputWrongExpression() {
     ExpressionVerifier expressionVerifier = new ExpressionVerifier();
 
-    assertFalse(expressionVerifier.handleException("1 +"));
-    assertFalse(expressionVerifier.handleException("1+1"));
-    assertFalse(expressionVerifier.handleException("+ 1 1"));
-    assertFalse(expressionVerifier.handleException("1 + 1 + 1"));
-    assertFalse(expressionVerifier.handleException("1 1 1"));
-    assertFalse(expressionVerifier.handleException("*"));
-    assertFalse(expressionVerifier.handleException("12+"));
-    assertFalse(expressionVerifier.handleException("123 + 2 *"));
-    assertFalse(expressionVerifier.handleException("123 * $"));
-    assertFalse(expressionVerifier.handleException("# * $"));
-    assertFalse(expressionVerifier.handleException("43 + @"));
+    assertFalse(expressionVerifier.verifyException("1 +"));
+    assertFalse(expressionVerifier.verifyException("1+1"));
+    assertFalse(expressionVerifier.verifyException("+ 1 1"));
+    assertFalse(expressionVerifier.verifyException("1 + 1 + 1"));
+    assertFalse(expressionVerifier.verifyException("1 1 1"));
+    assertFalse(expressionVerifier.verifyException("*"));
+    assertFalse(expressionVerifier.verifyException("12+"));
+    assertFalse(expressionVerifier.verifyException("123 + 2 *"));
+    assertFalse(expressionVerifier.verifyException("123 * $"));
+    assertFalse(expressionVerifier.verifyException("# * $"));
+    assertFalse(expressionVerifier.verifyException("43 + @"));
   }
 
   @Test
-  void RightFirstWordNumber() {
+  void onlyOneNumber() {
     ExpressionVerifier expressionVerifier = new ExpressionVerifier();
 
-    assertTrue(expressionVerifier.isMatchesWordNumber("1"));
+    assertTrue(expressionVerifier.isNumber("1"));
 
-    assertFalse(expressionVerifier.isMatchesWordNumber("%"));
+    assertFalse(expressionVerifier.isNumber("%"));
   }
 
   @Test

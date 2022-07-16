@@ -22,7 +22,7 @@ public class Calculator {
         break;
       }
 
-      isRightExpression = expressionVerifier.handleException(expression);
+      isRightExpression = expressionVerifier.verifyException(expression);
 
       if (!isRightExpression) {
         displayWrongExpression(expression);
