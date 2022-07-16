@@ -25,7 +25,6 @@ public class TasksPanel extends JPanel {
     for (Task task : tasks) {
       if (!task.state().equals(Task.DELETE)) {
         panel = new JPanel();
-
         panel.add(createCheckBox(task));
         panel.add(createTaskLabel(task));
         panel.add(createDeleteButton(task));
