@@ -7,9 +7,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskTest {
   @Test
   void creation() {
-    Task task = new Task("새로운 할 일 1");
+    Task task1 = new Task("새로운 할 일 1-1");
 
-    assertNotNull(task);
+    assertNotNull(task1);
+    assertEquals("새로운 할 일 1-1", task1.text());
+    assertEquals(Task.PROCESSING, task1.status());
+
+    Task task2 = new Task("새로운 할 일 1-2", "PROCESSING");
+
+    assertEquals("새로운 할 일 1-2", task2.text());
+    assertEquals(Task.PROCESSING, task2.status());
+
+    Task task3 = new Task("새로운 할 일 1-3", "DONE");
+
+    assertEquals("새로운 할 일 1-3", task3.text());
+    assertEquals(Task.DONE, task3.status());
+
+    Task task4 = new Task("새로운 할 일 1-4", "DELETED");
+
+    assertEquals("새로운 할 일 1-4", task4.text());
+    assertEquals(Task.DELETED, task4.status());
+
+    Task task5 = new Task("새로운 할 일 1-5", "ERROR");
+
+    assertEquals("새로운 할 일 1-5", task5.text());
+    assertEquals(Task.PROCESSING, task5.status());
   }
 
   @Test
@@ -24,7 +46,7 @@ class TaskTest {
     Task task = new Task("새로운 할 일 3");
     task.done();
 
-    assertEquals("DONE", task.status());
+    assertEquals(Task.DONE, task.status());
   }
 
   @Test
@@ -33,7 +55,7 @@ class TaskTest {
     task.done();
     task.processing();
 
-    assertEquals("PROCESSING", task.status());
+    assertEquals(Task.PROCESSING, task.status());
   }
 
   @Test
@@ -41,6 +63,6 @@ class TaskTest {
     Task task = new Task("새로운 할 일 5");
     task.delete();
 
-    assertEquals("DELETED", task.status());
+    assertEquals(Task.DELETED, task.status());
   }
 }

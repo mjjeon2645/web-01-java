@@ -13,6 +13,15 @@ public class Task {
     this.status = PROCESSING;
   }
 
+  public Task(String text, String status) {
+    this.text = text;
+    this.status = switch (status) {
+      case "DONE" -> DONE;
+      case "DELETED" -> DELETED;
+      default -> PROCESSING;
+    };
+  }
+
   public String text() {
     return this.text;
   }

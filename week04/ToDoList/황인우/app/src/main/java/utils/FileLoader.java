@@ -4,11 +4,12 @@ import models.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileReader {
+public class FileLoader {
   public List<Task> loadTasks() throws FileNotFoundException {
     File file = new File("data.csv");
 
@@ -24,17 +25,27 @@ public class FileReader {
       String text = components[0];
       String status = components[1];
 
-      Task task = new Task(text);
+      if (status.equals("PROCESSING")
+          || status.equals("DONE")
+          || status.equals("DELETED")) {
+        Task task = new Task(text, status);
 
-      switch (status) {
-        case Task.PROCESSING -> task.processing();
-        case Task.DONE -> task.done();
-        case Task.DELETED -> task.delete();
+        lists.add(task);
       }
-
-      lists.add(task);
     }
 
     return lists;
+  }
+
+  public void saveTasks(List<Task> tasks) throws IOException {
+    java.io.FileWriter fileWriter = new java.io.FileWriter("data.csv");
+
+    for (Task task : tasks) {
+      String line = task.text() + "," + task.status() + "\n";
+
+      fileWriter.write(line);
+    }
+
+    fileWriter.close();
   }
 }

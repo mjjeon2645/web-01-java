@@ -1,6 +1,5 @@
 package panels;
 
-import application.ToDoList;
 import models.Task;
 
 import javax.swing.*;
@@ -10,12 +9,12 @@ import java.awt.*;
 public class TasksPanel extends JPanel {
   private final List<Task> tasks;
 
-  private ToDoList toDoListFrame;
+  private JPanel contentPanel;
 
-  public TasksPanel(List<Task> tasks, ToDoList toDoListFrame) {
+  public TasksPanel(List<Task> tasks, JPanel contentPanel) {
     this.tasks = tasks;
 
-    this.toDoListFrame = toDoListFrame;
+    this.contentPanel = contentPanel;
 
     this.setBackground(Color.CYAN);
 
@@ -33,7 +32,7 @@ public class TasksPanel extends JPanel {
       }
     }
 
-    toDoListFrame.showContentPanel(this);
+    showContentPanel(this);
   }
 
   public JPanel createTaskPanel(Task task) {
@@ -78,5 +77,12 @@ public class TasksPanel extends JPanel {
     });
 
     return deleteButton;
+  }
+
+  public void showContentPanel(JPanel panel) {
+    contentPanel.removeAll();
+    contentPanel.add(panel);
+    contentPanel.setVisible(false);
+    contentPanel.setVisible(true);
   }
 }
