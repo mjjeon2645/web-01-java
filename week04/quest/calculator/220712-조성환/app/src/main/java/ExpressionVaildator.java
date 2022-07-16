@@ -1,9 +1,7 @@
-//    - 사용자는 하나의 숫자를 입력하면 입력한 숫자를 결과로 확인할 수 있다.
-//    - 사용자는 단 한 개의 수식 연산만을 할 수 있다. ex) 1 + 1 + 1 (X)
-//    - 사용자는 올바른 연산식을 입력한 경우 계속해서 계산기를 이용할 수 있다.
-//    - 사용자는 올바르지 않은 수식의 경우 수식 오류 메세지를 확인할 수 있다.
 public class ExpressionVaildator {
-  public boolean expressionCheck(String expression) {
+  private String[] operators = {"+", "-", "/", "*"};
+
+  public boolean checkExpression(String expression) {
     String[] words = expression.split(" ");
 
     if (words.length > 3 || words.length == 2) {
@@ -18,19 +16,19 @@ public class ExpressionVaildator {
     if (!operatorCheck(operator)) {
       return false;
     }
-    String y = words[2];
-    boolean checkword1 = isNumber(x);
-    boolean checkword2 = isNumber(y);
 
-    return checkword1 && checkword2;
+    String y = words[2];
+
+    return isNumber(x) && isNumber(y);
   }
 
-  public boolean operatorCheck(String operator) {
-    return operator.equals("+") ||
-        operator.equals("-") ||
-        operator.equals("*") ||
-        operator.equals("/");
-
+  public boolean operatorCheck(String character2) {
+    for (String operator : operators) {
+      if (!character2.equals(operator)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public boolean isNumber(String text) {

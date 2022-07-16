@@ -18,7 +18,7 @@ public class Calculator {
 
       ExpressionVaildator expressionVaildator = new ExpressionVaildator();
 
-      isVaildExpression = expressionVaildator.expressionCheck(expression);
+      isVaildExpression = expressionVaildator.checkExpression(expression);
 
       if(isVaildExpression){
         int result = compute(expression);

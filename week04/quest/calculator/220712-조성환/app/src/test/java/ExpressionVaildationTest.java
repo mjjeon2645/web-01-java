@@ -16,29 +16,28 @@ class ExpressionVaildationTest {
   void expressionLengthUnder3() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertFalse(expressionVaildation.expressionCheck("1 +"));
-    assertFalse(expressionVaildation.expressionCheck("1+1"));
-    assertFalse(expressionVaildation.expressionCheck("*"));
-    assertFalse(expressionVaildation.expressionCheck("12+"));
-
+    assertFalse(expressionVaildation.checkExpression("1 +"));
+    assertFalse(expressionVaildation.checkExpression("1+1"));
+    assertFalse(expressionVaildation.checkExpression("*"));
+    assertFalse(expressionVaildation.checkExpression("12+"));
   }
 
   @Test
-  void operatorError() {
+  void expressionWithWrongOperator() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertFalse(expressionVaildation.expressionCheck("+ 1 1"));
-    assertFalse(expressionVaildation.expressionCheck("1 1 1"));
-    assertFalse(expressionVaildation.expressionCheck("123 + 2 *"));
+    assertFalse(expressionVaildation.checkExpression("+ 1 1"));
+    assertFalse(expressionVaildation.checkExpression("1 1 1"));
+    assertFalse(expressionVaildation.checkExpression("123 + 2 *"));
   }
   @Test
-  void inputNumberError() {
+  void wrongExpression() {
     ExpressionVaildator expressionVaildation = new ExpressionVaildator();
 
-    assertFalse(expressionVaildation.expressionCheck("123 + 2 *"));
-    assertFalse(expressionVaildation.expressionCheck("123 * $"));
-    assertFalse(expressionVaildation.expressionCheck("# * $"));
-    assertFalse(expressionVaildation.expressionCheck("43 + @"));
-    assertFalse(expressionVaildation.expressionCheck("1 + 1 + 1"));
+    assertFalse(expressionVaildation.checkExpression("123 + 2 *"));
+    assertFalse(expressionVaildation.checkExpression("123 * $"));
+    assertFalse(expressionVaildation.checkExpression("# * $"));
+    assertFalse(expressionVaildation.checkExpression("43 + @"));
+    assertFalse(expressionVaildation.checkExpression("1 + 1 + 1"));
   }
 }
