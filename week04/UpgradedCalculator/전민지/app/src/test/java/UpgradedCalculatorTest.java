@@ -21,14 +21,4 @@ class UpgradedCalculatorTest {
     assertEquals("Result: 123", upgradedCalculator.compute("123"));
     assertEquals("Result: 41", upgradedCalculator.compute("41"));
   }
-
-  @Test
-  void wrongExpression() {
-    UpgradedCalculator upgradedCalculator = new UpgradedCalculator();
-
-    upgradedCalculator.showComputeErrorMessage("*");
-    upgradedCalculator.showComputeErrorMessage("1 +");
-    upgradedCalculator.showComputeErrorMessage("1 1 1");
-    upgradedCalculator.showComputeErrorMessage("123&");
-  }
 }

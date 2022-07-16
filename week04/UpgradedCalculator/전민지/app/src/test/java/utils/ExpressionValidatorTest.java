@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExpressionValidatorTest {
   @Test
   void wrongExpression() {
-
     ExpressionValidator expressionValidator = new ExpressionValidator();
 
     assertFalse(expressionValidator.process("1 +"));

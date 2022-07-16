@@ -27,13 +27,13 @@ public class UpgradedCalculator {
       isValid = expressionValidator.process(expression);
 
       if (!isValid) {
-        showComputeErrorMessage(expression);
+        displayComputeErrorMessage(expression);
         break;
       }
 
       String result = compute(expression);
 
-      showComputeResultMessage(result);
+      displayComputeResultMessage(result);
     }
   }
 
@@ -72,11 +72,11 @@ public class UpgradedCalculator {
     return "Result: " + result;
   }
 
-  public void showComputeErrorMessage(String expression) {
+  public void displayComputeErrorMessage(String expression) {
     System.out.println("수식 오류: " + expression);
   }
 
-  public void showComputeResultMessage(String result) {
+  public void displayComputeResultMessage(String result) {
     System.out.println(result);
   }
 }

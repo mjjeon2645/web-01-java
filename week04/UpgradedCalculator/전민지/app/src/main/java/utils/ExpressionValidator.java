@@ -2,6 +2,10 @@ package utils;
 
 public class ExpressionValidator {
   public boolean process(String expression) {
+    if (expression.equals("")) {
+      return false;
+    }
+
     String[] words = expression.split(" ");
 
     if (words.length == 2 || words.length > 3) {
@@ -19,10 +23,7 @@ public class ExpressionValidator {
     }
 
     String y = words[2];
-    boolean checkWords0 = isNumber(x);
-    boolean checkWords2 = isNumber(y);
-
-    return checkWords0 && checkWords2;
+    return isNumber(x) && isNumber(y);
   }
 
   public boolean isNumber(String text) {
