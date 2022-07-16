@@ -26,6 +26,10 @@ public class ExpressionChecker {
   }
 
   public boolean isNumber(String word) {
+    if (word.isBlank()) {
+      return false;
+    }
+
     for (int i = 0; i < word.length(); i += 1) {
       char letter = word.charAt(i);
 

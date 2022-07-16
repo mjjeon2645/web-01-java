@@ -18,6 +18,7 @@ class ExpressionCheckerTest {
   void oneIllegalWord() {
     ExpressionChecker checker = new ExpressionChecker();
 
+    assertFalse(checker.checkValidity(""));
     assertFalse(checker.checkValidity("*"));
     assertFalse(checker.checkValidity("12+"));
     assertFalse(checker.checkValidity("1+1"));
