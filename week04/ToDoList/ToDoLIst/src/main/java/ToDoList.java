@@ -24,9 +24,9 @@ public class ToDoList {
   }
 
   public ToDoList() throws FileNotFoundException {
-    TaskLoader taskLoad = new TaskLoader();
+    TaskLoader taskLoader = new TaskLoader();
 
-    tasks = taskLoad.loadTasks();
+    tasks = taskLoader.loadTasks();
   }
 
   public void run() throws IOException {
@@ -96,10 +96,10 @@ public class ToDoList {
     mainFrame.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent event) {
-        TaskWriter taskWriter = new TaskWriter();
+        TaskLoader taskLoader = new TaskLoader();
 
         try {
-          taskWriter.writeTask(tasks);
+          taskLoader.writeTask(tasks);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }

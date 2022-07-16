@@ -27,15 +27,15 @@ public class Task {
   }
 
   public void processing() {
-    this.state = PROCESSING;
+    this.state = Task.PROCESSING;
   }
 
   public void complete() {
-    this.state = COMPLETION;
+    this.state = Task.COMPLETION;
   }
 
   public void delete() {
-    this.state = DELETION;
+    this.state = Task.DELETION;
   }
 
   @Override
