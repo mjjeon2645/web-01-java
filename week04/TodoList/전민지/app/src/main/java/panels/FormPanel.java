@@ -39,10 +39,7 @@ public class FormPanel extends JPanel {
 
       textField.setText("");
 
-      LocalDateTime localDateTime = LocalDateTime.now();
-      String timeStamp = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
-
-      task = new Task(taskTitle, timeStamp);
+      task = new Task(taskTitle);
 
       tasks.add(task);
 

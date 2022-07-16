@@ -3,7 +3,7 @@ package application;
 import models.Tasks;
 import panels.FormPanel;
 import panels.TasksPanel;
-import utils.TasksSaver;
+import utils.TasksLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -94,7 +94,7 @@ public class TodoList {
       @Override
       public void windowClosing(WindowEvent e) {
         try {
-          TasksSaver tasksSaver = new TasksSaver(tasks);
+          TasksLoader tasksSaver = new TasksLoader(tasks);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }
