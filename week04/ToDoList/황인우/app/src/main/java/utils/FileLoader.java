@@ -25,9 +25,9 @@ public class FileLoader {
       String text = components[0];
       String status = components[1];
 
-      if (status.equals("PROCESSING")
-          || status.equals("DONE")
-          || status.equals("DELETED")) {
+      if (status.equals(Task.PROCESSING)
+          || status.equals(Task.DONE)
+          || status.equals(Task.DELETED)) {
         Task task = new Task(text, status);
 
         lists.add(task);

@@ -16,8 +16,8 @@ public class Task {
   public Task(String text, String status) {
     this.text = text;
     this.status = switch (status) {
-      case "DONE" -> DONE;
-      case "DELETED" -> DELETED;
+      case DONE -> DONE;
+      case DELETED -> DELETED;
       default -> PROCESSING;
     };
   }
