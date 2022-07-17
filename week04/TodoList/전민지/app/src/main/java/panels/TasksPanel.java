@@ -1,6 +1,5 @@
 package panels;
 
-import application.TodoList;
 import models.Task;
 import models.Tasks;
 
@@ -8,39 +7,36 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TasksPanel extends JPanel {
-  private JPanel taskPanel;
   private Tasks tasks;
-  private TodoList todoListFrame;
+  private JPanel taskPanel;
 
-  public TasksPanel(Tasks tasks, TodoList todoList) {
-    this.todoListFrame = todoList;
+  public TasksPanel(Tasks tasks) {
     this.tasks = tasks;
     this.setLayout(new GridLayout(0, 1));
 
-    for (Task task : tasks.getTasks()) {
-      initTask(task);
-    }
+    initTask(tasks);
   }
 
-  public void updateTasksPanel(Tasks tasks) {
+  public void refresh(Tasks tasks) {
     this.removeAll();
 
-    for (Task task : tasks.getTasks()) {
-      initTask(task);
-    }
+    initTask(tasks);
 
-    todoListFrame.showContentPanel(this);
+    this.setVisible(false);
+    this.setVisible(true);
   }
 
-  public void initTask(Task task) {
-    if (!task.state().equals("DELETED")) {
-      createTaskPanel();
+  public void initTask(Tasks tasks) {
+    for (Task task : tasks.tasks()) {
+      if (task.state() != Task.DELETED) {
+        createTaskPanel();
 
-      createCheckBox(task);
+        createCheckBox(task);
 
-      createTitleLabel(task);
+        createTitleLabel(task);
 
-      createDeleteButton(task);
+        createDeleteButton(task);
+      }
     }
   }
 
@@ -52,7 +48,7 @@ public class TasksPanel extends JPanel {
   public void createCheckBox(Task task) {
     JCheckBox checkBox = new JCheckBox();
 
-    if (task.state().equals("DONE")) {
+    if (task.state() == Task.DONE) {
       checkBox.setSelected(true);
     }
 
@@ -65,6 +61,7 @@ public class TasksPanel extends JPanel {
         task.processing();
       }
     });
+
     taskPanel.add(checkBox);
   }
 
@@ -73,12 +70,13 @@ public class TasksPanel extends JPanel {
     taskPanel.add(taskTitleLabel);
   }
 
-  private void createDeleteButton(Task task) {
+  public void createDeleteButton(Task task) {
     JButton deleteButton = new JButton("X");
     deleteButton.addActionListener(event -> {
       task.deleted();
-      updateTasksPanel(tasks);
+      refresh(tasks);
     });
+
     taskPanel.add(deleteButton);
   }
 }

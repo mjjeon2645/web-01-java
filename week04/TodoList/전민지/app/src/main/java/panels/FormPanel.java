@@ -4,8 +4,6 @@ import models.Task;
 import models.Tasks;
 
 import javax.swing.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class FormPanel extends JPanel {
   private Task task;
@@ -43,7 +41,7 @@ public class FormPanel extends JPanel {
 
       tasks.add(task);
 
-      tasksPanel.updateTasksPanel(tasks);
+      tasksPanel.refresh(tasks);
     });
 
     this.add(addButton);

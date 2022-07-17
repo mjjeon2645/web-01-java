@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class TodoList {
@@ -20,19 +19,19 @@ public class TodoList {
   private JPanel contentPanel;
   private TasksPanel tasksPanel;
 
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) throws IOException {
     TodoList application = new TodoList();
     application.run();
   }
 
-  public TodoList() throws FileNotFoundException {
+  public TodoList() throws IOException {
     tasks = new Tasks();
   }
 
   public void run() {
     initFrame();
 
-    initContentPanel(tasks, this);
+    initContentPanel(tasks);
 
     initHeader();
 
@@ -46,9 +45,9 @@ public class TodoList {
     frame.setVisible(true);
   }
 
-  public void initContentPanel(Tasks tasks, TodoList todoList) {
+  public void initContentPanel(Tasks tasks) {
     contentPanel = new JPanel();
-    tasksPanel = new TasksPanel(tasks, todoList);
+    tasksPanel = new TasksPanel(tasks);
     contentPanel.add(tasksPanel);
     frame.add(contentPanel);
     frame.setVisible(true);
@@ -93,8 +92,9 @@ public class TodoList {
     frame.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent e) {
+        TasksLoader tasksLoader = new TasksLoader();
         try {
-          TasksLoader tasksSaver = new TasksLoader(tasks);
+          tasksLoader.saveTasks(tasks);
         } catch (IOException ex) {
           throw new RuntimeException(ex);
         }

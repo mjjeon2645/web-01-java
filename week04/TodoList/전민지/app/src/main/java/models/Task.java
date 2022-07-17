@@ -3,18 +3,22 @@ package models;
 import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Task {
-  public final static String[] STATE_TYPES = {"PROCESSING", "DONE", "DELETED"};
+  public final static int DELETED = 0;
+  public final static int PROCESSING = 1;
+  public final static int DONE = 2;
+
   private String timeStamp;
   private String taskTitle;
-  private String state;
+  private int state;
 
   public String taskTitle() {
     return taskTitle;
   }
 
-  public String state() {
+  public int state() {
     return state;
   }
 
@@ -23,10 +27,10 @@ public class Task {
     String timeStamp = localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
     this.timeStamp = timeStamp;
     this.taskTitle = taskTitle;
-    this.state = "PROCESSING";
+    this.state = PROCESSING;
   }
 
-  public Task(String taskTitle, String timeStamp, String state) {
+  public Task(String taskTitle, String timeStamp, int state) {
     this.taskTitle = taskTitle;
     this.timeStamp = timeStamp;
     this.state = state;
@@ -36,18 +40,29 @@ public class Task {
   }
 
   public void processing() {
-    this.state = STATE_TYPES[0];
+    this.state = PROCESSING;
   }
 
   public void done() {
-    this.state = "DONE";
+    this.state = DONE;
   }
 
   public void deleted() {
-    this.state = "DELETED";
+    this.state = DELETED;
   }
 
   public String toCsvRow() {
-    return taskTitle + "," + timeStamp + ","+ state;
+    return taskTitle + "," + timeStamp + "," + state;
+  }
+
+  public int hashCode() {
+    return 0;
+  }
+
+  public boolean equals(Object other) {
+    Task otherTask = (Task) other;
+    return Objects.equals(this.taskTitle, otherTask.taskTitle)
+        && Objects.equals(this.timeStamp, otherTask.timeStamp)
+        && this.state == otherTask.state;
   }
 }
