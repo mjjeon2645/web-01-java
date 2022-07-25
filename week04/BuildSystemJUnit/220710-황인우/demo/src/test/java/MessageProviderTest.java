@@ -17,5 +17,4 @@ class MessageProviderTest {
 
     assertEquals("Hello, Chikorita!", messageProvider.message());
   }
-
 }
