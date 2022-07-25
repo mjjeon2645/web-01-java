@@ -1,5 +1,5 @@
 public class MessageProvider {
-  private final String name;
+  private String name;
 
   public MessageProvider() {
     this.name = "world";
