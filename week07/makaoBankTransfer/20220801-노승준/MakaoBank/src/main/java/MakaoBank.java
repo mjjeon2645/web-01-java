@@ -81,7 +81,7 @@ public class MakaoBank {
   }
 
   private AccountPageGenerator processAccount(String identifier) {
-    Account account = accountRepository.find(identifier);
+    Account account = accountRepository.find(identifier, accountIdentifier);
     if (account == null) {
       account = accountRepository.find(accountIdentifier);
     }
