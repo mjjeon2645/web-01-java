@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 import models.Account;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 public class TransferSuccessPageGenerator extends PageGenerator {
   @Override

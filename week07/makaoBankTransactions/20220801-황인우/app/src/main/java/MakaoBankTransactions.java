@@ -1,5 +1,6 @@
 import com.sun.net.httpserver.HttpServer;
 import models.Account;
+import pages.*;
 import repositories.AccountRepository;
 import services.TransferService;
 import utils.*;
@@ -64,6 +65,7 @@ public class MakaoBankTransactions {
     return switch (steps[0]) {
       case "Account" -> processAccount(steps.length == 2 ? steps[1] : "");
       case "Transfer" -> processTransfer(method, formData);
+      case "Transactions" -> processTransactions(steps.length == 2 ? steps[1] : "");
       default -> new GreetingPageGenerator(name);
     };
   }
@@ -97,5 +99,11 @@ public class MakaoBankTransactions {
     );
 
     return new TransferSuccessPageGenerator();
+  }
+
+  public PageGenerator processTransactions(String identifier) {
+    Account account = accountRepository.find(identifier, myIdentifier);
+
+    return new TransactionsPageGenerator(account);
   }
 }

@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 import models.Account;
 
@@ -18,6 +18,6 @@ public class TransferPageGenerator extends PageGenerator {
         "      <p>보낼 계좌: <input type=\"text\" name=\"to\" /></p>\n" +
         "      <p>보낼 금액: <input type=\"number\" name=\"amount\" /></p>\n" +
         "      <button>송금</button>\n" +
-        "    </form>";
+        "    </form>\n";
   }
 }

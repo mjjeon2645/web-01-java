@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 public class GreetingPageGenerator extends PageGenerator {
   private String name;

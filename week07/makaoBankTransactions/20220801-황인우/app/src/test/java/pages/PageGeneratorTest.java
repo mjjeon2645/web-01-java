@@ -1,4 +1,4 @@
-package utils;
+package pages;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +24,9 @@ class PageGeneratorTest {
     );
     assertTrue(
         navigation.contains("송금"), "navigation에 송금 링크 없음\n" + navigation
+    );
+    assertTrue(
+        navigation.contains("거래 내역"), "navigation에 거래 내역 링크 없음\n" + navigation
     );
   }
 }
