@@ -3,33 +3,34 @@ package utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GreetingPageGeneratorTest {
   @Test
   void defaultMessage() {
     PageGenerator pageGenerator = new GreetingPageGenerator();
 
-    assertEquals("Hello, world!", pageGenerator.html());
+    assertTrue(pageGenerator.html().contains("Hello, world!"));
   }
 
   @Test
   void textWithName() {
     PageGenerator pageGenerator = new GreetingPageGenerator("sunghwan");
 
-    assertEquals("Hello, sunghwan!", pageGenerator.html());
+    assertTrue(pageGenerator.html().contains("Hello, sunghwan!"));
   }
 
   @Test
   void textWithEmpty() {
     PageGenerator pageGenerator = new GreetingPageGenerator("");
 
-    assertEquals("Hello, world!", pageGenerator.html());
+    assertTrue(pageGenerator.html().contains("Hello, world!"));
   }
 
   @Test
   void textWithBlank() {
     PageGenerator pageGenerator = new GreetingPageGenerator("      ");
 
-    assertEquals("Hello, world!", pageGenerator.html());
+    assertTrue(pageGenerator.html().contains("Hello, world!"));
   }
 }
