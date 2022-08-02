@@ -18,16 +18,7 @@ public class GreetingPageGenerator extends PageGenerator {
   }
 
   @Override
-  public String html() {
-    return "<!DOCTYPE html>\n" +
-        "<html>\n" +
-        "  <head>\n" +
-        "    <meta charset=\"UTF-8\" />\n" +
-        "    <title>마카오 뱅크</title>\n" +
-        "  </head>\n" +
-        "  <body>\n" +
-        "    <p>Hello, " + name + "!</p>\n" +
-        "  </body>\n" +
-        "</html>";
+  public String content() {
+    return "    <p>Hello, " + name + "!</p>\n";
   }
 }
