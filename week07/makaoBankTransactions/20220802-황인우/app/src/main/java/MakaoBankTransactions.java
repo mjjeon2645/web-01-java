@@ -1,6 +1,7 @@
 import Repositories.AccountRepository;
 import com.sun.net.httpserver.HttpServer;
 import models.Account;
+import pages.*;
 import services.TransferService;
 import utils.*;
 
@@ -59,24 +60,31 @@ public class MakaoBankTransactions {
     System.out.println("Server is listening... http://localhost:8000/");
   }
 
-  private PageGenerator process(
+  public PageGenerator process(
       String path, String name, String method, Map<String, String> formData) {
     String[] split = path.substring(1).split("/");
 
     return switch (split[0]) {
       case "Account" -> processAccount(split.length >= 2 ? split[1] : "");
       case "Transfer" -> processTransfer(method, formData);
+      case "Transactions" -> processTransactions();
       default -> new GreetingPageGenerator(name);
     };
   }
 
-  private PageGenerator processAccount(String identifier) {
+  public PageGenerator processTransactions() {
+    Account found = accountRepository.find(myIdentifier);
+
+    return new TransactionsPageGenerator(found);
+  }
+
+  public PageGenerator processAccount(String identifier) {
     Account found = accountRepository.find(identifier, myIdentifier);
 
     return new AccountPageGenerator(found);
   }
 
-  private PageGenerator processTransfer(
+  public PageGenerator processTransfer(
       String method, Map<String, String> formData) {
     if (method.equals("GET")) {
       return processTransferGet();
@@ -84,13 +92,13 @@ public class MakaoBankTransactions {
     return processTransferPost(formData);
   }
 
-  private PageGenerator processTransferGet() {
+  public PageGenerator processTransferGet() {
     Account found = accountRepository.find(myIdentifier);
 
     return new TransferPageGenerator(found);
   }
 
-  private PageGenerator processTransferPost(Map<String, String> formData) {
+  public PageGenerator processTransferPost(Map<String, String> formData) {
     transferService.transfer(
         myIdentifier,
         formData.get("to"),
