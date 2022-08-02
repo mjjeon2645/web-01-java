@@ -16,7 +16,7 @@ public abstract class PageGenerator {
   }
 
   private String navigation() {
-    return "<nav>\n" +
+    return "<nav>\n " +
         "<a href=\"/\">홈으로</a>\n" +
         "<a href=\"account\">잔액 조회</a>\n" +
         "<a href=\"transfer\">송금</a>\n" +

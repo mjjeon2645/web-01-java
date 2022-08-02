@@ -12,7 +12,7 @@ public class TransferService {
     this.accounts = new ArrayList<>(accounts);
   }
 
-  public void transfer(String from, String to, int amount) {
+  public void transfer(String from, String to, long amount) {
     Account sender = accounts.stream()
         .filter(account -> account.identifier().equals(from))
         .findFirst().get();

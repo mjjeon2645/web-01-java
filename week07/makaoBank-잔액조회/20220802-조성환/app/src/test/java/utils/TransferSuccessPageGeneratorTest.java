@@ -16,5 +16,4 @@ class TransferSuccessPageGeneratorTest {
 
     assertTrue(html.contains("계좌 이체 성공!"), "메세지 문제 " + html);
   }
-
 }

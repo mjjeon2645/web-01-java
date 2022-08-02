@@ -30,5 +30,4 @@ class TransferServiceTest {
     assertEquals(500, oldSenderAmount - newSenderAmount);
     assertEquals(500, newReceiverAmount - oldReceiverAmount);
   }
-
 }
