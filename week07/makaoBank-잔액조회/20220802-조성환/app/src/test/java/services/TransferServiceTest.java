@@ -2,22 +2,19 @@ package services;
 
 import models.Account;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import reporitories.AccountRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransferServiceTest {
   @Test
   void transfer() {
-    List<Account> accounts = List.of(
-        new Account("2345", "Joker", 1000),
-        new Account("1234", "ashal", 3000)
-    );
-    Account sender = accounts.get(1);
-    Account receiver = accounts.get(0);
+    AccountRepository accountRepository = new AccountRepository();
 
-    TransferService transferService = new TransferService(accounts);
+    Account sender = accountRepository.find("1234");
+    Account receiver = accountRepository.find("2345");
+
+    TransferService transferService = new TransferService(accountRepository);
 
     long oldSenderAmount = sender.amount();
     long oldReceiverAmount = receiver.amount();

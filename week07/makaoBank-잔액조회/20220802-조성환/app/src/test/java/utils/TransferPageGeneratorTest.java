@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransferPageGeneratorTest {
   @Test
   void form() {
-    Account account = new Account("1234","ashal",3000);
+    Account account = new Account("1234", "ashal", 3000);
 
     PageGenerator pageGenerator = new TransferPageGenerator(account);
 

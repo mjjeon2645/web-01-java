@@ -3,12 +3,13 @@ package utils;
 import models.Account;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TransferSuccessPageGeneratorTest {
   @Test
   void message() {
-    Account account = new Account("1234","ashal",3000);
+    Account account = new Account("1234", "ashal", 3000);
 
     PageGenerator pageGenerator = new TransferSuccessPageGenerator(account);
 

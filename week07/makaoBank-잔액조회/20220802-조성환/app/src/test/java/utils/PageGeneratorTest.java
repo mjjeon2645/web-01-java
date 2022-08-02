@@ -13,7 +13,7 @@ class PageGeneratorTest {
         return null;
       }
     };
-    String html  = pageGenerator.html();
+    String html = pageGenerator.html();
 
     assertTrue(html.contains("홈으로"), "홈 메뉴 문제 " + html);
     assertTrue(html.contains("잔액 조회"), "잔액 조회 메뉴 문제 " + html);

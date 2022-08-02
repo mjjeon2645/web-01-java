@@ -1,5 +1,6 @@
 import com.sun.net.httpserver.HttpServer;
 import models.Account;
+import reporitories.AccountRepository;
 import services.TransferService;
 import utils.AccountPageGenerator;
 import utils.FormParser;
@@ -17,10 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 public class MakaoBank {
-  private Account account;
-  private TransferService transferService;
-  private FormParser formParser;
-  private List<Account> accounts;
+  private final FormParser formParser;
+
+  private final TransferService transferService;
+
+  private final AccountRepository accountRepository;
+  private final String accountIdentifier = "1234";
 
   public static void main(String[] args) throws IOException {
     MakaoBank application = new MakaoBank();
@@ -30,13 +33,8 @@ public class MakaoBank {
   public MakaoBank() {
     formParser = new FormParser();
 
-    accounts = List.of(
-        new Account("1234", "ashal", 3000),
-        new Account("2345", "Joker", 1000)
-    );
-    account = accounts.get(0);
-
-    transferService = new TransferService(accounts);
+    accountRepository = new AccountRepository();
+    transferService = new TransferService(accountRepository);
   }
 
   private void run() throws IOException {
@@ -75,20 +73,15 @@ public class MakaoBank {
     String[] steps = path.substring(1).split("/");
 
     return switch (steps[0]) {
-      case "/account" ->
-          processAccount(steps.length > 1 ? steps[1] : account.identifier());
+      case "/account" -> processAccount(steps.length > 1 ? steps[1] : "");
       case "/transfer" -> processTransfer(method, formData);
       default -> new GreetingPageGenerator();
     };
   }
 
   private AccountPageGenerator processAccount(String identifier) {
-    Account found = accounts.stream()
-        .filter(account -> account.identifier().equals(identifier))
-        .findFirst()
-        .orElse(account);
-
-    return new AccountPageGenerator(found);
+    Account account = accountRepository.find(identifier,accountIdentifier);
+    return new AccountPageGenerator(account);
   }
 
   private PageGenerator processTransfer(String method,
@@ -100,15 +93,16 @@ public class MakaoBank {
   }
 
   private TransferPageGenerator processTransferGet() {
+    Account account = accountRepository.find(accountIdentifier);
     return new TransferPageGenerator(account);
   }
 
   private TransferSuccessPageGenerator processTransferPost(Map<String, String> formData) {
-    transferService.transfer(account.identifier(),
+    transferService.transfer(accountIdentifier,
         formData.get("to"),
         Long.parseLong(formData.get("amount")));
-    //post로 받은 입력 값을 알아야한다.
-    //RequestBody로 post의 값을 얻을 수 있었나?
+
+    Account account = accountRepository.find(accountIdentifier);
     return new TransferSuccessPageGenerator(account);
   }
 }

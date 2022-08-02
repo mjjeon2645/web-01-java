@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AccountPageGeneratorTest {
   @Test
   void html() {
-    Account account = new Account("1234","ashal",3000);
+    Account account = new Account("1234", "ashal", 3000);
 
     PageGenerator pageGenerator = new AccountPageGenerator(account);
 

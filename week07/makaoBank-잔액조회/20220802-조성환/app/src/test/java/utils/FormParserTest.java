@@ -11,7 +11,7 @@ class FormParserTest {
   void parse() {
     FormParser formParser = new FormParser();
 
-    Map<String,String> formData = formParser.parse("to=1234&amount=1000");
+    Map<String, String> formData = formParser.parse("to=1234&amount=1000");
 
     assertEquals("1234", formData.get("to"));
     assertEquals("1000", formData.get("amount"));
@@ -21,7 +21,7 @@ class FormParserTest {
   void parseWithBlank() {
     FormParser formParser = new FormParser();
 
-    Map<String,String> formData = formParser.parse("");
+    Map<String, String> formData = formParser.parse("");
 
     assertFalse(formData.containsKey("to"));
   }
