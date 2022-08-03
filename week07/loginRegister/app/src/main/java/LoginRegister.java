@@ -1,22 +1,34 @@
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import models.User;
 import pages.GreetingPageGenerator;
 import pages.LoginPageGenerator;
 import pages.PageGenerator;
 import pages.RegisterPageGenerator;
 import utils.MessageWriter;
+import utils.UsersLoader;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LoginRegister {
+  private List<User> users = new ArrayList<>();
+
   public static void main(String[] args) throws IOException {
     LoginRegister application = new LoginRegister();
     application.run();
+  }
+
+  public LoginRegister() throws FileNotFoundException {
+    UsersLoader usersLoader = new UsersLoader();
+    users = usersLoader.load();
   }
 
   public void run() throws IOException {
