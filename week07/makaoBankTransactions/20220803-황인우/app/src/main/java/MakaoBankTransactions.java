@@ -61,11 +61,12 @@ public class MakaoBankTransactions {
   public PageGenerator process(
       String path, String name, String method, Map<String, String> formData) {
     String[] steps = path.substring(1).split("/");
+    String identifier = steps.length > 1 ? steps[1] : "";
 
     return switch (steps[0]) {
-      case "Account" -> processAccount(steps.length > 1 ? steps[1] : "");
-      case "Transfer" -> processTransfer(method, formData);
-      case "Transactions" -> processTransactions();
+      case "Account" -> processAccount(identifier);
+      case "Transfer" -> processTransfer(method, formData, identifier);
+      case "Transactions" -> processTransactions(identifier);
       default -> processGreeting(name);
     };
   }
@@ -77,31 +78,32 @@ public class MakaoBankTransactions {
   }
 
   public PageGenerator processTransfer(
-      String method, Map<String, String> formData) {
+      String method, Map<String, String> formData, String identifier) {
     if (method.equals("GET")) {
-      return processTransferGet();
+      return processTransferGet(identifier);
     }
 
-    return processTransferPost(formData);
+    return processTransferPost(identifier, formData);
   }
 
-  public PageGenerator processTransferGet() {
-    Account found = accountRepository.find(myIdentifier);
+  public PageGenerator processTransferGet(String identifier) {
+    Account found = accountRepository.find(identifier, myIdentifier);
 
     return new TransferPageGenerator(found);
   }
 
-  public PageGenerator processTransferPost(Map<String, String> formData) {
+  public PageGenerator processTransferPost(
+      String identifier, Map<String, String> formData) {
     transferService.transfer(
-        myIdentifier,
+        (identifier.equals("") ? myIdentifier : identifier),
         formData.get("to"),
         Long.parseLong(formData.get("amount")));
 
     return new TransferSuccessPageGenerator();
   }
 
-  public PageGenerator processTransactions() {
-    Account found = accountRepository.find(myIdentifier);
+  public PageGenerator processTransactions(String identifier) {
+    Account found = accountRepository.find(identifier, myIdentifier);
 
     return new TransactionsPageGenerator(found);
   }
