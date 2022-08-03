@@ -14,4 +14,14 @@ class AccountTest {
     assertEquals(3000, account.amount());
   }
 
+  @Test
+  void transfer() {
+    Account sender = new Account("1234", "Ashal", 3000);
+    Account receiver = new Account("2345", "JOKER", 1000);
+
+    sender.transfer(receiver, 500);
+
+    assertEquals(2500, sender.amount());
+    assertEquals(1500, receiver.amount());
+  }
 }
