@@ -4,17 +4,17 @@ import models.Task;
 import pages.PageGenerator;
 import pages.TasksPageGenerator;
 import utils.MessageWriter;
+import utils.RequestBodyReader;
 import utils.TasksLoader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TodoList {
   private List<Task> tasks;
+  private TasksLoader tasksLoader;
 
   public static void main(String[] args) throws IOException {
     TodoList application = new TodoList();
@@ -22,7 +22,7 @@ public class TodoList {
   }
 
   public TodoList() throws FileNotFoundException {
-    TasksLoader tasksLoader = new TasksLoader();
+    tasksLoader = new TasksLoader();
     tasks = tasksLoader.load();
   }
 
@@ -34,17 +34,35 @@ public class TodoList {
     httpServer.createContext("/", exchange -> {
 
       // 입력
+      String method = exchange.getRequestMethod();
+
+      RequestBodyReader requestBodyReader = new RequestBodyReader(exchange);
+
+      String text = requestBodyReader.body();
 
       // 처리
-      PageGenerator pageGenerator = new TasksPageGenerator(tasks);
+      processWithMethod(method, text);
+
+      PageGenerator pageGenerator = process();
 
       // 출력
-      MessageWriter messageWriter = new MessageWriter(exchange);
-      messageWriter.write(pageGenerator.html());
+      new MessageWriter(exchange).write(pageGenerator.html());
     });
 
     httpServer.start();
 
     System.out.println("http://localhost:8000");
+  }
+
+  public void processWithMethod(String method, String text) throws IOException {
+    if (method.equals("POST")) {
+      tasks.add(new Task(text, "PROCESSING"));
+    }
+
+    tasksLoader.save(tasks);
+  }
+
+  public TasksPageGenerator process() {
+    return new TasksPageGenerator(tasks);
   }
 }

@@ -22,4 +22,8 @@ public class Task {
     return (this.title().equals(otherTask.title())
         && this.state.equals(otherTask.state()));
   }
+
+  public String csvRow() {
+    return this.title() + "," + this.state;
+  }
 }

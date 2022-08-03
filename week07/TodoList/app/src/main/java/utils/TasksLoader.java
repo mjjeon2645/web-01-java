@@ -4,6 +4,8 @@ import models.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,5 +33,17 @@ public class TasksLoader {
     String[] words = line.split(",");
 
     return new Task(words[0], words[1]);
+  }
+
+  public void save(List<Task> tasks) throws IOException {
+    FileWriter fileWriter = new FileWriter("tasksdata.csv");
+
+    for (Task task : tasks) {
+      String line = task.csvRow();
+
+      fileWriter.write(line +"\n");
+    }
+
+    fileWriter.close();
   }
 }
