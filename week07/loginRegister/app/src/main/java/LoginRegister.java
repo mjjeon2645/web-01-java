@@ -1,8 +1,10 @@
 import com.sun.net.httpserver.HttpServer;
 import models.Account;
 import pages.*;
+import utils.FormParser;
 import utils.MessageWriter;
 import utils.AccountsLoader;
+import utils.RequestBodyReader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoginRegister {
@@ -37,13 +40,14 @@ public class LoginRegister {
 
       String method = exchange.getRequestMethod();
 
-      // 리퀘스트 바디 내용 확인을 위해 임시 작성
-      InputStream inputStream = exchange.getRequestBody();
-      Scanner scanner = new Scanner(inputStream);
-      if (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        System.out.println(line);
-      }
+      RequestBodyReader requestBodyReader = new RequestBodyReader(exchange);
+      String requestBody = requestBodyReader.body();
+
+      System.out.println(requestBody);
+
+      FormParser formParser = new FormParser();
+
+      Map<String, String> formData = formParser.parse(requestBody);
 
       // 처리
       PageGenerator pageGenerator = process(path, method);
