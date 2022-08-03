@@ -1,14 +1,14 @@
 package models;
 
-public class User {
+public class Account {
 
   private String name;
   private String id;
   private String password;
   private String email;
 
-  public User(String name, String id, String password, String email) {
-    //TODO. 비밀번호 재확인을 위해 입력받은 값도 user에 포함될까?
+  public Account(String name, String id, String password, String email) {
+    //TODO. 비밀번호 재확인을 위해 입력받은 값도 Account에 포함될까?
     this.name = name;
     this.id = id;
     this.password = password;
@@ -38,10 +38,10 @@ public class User {
 
   @Override
   public boolean equals(Object other) {
-    User otherUser = (User) other;
-    return this.name().equals(otherUser.name())
-        && this.id().equals(otherUser.id())
-        && this.password().equals(otherUser.password())
-        && this.email().equals(otherUser.email());
+    Account otherAccount = (Account) other;
+    return this.name().equals(otherAccount.name())
+        && this.id().equals(otherAccount.id())
+        && this.password().equals(otherAccount.password())
+        && this.email().equals(otherAccount.email());
   }
 }

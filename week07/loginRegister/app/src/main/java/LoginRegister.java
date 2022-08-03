@@ -1,17 +1,12 @@
-import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import models.User;
-import pages.GreetingPageGenerator;
-import pages.LoginPageGenerator;
-import pages.PageGenerator;
-import pages.RegisterPageGenerator;
+import models.Account;
+import pages.*;
 import utils.MessageWriter;
-import utils.UsersLoader;
+import utils.AccountsLoader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
@@ -19,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LoginRegister {
-  private List<User> users = new ArrayList<>();
+  private List<Account> accounts = new ArrayList<>();
 
   public static void main(String[] args) throws IOException {
     LoginRegister application = new LoginRegister();
@@ -27,8 +22,8 @@ public class LoginRegister {
   }
 
   public LoginRegister() throws FileNotFoundException {
-    UsersLoader usersLoader = new UsersLoader();
-    users = usersLoader.load();
+    AccountsLoader accountsLoader = new AccountsLoader();
+    accounts = accountsLoader.load();
   }
 
   public void run() throws IOException {
@@ -39,7 +34,8 @@ public class LoginRegister {
       // 입력
       URI requestURI = exchange.getRequestURI();
       String path = requestURI.getPath();
-      String[] steps = path.substring(1).split("/");
+
+      String method = exchange.getRequestMethod();
 
       // 리퀘스트 바디 내용 확인을 위해 임시 작성
       InputStream inputStream = exchange.getRequestBody();
@@ -50,25 +46,39 @@ public class LoginRegister {
       }
 
       // 처리
-      PageGenerator pageGenerator = new GreetingPageGenerator();
-
-      if (steps[0].equals("login")) {
-        pageGenerator = new LoginPageGenerator();
-      }
-
-      if (steps[0].equals("registration")) {
-        pageGenerator = new RegisterPageGenerator();
-      }
-
-      String content = pageGenerator.html();
+      PageGenerator pageGenerator = process(path, method);
 
       // 출력
       MessageWriter messageWriter = new MessageWriter(exchange);
-      messageWriter.write(content);
+      messageWriter.write(pageGenerator.html());
     });
 
     httpServer.start();
 
     System.out.println("http://localhost:8000/");
+  }
+
+  private PageGenerator process(String path, String method) {
+    String[] steps = path.substring(1).split("/");
+
+    return switch (steps[0]) {
+      case "login" -> processLogin(method);
+      case "registration" -> processRegistration(method);
+      default -> new GreetingPageGenerator();
+    };
+  }
+
+  public PageGenerator processLogin(String method) {
+    if (method.equals("GET")) {
+      return new LoginPageGenerator();
+    }
+    return new LoginSuccessPageGenerator();
+  }
+
+  public PageGenerator processRegistration(String method) {
+    if (method.equals("GET")) {
+      return new RegisterPageGenerator();
+    }
+    return new RegisterSuccessPageGenerator();
   }
 }
