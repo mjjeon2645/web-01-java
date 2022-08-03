@@ -24,7 +24,7 @@ public class Account {
     return amount;
   }
 
-  public void transfer(Account receiver, int amount) {
+  public void transfer(Account receiver, long amount) {
     this.amount -= amount;
 
     receiver.amount += amount;
