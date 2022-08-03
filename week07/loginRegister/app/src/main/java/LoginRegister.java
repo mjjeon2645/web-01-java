@@ -27,7 +27,9 @@ public class LoginRegister {
       // 입력
       URI requestURI = exchange.getRequestURI();
       String path = requestURI.getPath();
+      String[] steps = path.substring(1).split("/");
 
+      // 리퀘스트 바디 내용 확인을 위해 임시 작성
       InputStream inputStream = exchange.getRequestBody();
       Scanner scanner = new Scanner(inputStream);
       if (scanner.hasNextLine()) {
@@ -38,11 +40,11 @@ public class LoginRegister {
       // 처리
       PageGenerator pageGenerator = new GreetingPageGenerator();
 
-      if (path.substring(1).equals("login")) {
+      if (steps[0].equals("login")) {
         pageGenerator = new LoginPageGenerator();
       }
 
-      if (path.substring(1).equals("registration")) {
+      if (steps[0].equals("registration")) {
         pageGenerator = new RegisterPageGenerator();
       }
 
