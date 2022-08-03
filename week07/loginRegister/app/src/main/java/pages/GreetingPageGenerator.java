@@ -9,7 +9,7 @@ public class GreetingPageGenerator extends PageGenerator {
         "<html lang=\"ko\">\n" +
         "<head>\n" +
         "<meta charset=\"UTF-8\">\n" +
-        "<title>로그인/회원가입</title>\n" +
+        "<title>마카오 뱅크</title>\n" +
         "</head>\n" +
         "<body>\n" +
         "<h1>안녕하세요!</h1>\n" +
