@@ -1,7 +1,6 @@
 package models;
 
 public class Account {
-
   private String identifier;
   private String name;
   private long amount;
