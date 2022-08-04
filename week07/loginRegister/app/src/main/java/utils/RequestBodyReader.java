@@ -19,10 +19,16 @@ public class RequestBodyReader {
 
     String line = "";
 
+//    넣어줄 필요가 있을까?
+//    if (!scanner.hasNextLine()) {
+//      return "";
+//    }
+
     while (scanner.hasNextLine()) {
       line += scanner.nextLine() + "&";
     }
 
+    // 가장 마지막 줄에 붙은 앤드 표시 삭제
     if (!line.isEmpty()) {
       line = line.substring(0, line.length() - 1);
     }

@@ -20,7 +20,7 @@ public class RegisterPageGenerator extends PageGenerator {
         "</p>\n" +
         "<p>\n" +
         "<label>비밀번호 재확인 </label>\n" +
-        "<input type=\"password\" name=\"password-check\" />\n" +
+        "<input type=\"password\" name=\"check-password\" />\n" +
         "</p>\n" +
         "<p>\n" +
         "<label>이메일 </label>\n" +

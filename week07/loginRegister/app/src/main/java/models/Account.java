@@ -8,7 +8,6 @@ public class Account {
   private String email;
 
   public Account(String name, String id, String password, String email) {
-    //TODO. 비밀번호 재확인을 위해 입력받은 값도 Account에 포함될까?
     this.name = name;
     this.id = id;
     this.password = password;
