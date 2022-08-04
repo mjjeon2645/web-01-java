@@ -8,13 +8,11 @@ import utils.RequestBodyReader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class LoginRegister {
   private List<Account> accounts = new ArrayList<>();
@@ -25,8 +23,7 @@ public class LoginRegister {
   }
 
   public LoginRegister() throws FileNotFoundException {
-    AccountsLoader accountsLoader = new AccountsLoader();
-    accounts = accountsLoader.load();
+    accounts = new AccountsLoader().load();
   }
 
   public void run() throws IOException {
@@ -50,7 +47,7 @@ public class LoginRegister {
       Map<String, String> formData = formParser.parse(requestBody);
 
       // 처리
-      PageGenerator pageGenerator = process(path, method);
+      PageGenerator pageGenerator = process(path, method, formData);
 
       // 출력
       MessageWriter messageWriter = new MessageWriter(exchange);
@@ -62,7 +59,7 @@ public class LoginRegister {
     System.out.println("http://localhost:8000/");
   }
 
-  private PageGenerator process(String path, String method) {
+  private PageGenerator process(String path, String method, Map<String, String> formData) {
     String[] steps = path.substring(1).split("/");
 
     return switch (steps[0]) {
@@ -76,12 +73,28 @@ public class LoginRegister {
     if (method.equals("GET")) {
       return new LoginPageGenerator();
     }
+    if (비밀번호가 틀렸을 경우) {
+      return new WrongPasswordPageGenerator();
+    }
+    // 사용자 아이디가 존재하지 않을 경우
     return new LoginSuccessPageGenerator();
   }
 
   public PageGenerator processRegistration(String method) {
     if (method.equals("GET")) {
       return new RegisterPageGenerator();
+    }
+
+    if (아이디가 중복일 경우) {
+      return new DuplicatedIdPageGenerator();
+    }
+
+    if (비밀번호 재확인이 비밀번호와 다를 경우) {
+      return new PasswordNotConfirmedPageGenerator();
+    }
+
+    if (정보를 모두 입력하지 않고 회원가입 한 경우) {
+      return new MissingInformationPageGenerator();
     }
     return new RegisterSuccessPageGenerator();
   }
