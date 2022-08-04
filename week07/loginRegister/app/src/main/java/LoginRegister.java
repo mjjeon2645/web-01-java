@@ -26,8 +26,10 @@ public class LoginRegister {
 
   public LoginRegister() throws FileNotFoundException {
     accountRepository = new AccountRepository();
-    formParser = new FormParser();
+
     accountsLoader = new AccountsLoader();
+
+    formParser = new FormParser();
   }
 
   public void run() throws IOException {
@@ -41,9 +43,7 @@ public class LoginRegister {
 
       String method = exchange.getRequestMethod();
 
-      RequestBodyReader requestBodyReader = new RequestBodyReader(exchange);
-      String requestBody = requestBodyReader.body();
-
+      String requestBody = new RequestBodyReader(exchange).body();
       Map<String, String> formData = formParser.parse(requestBody);
 
       // 처리
@@ -59,10 +59,10 @@ public class LoginRegister {
     System.out.println("http://localhost:8000/");
   }
 
-  public PageGenerator process(String path, String method, Map<String, String> formData) throws IOException {
-    String[] steps = path.substring(1).split("/");
+  public PageGenerator process(String path, String method,
+                               Map<String, String> formData) throws IOException {
 
-    return switch (steps[0]) {
+    return switch (path.substring(1)) {
       case "login" -> processLogin(method, formData);
       case "registration" -> processRegistration(method, formData, accountRepository);
       default -> new GreetingPageGenerator();
@@ -71,33 +71,56 @@ public class LoginRegister {
 
   public PageGenerator processLogin(String method, Map<String, String> formData) {
     if (method.equals("GET")) {
-      return new LoginPageGenerator();
+      return processLoginGet();
+    }
+    return processLoginPost(formData);
+  }
+
+  public LoginPageGenerator processLoginGet() {
+    return new LoginPageGenerator();
+  }
+
+  public PageGenerator processLoginPost(Map<String, String> formData) {
+    Account loginAccount = accountRepository.find(formData.get("id"));
+
+    // 입력정보 누락
+    if (!(formData.size() == 2)) {
+      return new LoginDataMissedPageGenerator();
     }
 
-    //사용자 아이디가 존재하지 않을 경우
-    if (accountRepository.find(formData.get("id")) == null) {
+    // 사용자 아이디가 존재하지 않을 경우
+    if (loginAccount == null) {
       return new IdNotFoundPageGenerator();
     }
 
     // 비밀번호가 틀렸을 경우
-    if (!(accountRepository.find(formData.get("id")).password().equals((formData.get("password"))))) {
+    if (!loginAccount.password().equals((formData.get("password")))) {
       return new WrongPasswordPageGenerator();
     }
 
-    String name = accountRepository.find(formData.get("id")).name();
+    // 모든게 성공적일 경우, 이름을 넣어 say Hello!
+    String name = loginAccount.name();
     return new LoginSuccessPageGenerator(name);
   }
 
-
-  public PageGenerator processRegistration(String method, Map<String, String> formData,
+  public PageGenerator processRegistration(String method,
+                                           Map<String, String> formData,
                                            AccountRepository accountRepository) throws IOException {
     if (method.equals("GET")) {
-      return new RegisterPageGenerator();
+      return processRegistrationGet();
     }
+    return processRegistrationPost(formData, accountRepository);
+  }
 
-    // 정보 미싱
+  public RegisterPageGenerator processRegistrationGet() {
+    return new RegisterPageGenerator();
+  }
+
+  public PageGenerator processRegistrationPost(Map<String, String> formData,
+                                               AccountRepository accountRepository) throws IOException {
+    // 입력정보 누락
     if (!(formData.size() == 5)) {
-      return new MissingInformationPageGenerator();
+      return new RegisterDataMissedPageGenerator();
     }
 
     // 비밀번호 재확인이 다를 떄
@@ -106,17 +129,20 @@ public class LoginRegister {
     }
 
     // 이미 등록되어 있는 아이디일 때
-   if (!(accountRepository.find(formData.get("id")) == null)) {
+    if (!(accountRepository.find(formData.get("id")) == null)) {
       return new DuplicatedIdPageGenerator();
     }
 
-    // 성공 페이지를 출력해주기 전에 "진짜 처리". 즉 성공 뿐만이 아니라 해당 폼데이터에서 받아온 값을
-    // (1)리파지토리에 넣어주고, (2) 그 리파지토리의 accounts를 csv 파일에 써주고!
-    Account account = new Account(formData.get("name"),
+    // 성공 페이지를 출력해주기 전에 "진짜 처리". 폼데이터를 활용해 (1) 신규 어카운트 생성,
+    // (2) 리파지토리에 넣어주고, (3) 그 리파지토리에서 관리하는  accounts를 csv 파일에 써주고!
+    Account account = new Account(
+        formData.get("name"),
         formData.get("id"),
         formData.get("password"),
         formData.get("email"));
+
     accountRepository.accounts().put(account.id(), account);
+
     accountsLoader.save(accountRepository.accounts());
 
     return new RegisterSuccessPageGenerator();

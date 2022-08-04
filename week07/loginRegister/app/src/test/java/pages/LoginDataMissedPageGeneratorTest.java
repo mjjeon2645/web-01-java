@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MissingInformationPageGeneratorTest {
+class LoginDataMissedPageGeneratorTest {
   @Test
   void html() {
-    PageGenerator pageGenerator = new RegisterDataMissedPageGenerator();
+    PageGenerator pageGenerator = new LoginDataMissedPageGenerator();
 
     String html = pageGenerator.html();
 
