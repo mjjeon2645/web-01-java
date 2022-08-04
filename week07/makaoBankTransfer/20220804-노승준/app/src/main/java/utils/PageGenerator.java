@@ -15,12 +15,12 @@ public abstract class PageGenerator {
         "</html>";
   }
 
-  private String navigation() {
-    return "<nav>" +
+  public String navigation() {
+    return "<nav>\n" +
         "<a href=\"/\">홈으로</a>\n" +
         "<a href=\"/account\">잔액 조회</a>\n" +
         "<a href=\"/transfer\">송금</a>\n" +
-        "</nav>";
+        "</nav>\n";
   }
 
   public abstract String content();

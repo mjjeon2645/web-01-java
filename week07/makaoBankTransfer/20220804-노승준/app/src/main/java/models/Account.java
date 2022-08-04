@@ -1,7 +1,6 @@
 package models;
 
 public class Account {
-
   private String identifier;
   private String name;
   private long amount;
@@ -23,5 +22,11 @@ public class Account {
 
   public long amount() {
     return amount;
+  }
+
+  public void transfer(Account receiver, long amount) {
+    this.amount -= amount;
+
+    receiver.amount += amount;
   }
 }

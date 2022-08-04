@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class MessageWriter {
+
   private HttpExchange exchange;
 
   public MessageWriter(HttpExchange exchange) {
