@@ -4,6 +4,8 @@ import models.Account;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class AccountsLoader {
@@ -19,29 +21,22 @@ public class AccountsLoader {
 
       Account account = parse(line);
 
-      accounts.put(account.id(),  account);
+      accounts.put(account.id(), account);
     }
 
     return accounts;
   }
 
-//  public List<Account> load() throws FileNotFoundException {
-//    List<Account> accounts = new ArrayList<>();
-//
-//    File file = new File("accountsdata.csv");
-//
-//    Scanner scanner = new Scanner(file);
-//
-//    while(scanner.hasNextLine()) {
-//      String line = scanner.nextLine();
-//
-//      Account account = parse(line);
-//
-//      accounts.add(account);
-//    }
-//
-//    return accounts;
-//  }
+  public void save(Map<String, Account> accounts) throws IOException {
+    FileWriter fileWriter = new FileWriter("accountsdata.csv");
+
+    for (Account account : accounts.values()) {
+      String line = account.toCsvRow();
+      fileWriter.write(line + "\n");
+    }
+
+    fileWriter.close();
+  }
 
   public Account parse(String line) {
     String[] words = line.split(",");

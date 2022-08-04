@@ -43,4 +43,8 @@ public class Account {
         && this.password().equals(otherAccount.password())
         && this.email().equals(otherAccount.email());
   }
+
+  public String toCsvRow() {
+    return String.join(",", name, id, password, email);
+  }
 }

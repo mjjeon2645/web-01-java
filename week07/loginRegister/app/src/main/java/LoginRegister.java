@@ -1,6 +1,8 @@
 import com.sun.net.httpserver.HttpServer;
+import models.Account;
 import pages.*;
 import repositories.AccountRepository;
+import utils.AccountsLoader;
 import utils.FormParser;
 import utils.MessageWriter;
 import utils.RequestBodyReader;
@@ -14,6 +16,8 @@ import java.util.Map;
 public class LoginRegister {
 
   private final AccountRepository accountRepository;
+  private AccountsLoader accountsLoader;
+  private FormParser formParser;
 
   public static void main(String[] args) throws IOException {
     LoginRegister application = new LoginRegister();
@@ -22,6 +26,8 @@ public class LoginRegister {
 
   public LoginRegister() throws FileNotFoundException {
     accountRepository = new AccountRepository();
+    formParser = new FormParser();
+    accountsLoader = new AccountsLoader();
   }
 
   public void run() throws IOException {
@@ -38,8 +44,6 @@ public class LoginRegister {
       RequestBodyReader requestBodyReader = new RequestBodyReader(exchange);
       String requestBody = requestBodyReader.body();
 
-      FormParser formParser = new FormParser();
-
       Map<String, String> formData = formParser.parse(requestBody);
 
       // 처리
@@ -55,7 +59,7 @@ public class LoginRegister {
     System.out.println("http://localhost:8000/");
   }
 
-  private PageGenerator process(String path, String method, Map<String, String> formData) {
+  public PageGenerator process(String path, String method, Map<String, String> formData) throws IOException {
     String[] steps = path.substring(1).split("/");
 
     return switch (steps[0]) {
@@ -69,15 +73,24 @@ public class LoginRegister {
     if (method.equals("GET")) {
       return new LoginPageGenerator();
     }
-//    if (비밀번호가 틀렸을 경우) {
-//      return new WrongPasswordPageGenerator();
-//    }
-//     사용자 아이디가 존재하지 않을 경우
-    return new LoginSuccessPageGenerator();
+
+    //사용자 아이디가 존재하지 않을 경우
+    if (accountRepository.find(formData.get("id")) == null) {
+      return new IdNotFoundPageGenerator();
+    }
+
+    // 비밀번호가 틀렸을 경우
+    if (!(accountRepository.find(formData.get("id")).password().equals((formData.get("password"))))) {
+      return new WrongPasswordPageGenerator();
+    }
+
+    String name = accountRepository.find(formData.get("id")).name();
+    return new LoginSuccessPageGenerator(name);
   }
 
+
   public PageGenerator processRegistration(String method, Map<String, String> formData,
-                                           AccountRepository accountRepository) {
+                                           AccountRepository accountRepository) throws IOException {
     if (method.equals("GET")) {
       return new RegisterPageGenerator();
     }
@@ -92,13 +105,20 @@ public class LoginRegister {
       return new PasswordNotConfirmedPageGenerator();
     }
 
-    // TODO. 구현 필요. 아이디 중복 -> 레포지토리에서 관리하는 accounts 데이터의 상태가 Map<id, account>라면 가능할듯!
-    // formData.get("id")와 map의 아이디를 비교해서 동일한 것이 있다면 중복된 아이디라는 말이니까 얘를 뱉어내주면 되겠다.
-    if ((formData.get("id"))) {
+    // 이미 등록되어 있는 아이디일 때
+   if (!(accountRepository.find(formData.get("id")) == null)) {
       return new DuplicatedIdPageGenerator();
     }
 
-    // TODO. 성공 페이지를 출력해주기 전에 "진짜 처리". 즉 성공 뿐만이 아니라 해당 폼데이터에서 받아온 값을 (1)csv 파일에도 써주고, (2) 어카운츠 리스트에도 넣어주고!
+    // 성공 페이지를 출력해주기 전에 "진짜 처리". 즉 성공 뿐만이 아니라 해당 폼데이터에서 받아온 값을
+    // (1)리파지토리에 넣어주고, (2) 그 리파지토리의 accounts를 csv 파일에 써주고!
+    Account account = new Account(formData.get("name"),
+        formData.get("id"),
+        formData.get("password"),
+        formData.get("email"));
+    accountRepository.accounts().put(account.id(), account);
+    accountsLoader.save(accountRepository.accounts());
+
     return new RegisterSuccessPageGenerator();
   }
 }

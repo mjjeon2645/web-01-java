@@ -20,6 +20,7 @@ class FormParserTest {
     assertEquals("1234", formData.get("password"));
     assertEquals("1234", formData.get("check-password"));
     assertEquals("angel2645@naver.com", formData.get("email"));
+
     assertEquals(5, formData.size());
   }
 }

@@ -9,6 +9,10 @@ import java.util.Map;
 public class AccountRepository {
   private Map<String, Account> accounts;
 
+  public Map<String, Account> accounts() {
+    return accounts;
+  }
+
   public AccountRepository() throws FileNotFoundException {
     AccountsLoader accountsLoader = new AccountsLoader();
     accounts = accountsLoader.load();
