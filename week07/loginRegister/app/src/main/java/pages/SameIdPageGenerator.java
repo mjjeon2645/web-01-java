@@ -1,6 +1,6 @@
 package pages;
 
-public class DuplicateIdPageGenerator extends PageGenerator{
+public class SameIdPageGenerator extends PageGenerator{
 
   @Override
   public String content() {

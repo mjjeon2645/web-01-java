@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DuplicateIdPageGeneratorTest {
+class SameIdPageGeneratorTest {
   @Test
   void content() {
-    PageGenerator pageGenerator = new DuplicateIdPageGenerator();
+    PageGenerator pageGenerator = new SameIdPageGenerator();
 
     String html = pageGenerator.html();
 
