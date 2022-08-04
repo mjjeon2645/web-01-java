@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountRepositoryTest {
   @Test
-  void find(){
+  void find() {
     AccountRepository accountRepository = new AccountRepository();
 
     Account account = accountRepository.find("1234");
@@ -18,10 +18,10 @@ class AccountRepositoryTest {
   }
 
   @Test
-  void notFound(){
+  void notFound() {
     AccountRepository accountRepository = new AccountRepository();
 
-    Account account = accountRepository.find("4321");
+    Account account = accountRepository.find("3456");
 
     assertNull(account);
   }

@@ -29,7 +29,7 @@ class GreetingPageGeneratorTest {
 
   @Test
   void textWithBlankName() {
-    PageGenerator pageGenerator = new GreetingPageGenerator("   ");
+    PageGenerator pageGenerator = new GreetingPageGenerator("     ");
 
     assertTrue(pageGenerator.html().contains("Hello, world!"));
   }

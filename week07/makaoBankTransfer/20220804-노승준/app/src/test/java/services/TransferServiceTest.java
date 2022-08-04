@@ -27,6 +27,6 @@ class TransferServiceTest {
     long newReceiverAmount = receiver.amount();
 
     assertEquals(1000, oldSenderAmount - newSenderAmount);
-    assertEquals(1000, newReceiverAmount- oldReceiverAmount);
+    assertEquals(1000, newReceiverAmount - oldReceiverAmount);
   }
 }

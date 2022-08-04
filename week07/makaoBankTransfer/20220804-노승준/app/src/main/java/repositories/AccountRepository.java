@@ -2,21 +2,18 @@ package repositories;
 
 import models.Account;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class AccountRepository {
-  private final Map<String, Account> accounts = new HashMap<>();
+  private Map<String, Account> accounts = new HashMap<>();
 
   public AccountRepository() {
-    List.of(
+    Stream.of(
         new Account("1234", "ashal", 3000),
-        new Account("2345", "joker", 1000)
-    ).stream().forEach(account -> {
-      accounts.put(account.identifier(), account);
-    });
+        new Account("2345", "joker", 3000)
+    ).forEach(account -> accounts.put(account.identifier(), account));
   }
 
   public Account find(String identifier) {
@@ -25,8 +22,7 @@ public class AccountRepository {
 
   public Account find(String identifier, String nextIdentifier) {
     Account account = find(identifier);
-
-    if(account == null) {
+    if (account == null) {
       account = find(nextIdentifier);
     }
     return account;

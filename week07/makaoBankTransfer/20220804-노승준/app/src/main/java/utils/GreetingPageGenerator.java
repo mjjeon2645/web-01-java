@@ -1,6 +1,6 @@
 package utils;
 
-public class GreetingPageGenerator extends PageGenerator{
+public class GreetingPageGenerator extends PageGenerator {
   private String name;
 
   public GreetingPageGenerator() {
@@ -8,16 +8,11 @@ public class GreetingPageGenerator extends PageGenerator{
   }
 
   public GreetingPageGenerator(String name) {
-    if(name.isBlank()){
+    if (name.isBlank()) {
       this.name = "world";
       return;
     }
-
     this.name = name;
-  }
-
-  public String text() {
-    return "Hello, " + name + "!";
   }
 
   @Override
