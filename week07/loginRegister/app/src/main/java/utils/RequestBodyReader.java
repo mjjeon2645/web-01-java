@@ -19,7 +19,6 @@ public class RequestBodyReader {
 
     String line = "";
 
-//    넣어줄 필요가 있을까?
     if (!scanner.hasNextLine()) {
       return "";
     }

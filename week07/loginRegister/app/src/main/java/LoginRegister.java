@@ -1,8 +1,8 @@
 import com.sun.net.httpserver.HttpServer;
-import models.Account;
+import models.User;
 import pages.*;
-import repositories.AccountRepository;
-import utils.AccountsLoader;
+import repositories.UserRepository;
+import services.UserService;
 import utils.FormParser;
 import utils.MessageWriter;
 import utils.RequestBodyReader;
@@ -14,9 +14,8 @@ import java.net.URI;
 import java.util.Map;
 
 public class LoginRegister {
-
-  private final AccountRepository accountRepository;
-  private AccountsLoader accountsLoader;
+  private final UserRepository userRepository;
+  private UserService userService;
   private FormParser formParser;
 
   public static void main(String[] args) throws IOException {
@@ -25,10 +24,8 @@ public class LoginRegister {
   }
 
   public LoginRegister() throws FileNotFoundException {
-    accountRepository = new AccountRepository();
-
-    accountsLoader = new AccountsLoader();
-
+    userRepository = new UserRepository();
+    userService = new UserService(userRepository);
     formParser = new FormParser();
   }
 
@@ -36,7 +33,6 @@ public class LoginRegister {
     InetSocketAddress address = new InetSocketAddress(8000);
     HttpServer httpServer = HttpServer.create(address, 0);
     httpServer.createContext("/", exchange -> {
-
       // 입력
       URI requestURI = exchange.getRequestURI();
       String path = requestURI.getPath();
@@ -61,90 +57,45 @@ public class LoginRegister {
 
   public PageGenerator process(String path, String method,
                                Map<String, String> formData) throws IOException {
-
     return switch (path.substring(1)) {
       case "login" -> processLogin(method, formData);
-      case "registration" -> processRegistration(method, formData, accountRepository);
+      case "registration" -> processRegistration(method, formData, userRepository);
       default -> new GreetingPageGenerator();
     };
   }
 
   public PageGenerator processLogin(String method, Map<String, String> formData) {
     if (method.equals("GET")) {
-      return processLoginGet();
+      return new LoginPageGenerator();
     }
     return processLoginPost(formData);
   }
 
-  public LoginPageGenerator processLoginGet() {
-    return new LoginPageGenerator();
-  }
-
   public PageGenerator processLoginPost(Map<String, String> formData) {
-    Account findById = accountRepository.find(formData.get("id"));
-
-    // 입력정보 누락
-    if (!(formData.size() == 2)) {
-      return new LoginDataMissedPageGenerator();
+    String status = new UserService(userRepository).loginValidator(formData);
+    if (status.equals(UserService.LOGIN_APPROVED)) {
+      String name = userRepository.find(formData.get("id")).name();
+      return new MainPageGenerator(name);
     }
-
-    // 사용자 아이디가 존재하지 않을 경우
-    if (findById == null) {
-      return new IdNotFoundPageGenerator();
-    }
-
-    // 비밀번호가 틀렸을 경우
-    if (!findById.password().equals((formData.get("password")))) {
-      return new WrongPasswordPageGenerator();
-    }
-
-    // 모든게 성공적일 경우, 이름을 넣어 say Hello!
-    String name = findById.name();
-    return new MainPageGenerator(name);
+    return new LoginErrorPageGenerator(status);
   }
 
-  public PageGenerator processRegistration(String method,
-                                           Map<String, String> formData,
-                                           AccountRepository accountRepository) throws IOException {
+  public PageGenerator processRegistration(String method, Map<String, String> formData,
+                                           UserRepository userRepository) throws IOException {
     if (method.equals("GET")) {
-      return processRegistrationGet();
+      return new RegisterPageGenerator();
     }
-    return processRegistrationPost(formData, accountRepository);
-  }
-
-  public RegisterPageGenerator processRegistrationGet() {
-    return new RegisterPageGenerator();
+    return processRegistrationPost(formData, userRepository);
   }
 
   public PageGenerator processRegistrationPost(Map<String, String> formData,
-                                               AccountRepository accountRepository) throws IOException {
-    // 입력정보 누락
-    if (!(formData.size() == 5)) {
-      return new RegisterDataMissedPageGenerator();
+                                               UserRepository userRepository) throws IOException {
+    String status = new UserService(userRepository).registerValidator(formData);
+    if (status.equals(UserService.REGISTER_APPROVED)) {
+      User user = userService.initUser(formData);
+      userService.register(user);
+      return new RegisterSuccessPageGenerator();
     }
-
-    // 비밀번호 재확인이 다를 떄
-    if (!(formData.get("password").equals(formData.get("check-password")))) {
-      return new PasswordNotConfirmedPageGenerator();
-    }
-
-    // 이미 등록되어 있는 아이디일 때
-    if (!(accountRepository.find(formData.get("id")) == null)) {
-      return new DuplicatedIdPageGenerator();
-    }
-
-    // 성공 페이지를 출력해주기 전에 "진짜 처리". 폼데이터를 활용해 (1) 신규 어카운트 생성,
-    // (2) 리파지토리에 넣어주고, (3) 그 리파지토리에서 관리하는  accounts를 csv 파일에 써주고!
-    Account account = new Account(
-        formData.get("name"),
-        formData.get("id"),
-        formData.get("password"),
-        formData.get("email"));
-
-    accountRepository.accounts().put(account.id(), account);
-
-    accountsLoader.save(accountRepository.accounts());
-
-    return new RegisterSuccessPageGenerator();
+    return new RegisterErrorPageGenerator(status);
   }
 }

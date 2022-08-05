@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginSuccessPageGeneratorTest {
+class MainPageGeneratorTest {
   @Test
   void html() {
     String name = "전민지";

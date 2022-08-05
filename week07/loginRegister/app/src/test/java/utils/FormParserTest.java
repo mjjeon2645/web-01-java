@@ -10,10 +10,11 @@ class FormParserTest {
   @Test
   void parse() {
     FormParser formParser = new FormParser();
+    String rawData = "name=전민지&id=mjjeon2645&password=1234" +
+        "&check-password=1234&email=angel2645@naver.com";
 
     Map<String, String> formData =
-        formParser.parse("name=전민지&id=mjjeon2645&password=1234" +
-            "&check-password=1234&email=angel2645@naver.com");
+        formParser.parse(rawData);
 
     assertEquals("전민지", formData.get("name"));
     assertEquals("mjjeon2645", formData.get("id"));

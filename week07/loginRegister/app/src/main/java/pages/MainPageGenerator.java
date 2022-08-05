@@ -1,12 +1,9 @@
 package pages;
 
 public class MainPageGenerator extends PageGenerator{
-
   private String name;
 
   public MainPageGenerator(String name) {
-    super();
-
     this.name = name;
   }
 

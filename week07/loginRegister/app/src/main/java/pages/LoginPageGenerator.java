@@ -7,12 +7,12 @@ public class LoginPageGenerator extends PageGenerator {
     return "<h1>로그인</h1>\n" +
         "<form method=\"POST\" enctype=\"test/plain\">" +
         "<p>" +
-        "<label>아이디</label>\n" +
-        "<input type=\"text\" name=\"id\" />\n " +
+        "<label for=\"id\">아이디</label>\n" +
+        "<input type=\"text\" name=\"id\" id=\"id\"/>\n " +
         "</p>" +
         "<p>" +
-        "<label>비밀번호</label>\n" +
-        "<input type=\"password\" name=\"password\" />\n " +
+        "<label for=\"password\">비밀번호</label>\n" +
+        "<input type=\"password\" name=\"password\" id=\"password\"/>\n " +
         "</p>\n" +
         "<button type=\"submit\">로그인</button>\n" +
         "</p>\n" +
