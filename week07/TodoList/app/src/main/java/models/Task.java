@@ -35,11 +35,12 @@ public class Task {
   }
 
   public String stamping() {
-    LocalDateTime localDateTime = LocalDateTime.now();
-    return localDateTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+    return currentDateTime.format(formatter);
   }
 
   public String csvRow() {
-    return this.title() + "," + this.state;
+    return String.join(",", this.title(), this.timeStamp, this.state);
   }
 }

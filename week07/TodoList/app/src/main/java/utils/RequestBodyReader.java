@@ -22,6 +22,7 @@ public class RequestBodyReader {
     }
 
     String line = scanner.nextLine();
+
     String[] words = line.split("=");
 
     return words[1];

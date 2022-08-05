@@ -56,8 +56,7 @@ public class TodoList {
   public void processWithMethod(String method, String text) throws IOException {
     if (method.equals("POST")) {
       tasks.add(new Task(text));
+      tasksLoader.save(tasks);
     }
-
-    tasksLoader.save(tasks);
   }
 }
