@@ -1,4 +1,3 @@
-import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import models.Task;
 import pages.PageGenerator;
@@ -43,7 +42,7 @@ public class TodoList {
       // 처리
       processWithMethod(method, text);
 
-      PageGenerator pageGenerator = process();
+      PageGenerator pageGenerator = new TasksPageGenerator(tasks);
 
       // 출력
       new MessageWriter(exchange).write(pageGenerator.html());
@@ -56,13 +55,9 @@ public class TodoList {
 
   public void processWithMethod(String method, String text) throws IOException {
     if (method.equals("POST")) {
-      tasks.add(new Task(text, "PROCESSING"));
+      tasks.add(new Task(text));
     }
 
     tasksLoader.save(tasks);
-  }
-
-  public TasksPageGenerator process() {
-    return new TasksPageGenerator(tasks);
   }
 }

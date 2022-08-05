@@ -32,7 +32,7 @@ public class TasksLoader {
   public Task parse(String line) {
     String[] words = line.split(",");
 
-    return new Task(words[0], words[1]);
+    return new Task(words[0], words[1], words[2]);
   }
 
   public void save(List<Task> tasks) throws IOException {

@@ -3,6 +3,7 @@ package utils;
 import models.Task;
 import org.junit.jupiter.api.Test;
 
+import static models.Task.PROCESSING;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TasksLoaderTest {
@@ -12,6 +13,7 @@ class TasksLoaderTest {
 
     String line = "TIL 작성하기,PROCESSING";
 
-    assertEquals(new Task("TIL 작성하기", "PROCESSING"), tasksLoader.parse(line));
+    assertEquals(new Task("TIL 작성하기", "2021-03-06 17:24:57.107", PROCESSING),
+        tasksLoader.parse(line));
   }
 }

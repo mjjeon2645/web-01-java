@@ -25,9 +25,8 @@ class TasksPageGeneratorTest {
   @Test
   void showTasks() {
     List<Task> tasks = List.of (
-        new Task("TIL 쓰기", "PROCESSING"),
-        new Task("빨래 널기", "PROCESSING"),
-        new Task("코딩도장 풀기", "PROCESSING")
+        new Task("TIL 쓰기", "2022-03-06 17:24:57.107", Task.PROCESSING),
+        new Task("빨래 널기", "2022-04-06 17:24:57.107", Task.PROCESSING)
         );
 
     PageGenerator pageGenerator = new TasksPageGenerator(tasks);
@@ -36,6 +35,5 @@ class TasksPageGeneratorTest {
 
     assertTrue(html.contains("<li>TIL 쓰기"), "태스크 1 문제" + html);
     assertTrue(html.contains("<li>빨래 널기"), "태스크 2 문제" + html);
-    assertTrue(html.contains("<li>코딩도장 풀기"), "태스크 3 문제" +html);
   }
 }

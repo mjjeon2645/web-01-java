@@ -17,10 +17,8 @@ public class TasksPageGenerator extends PageGenerator {
 
   @Override
   public String showTasks() {
-    return "<ul>\n" +
-        tasks.stream()
+    return tasks.stream()
         .map(task -> "<li>" + task.title() + "</li>\n")
-        .collect(Collectors.joining()) +
-        "</ul>\n";
+        .collect(Collectors.joining());
   }
 }

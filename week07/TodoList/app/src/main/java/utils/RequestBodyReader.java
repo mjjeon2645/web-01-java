@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.InputStream;
 import java.util.Scanner;
 
-
 public class RequestBodyReader {
   private HttpExchange exchange;
 

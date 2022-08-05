@@ -18,7 +18,9 @@ public abstract class PageGenerator {
         "<button type=\"submit\">등록 </button>\n" +
         "</p>\n" +
         "</form>\n" +
+        "<ul>\n" +
         showTasks() +
+        "</ul>\n" +
         "</body>\n" +
         "</html>";
   }
