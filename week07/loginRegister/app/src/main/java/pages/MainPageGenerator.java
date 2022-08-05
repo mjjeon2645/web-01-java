@@ -1,10 +1,10 @@
 package pages;
 
-public class LoginSuccessPageGenerator extends PageGenerator{
+public class MainPageGenerator extends PageGenerator{
 
   private String name;
 
-  public LoginSuccessPageGenerator(String name) {
+  public MainPageGenerator(String name) {
     super();
 
     this.name = name;

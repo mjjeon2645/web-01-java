@@ -81,7 +81,7 @@ public class LoginRegister {
   }
 
   public PageGenerator processLoginPost(Map<String, String> formData) {
-    Account loginAccount = accountRepository.find(formData.get("id"));
+    Account findById = accountRepository.find(formData.get("id"));
 
     // 입력정보 누락
     if (!(formData.size() == 2)) {
@@ -89,18 +89,18 @@ public class LoginRegister {
     }
 
     // 사용자 아이디가 존재하지 않을 경우
-    if (loginAccount == null) {
+    if (findById == null) {
       return new IdNotFoundPageGenerator();
     }
 
     // 비밀번호가 틀렸을 경우
-    if (!loginAccount.password().equals((formData.get("password")))) {
+    if (!findById.password().equals((formData.get("password")))) {
       return new WrongPasswordPageGenerator();
     }
 
     // 모든게 성공적일 경우, 이름을 넣어 say Hello!
-    String name = loginAccount.name();
-    return new LoginSuccessPageGenerator(name);
+    String name = findById.name();
+    return new MainPageGenerator(name);
   }
 
   public PageGenerator processRegistration(String method,

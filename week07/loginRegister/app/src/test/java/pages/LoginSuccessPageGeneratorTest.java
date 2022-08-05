@@ -8,7 +8,7 @@ class LoginSuccessPageGeneratorTest {
   @Test
   void html() {
     String name = "전민지";
-    PageGenerator pageGenerator = new LoginSuccessPageGenerator(name);
+    PageGenerator pageGenerator = new MainPageGenerator(name);
 
     String html = pageGenerator.html();
 
